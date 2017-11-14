@@ -9,18 +9,18 @@
                 <th>Num ext</th>
 
                 <th>Num int</th>
-                <th>entre calle: y </th>
+                <th>entre las calles</th>
                 <th>observaciones</th>
                 <th></th>
             </tr>
         </thead>
         <tbody ng-repeat="d in direcciones">
             <tr>
-                <td>02522</td>
+                <td>{{d.codigoPostal}}</td>
                 <td>{{d.Calle}}</td>
                 <td>{{d.NumeroExterior}}</td>
                 <td>{{d.NumeroInterior}}</td>
-                <td>entre {{d.Entre}} y {{d.y}}</td>
+                <td>{{d.Entre}} {{d.Y}}</td>
                 <td>{{d.Nota}}</td>
                 <td>
                     <button type="button" class="btn btn-success btn-icon" title="Editar">
@@ -47,25 +47,30 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="sel1">Tipo Direccion:</label>
-                        <select class="form-control" id="sel1">
-                            <option>Fiscal</option>
-                            <option>Embarque</option>
+                        <select class="form-control" ng-model="tipoDirSelec" ng-options="t.tipoDireccion for t in tipoDirecciones" id="sel1">
+                                <option value="" disabled selected>Seleccione el tipo de Direccion</option>
                         </select>
                     </div>
                     <br>
                     <form class="form-inline">
                         <div class="form-group">
                             <label for="codigoPostal">Codigo Postal:</label>
-                            <input class="form-control" id="codigoPostal">
+                            <input class="form-control" id="codigoPostal"  ng-keyup="$event.keyCode == 13 ? obtenerColonia(cp) : null" ng-model="cp">
                         </div>
                         <div class="form-group">
                             <label for="sel1">Colonia:</label>
-                            <select class="form-control" id="sel1">
-                                <option>Colonia A</option>
-                                <option>Colonia B</option>
+                            <select ng-model="coloniaSel" ng-options="c.colonia for c in colonia" class="form-control" id="sel1">
+                                    <option value="" disabled selected>Seleccione la colonia</option>
                             </select>
                         </div>
                     </form>
+ 
+                    <br>
+                    <p>Estado: {{coloniaSel.EstadoRM}}</p>
+                    <br>
+                    <p>Municipio {{coloniaSel.municipio}}</p>
+                    <br>
+                    <p>Ciudad: {{coloniaSel.ciudad}}</p>
                     <br>
                     <form class="form-inline">
                         <div class="form-group">
