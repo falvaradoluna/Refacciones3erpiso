@@ -1,5 +1,31 @@
-<h2>Cotizaciones2</h2>
+<h2>Cotizaciones</h2>
 
+<!-- INICIO MODALES-->
+
+<div id="modalElimina" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="eliminaCotizacionModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="eliminaCotizacionModalLabel">Eliminar cotizacion</h4>
+            </div>
+            <div class="modal-body">
+                <span>¿Esta seguro de eliminar la cotizacion?</span>
+                <h5>{{nombreCotizacionEliminar}}</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="eliminaCotizacion()">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FIN MODALES-->
+
+<!-- INICIO PRINCIPAL-->
 
 <div ng-show="cotizaciones && cotizaciones.length > 0" class="container">
     <div class="row">
@@ -47,7 +73,7 @@
                         <a class="btn btn-success btn-icon">
                             <i class="fa fa-pencil"></i>
                         </a>
-                        <button ng-click="borrarCotizacion(cotizacion)" class="btn btn-danger btn-icon">
+                        <button ng-click="showBorrarCotizacion($index)" class="btn btn-danger btn-icon">
                             <i class="fa fa-trash-o"></i>
                         </button>
                     </td>
@@ -57,3 +83,5 @@
     </div>
 
 </div>
+
+<!-- FIN PRINCIPAL-->
