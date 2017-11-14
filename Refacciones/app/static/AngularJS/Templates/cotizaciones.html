@@ -57,8 +57,8 @@
     </div>
 </div>
 
-<div id="modalAgrega" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="agregaCotizacionModalLabel">
-    <div class="modal-dialog" role="document">
+<div id="modalAgrega" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="agregaCotizacionModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -100,12 +100,27 @@
     <h2>Cotizaciones</h2>
 
     <div class="row">
-        <div class="col-xs-12 text-right">
+            <div class="col-xs-6">
+                    <div class="form-group" ng-show="cotizaciones && cotizaciones.length > 0">
+                            <div class="input-group">
+                              <input autocomplete="off" ng-model="busquedaCotizacion" placeholder="Buscar cotización" type="text" class="form-control">
+                              <span class="input-group-btn">
+                                  <button ng-click="reiniciaBusqueda()" ng-disabled="!busquedaCotizacion || busquedaCotizacion.length < 1" class="btn btn-danger btn-small" type="button">
+                                      <i class="fa fa-angle-double-left"></i>
+                                    </button>
+                             </span>
+                            </div>
+                          </div>
+                </div>
+        <div class="col-xs-6 text-right">
             <button type="button" ng-click="showAgregarCotizacion()" class="btn btn-success" data-toggle="tooltip" title="Agregar una nueva cotización">
                 <i class="fa fa-plus"></i>
             </button>
         </div>
     </div>
+    <!-- <div class="row">
+        <hr>
+    </div> -->
 
     <div ng-show="cotizaciones && cotizaciones.length > 0" class="table-responsive">
         <table class="table table-hover table-striped">
@@ -132,7 +147,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="cotizacion in cotizaciones">
+                <tr ng-repeat="cotizacion in cotizaciones | filter : busquedaCotizacion ">
                     <td>
                         {{cotizacion.folio}}
                     </td>
@@ -142,18 +157,18 @@
                     <td>
 
                     </td>
-                    <td>
+                    <td>    
 
                     </td>
                     <td align="right">
 
                     </td>
                     <td>
+                            <button type="button" data-toggle="tooltip" title="Elimina una cotización" ng-click="showBorrarCotizacion($index)" class="btn btn-danger btn-icon">
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
                         <button type="button" data-toggle="tooltip" title="Modifica una cotización" ng-click="showModificaCotizacion($index)" class="btn btn-info btn-icon">
                             <i class="fa fa-pencil"></i>
-                        </button>
-                        <button type="button" data-toggle="tooltip" title="Elimina una cotización" ng-click="showBorrarCotizacion($index)" class="btn btn-danger btn-icon">
-                            <i class="fa fa-trash-o"></i>
                         </button>
                     </td>
                 </tr>

@@ -1,8 +1,14 @@
 registrationModule.controller('cotizacionesController', function ($scope, $rootScope, $location, loginRepository, localStorageService, userFactory, alertFactory) {
     
+    // ------------------------------------------ CARGA INICIAL
+
     $('[data-toggle="tooltip"]').tooltip();
 
     $scope.cotizaciones = [];
+
+    $scope.reiniciaBusqueda = function(){
+        $scope.busquedaCotizacion = '';
+    }
 
     $scope.getCotizaciones = function () {
         
@@ -19,7 +25,8 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
 
     $scope.getCotizaciones();
 
-    // AGREGA COTIZACIONES
+    // ------------------------------------------ AGREGA COTIZACIONES
+    
     $scope.showAgregarCotizacion = function () {
         
         $scope.agregaCotizacion = {
@@ -33,7 +40,8 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
         $scope.cotizaciones.push($scope.agregaCotizacion);
     }
 
-    // MODIFICA COTIZACIONES
+    // ------------------------------------------ MODIFICA COTIZACIONES
+    
     $scope.showModificaCotizacion = function (idx) {
         
         $scope.idxCotizacion = idx;
@@ -46,7 +54,8 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
         $scope.cotizaciones[$scope.idxCotizacion] = $scope.modificaCotizacion;
     };
 
-    // ELIMINA COTIZACIONES
+    // ------------------------------------------ ELIMINA COTIZACIONES
+    
     $scope.showBorrarCotizacion = function (idx) {
         
         $scope.idxCotizacion = idx;
