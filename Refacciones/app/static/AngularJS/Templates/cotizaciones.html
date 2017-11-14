@@ -1,5 +1,3 @@
-<h2>Cotizaciones</h2>
-
 <!-- INICIO MODALES-->
 
 <div id="modalElimina" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="eliminaCotizacionModalLabel">
@@ -12,8 +10,10 @@
                 <h4 class="modal-title" id="eliminaCotizacionModalLabel">Eliminar cotizacion</h4>
             </div>
             <div class="modal-body">
-                <span>¿Esta seguro de eliminar la cotizacion?</span>
-                <h5>{{nombreCotizacionEliminar}}</h5>
+                <div class="alert alert-danger" role="alert">
+                    <label class="text-">¿Esta seguro de eliminar la cotizacion?</label>
+                    <strong>{{nombreCotizacionEliminar}}</strong>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -23,12 +23,91 @@
     </div>
 </div>
 
+<div id="modalModifica" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modificaCotizacionModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modificaCotizacionModalLabel">Modifica cotización</h4>
+            </div>
+            <div class="modal-body">
+                <form name="formModifica">
+                    <div class="form-group">
+                        <label for="txtFolio">Folio</label>
+                        <input type="text" ng-model="modificaCotizacion.folio" class="form-control" id="txtFolio" placeholder="Folio" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtNombre">Nombre</label>
+                        <input type="text" ng-model="modificaCotizacion.folio" class="form-control" id="txtNombre" placeholder="Nombre" required>
+                    </div>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input"> Checa
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" ng-disabled='!formModifica.$valid' type="button" class="btn btn-success" data-dismiss="modal" ng-click="modificarCotizacion()">Modificar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalAgrega" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="agregaCotizacionModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="agregaCotizacionModalLabel">Agrega nueva cotización</h4>
+            </div>
+            <div class="modal-body">
+                <form name="formAgrega">
+                    <div class="form-group">
+                        <label for="txtFolio">Folio</label>
+                        <input type="text" ng-model="agregaCotizacion.folio" class="form-control" id="txtFolio" placeholder="Folio" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtNombre">Nombre</label>
+                        <input type="text" ng-model="agregaCotizacion.folio" class="form-control" id="txtNombre" placeholder="Nombre" required>
+                    </div>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input"> Checa
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" ng-disabled='!formAgrega.$valid' type="button" class="btn btn-success" data-dismiss="modal" ng-click="agregarCotizacion()">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- FIN MODALES-->
 
 <!-- INICIO PRINCIPAL-->
 
-<div ng-show="cotizaciones && cotizaciones.length > 0" class="container">
+<div class="container">
+
+    <h2>Cotizaciones</h2>
+
     <div class="row">
+        <div class="col-xs-12 text-right">
+            <button type="button" ng-click="showAgregarCotizacion()" class="btn btn-success" data-toggle="tooltip" title="Agregar una nueva cotización">
+                <i class="fa fa-plus"></i>
+            </button>
+        </div>
+    </div>
+
+    <div ng-show="cotizaciones && cotizaciones.length > 0" class="table-responsive">
         <table class="table table-hover table-striped">
             <thead>
                 <tr>
@@ -69,11 +148,11 @@
                     <td align="right">
 
                     </td>
-                    <td width="20%">
-                        <a class="btn btn-success btn-icon">
+                    <td>
+                        <button type="button" data-toggle="tooltip" title="Modifica una cotización" ng-click="showModificaCotizacion($index)" class="btn btn-info btn-icon">
                             <i class="fa fa-pencil"></i>
-                        </a>
-                        <button ng-click="showBorrarCotizacion($index)" class="btn btn-danger btn-icon">
+                        </button>
+                        <button type="button" data-toggle="tooltip" title="Elimina una cotización" ng-click="showBorrarCotizacion($index)" class="btn btn-danger btn-icon">
                             <i class="fa fa-trash-o"></i>
                         </button>
                     </td>
