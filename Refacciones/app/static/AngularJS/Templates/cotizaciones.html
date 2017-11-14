@@ -1,4 +1,59 @@
-<h2>Cotizaciones</h2>
-<!--filtrar busqueda de clientes en cotizaciones-->
+<h2>Cotizaciones2</h2>
 
 
+<div ng-show="cotizaciones && cotizaciones.length > 0" class="container">
+    <div class="row">
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Cotización
+                    </th>
+                    <th>
+                        Empresa
+                    </th>
+                    <th>
+                        Sucursal
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                    <th>
+                        Total
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="cotizacion in cotizaciones">
+                    <td>
+                        {{cotizacion.folio}}
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+
+                    </td>
+                    <td align="right">
+
+                    </td>
+                    <td width="20%">
+                        <a class="btn btn-success btn-icon">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                        <button ng-click="borrarCotizacion(cotizacion)" class="btn btn-danger btn-icon">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

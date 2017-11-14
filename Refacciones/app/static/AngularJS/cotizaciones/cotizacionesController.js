@@ -4,6 +4,8 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
     //controlar la busqueda de los clientes
     $scope.buscCliente = "";
 
+    $scope.cotizaciones = [];
+
     $scope.busquedaCliente = function (n) {
         if (n == 1)
             $scope.buscCliente = 'nombre';
@@ -23,6 +25,18 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
         $scope.cliente = c;
         return $scope.cliente;
     };
+
+    $scope.getCotizaciones = function () {
+        data = [{
+            folio: 12345
+        },
+        { folio: 5234 },
+        { folio: 234 }];
+        $scope.cotizaciones = data;
+        console.log($scope.cotizaciones);
+    }
+
+    $scope.getCotizaciones();
 
     //array de prueba paar cliente/cotazaciones
     $scope.listaClientes = [{
