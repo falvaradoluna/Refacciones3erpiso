@@ -57,7 +57,7 @@
     </div>
 </div>
 
-<div id="modalAgrega" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="agregaCotizacionModalLabel">
+<div id="modalAgregaParte" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="agregaCotizacionModalLabel">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -67,25 +67,197 @@
                 <h4 class="modal-title" id="agregaCotizacionModalLabel">Agrega nueva cotización</h4>
             </div>
             <div class="modal-body">
-                <form name="formAgrega">
-                    <div class="form-group">
-                        <label for="txtFolio">Folio</label>
-                        <input type="text" ng-model="agregaCotizacion.folio" class="form-control" id="txtFolio" placeholder="Folio" required>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="vin">Introduce el VIN:</label>
+                            <div class="input-group">
+                                <input autocomplete="off" ng-model="refaccionBusquedaPorVIN" placeholder="Buscar VIN" id="vin" type="text" class="form-control">
+                                <span class="input-group-btn">
+                                    <button ng-click="clearQueryPorVIN()" class="btn btn-danger btn-small" type="button">
+                                        <i class="fa fa-angle-double-left"></i>
+                                    </button>
+                                    <button ng-click="buscarRefaccionPorVIN()" class="btn btn-primary btn-small" type="button">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="txtNombre">Nombre</label>
-                        <input type="text" ng-model="agregaCotizacion.folio" class="form-control" id="txtNombre" placeholder="Nombre" required>
+                    <div class="col-sm-push-1 col-sm-5">
+                        <div class="form-group">
+                            <label for="inputRefacciones">Selecciona la marca:</label>
+                            <select class="form-control" ng-options="marca as marca.nombre for marca in marcas track by marca.id" ng-model="marcaSeleccionada"></select>
+                        </div>
                     </div>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input"> Checa
-                        </label>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="inputRefacciones">Introduce número de parte o descripción:</label>
+                            <div class="input-group">
+                                <input autocomplete="off" ng-disabled="(marcaSeleccionada == null || marcaSeleccionada.id < 1)" ng-change="buscarRefaccion()"
+                                    ng-model="refaccionBusqueda" placeholder="Buscar numero de parte" id="inputRefacciones" type="text"
+                                    class="form-control">
+                                <span class="input-group-btn">
+                                    <button ng-click="limpiarBusquedaParte()" ng-disabled="(marcaSeleccionada == null || marcaSeleccionada.id < 1)" class="btn btn-danger btn-small"
+                                        type="button">
+                                        <i class="fa fa-angle-double-left"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
                     </div>
-                </form>
+                </div>
+                <div class="row">
+                    <div style="margin-top: -15px;" class="col-xs-12">
+                        <div ng-show="busquedaActual.length > 0" class="form-group query-container">
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="width:23%">
+                                            No serie
+                                        </th>
+                                        <th style="width:32%">
+                                            Descripción
+                                        </th>
+                                        <th style="width:21.5%">
+                                            Precio
+                                        </th>
+                                        <th style="width:15%">
+                                            Cantidad
+                                        </th>
+                                        <th style="width:10%">
+                                            Agregar
+                                        </th </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="list-group-item-custom" ng-repeat="refaccion in busquedaActual">
+                                        <td style="width:20%">
+                                            {{refaccion.PTS_IDPARTE}}
+                                        </td>
+                                        <td style="width:30%">
+                                            {{refaccion.PTS_DESPARTE}}
+                                        </td>
+                                        <td style="width:20%">
+                                            {{refaccion.PTS_PCOLISTA | currency}}
+                                        </td>
+                                        <td style="width:18%">
+                                            <input ng-value="1" ng-model="refaccion.cantidad" autocomplete="off" size="5" class="show-hover text-center form-control"
+                                                type="number" value="1" name="cantidad" min="1" max="9999">
+                                        </td>
+                                        <td style="width:12%">
+                                            <button ng-click="agregarParte(refaccion)" class="btn btn-primary show-hover" type="button" name="button">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="min-height:210px;">
+                    <div class="col-xs-12">
+                        <div ng-show="partesAgregadas.length > 0" class="form-group">
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="width:23%">
+                                            No serie
+                                        </th>
+                                        <th style="width:32%">
+                                            Descripción
+                                        </th>
+                                        <th style="width:21.5%">
+                                            Precio
+                                        </th>
+                                        <th style="width:15%">
+                                            Cantidad
+                                        </th>
+                                        <th style="width:10%">
+                                            Agregar
+                                        </th </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="list-group-item-custom" ng-repeat="refaccion in partesAgregadas">
+                                        <td style="width:20%">
+                                            {{refaccion.PTS_IDPARTE}}
+                                        </td>
+                                        <td style="width:30%">
+                                            {{refaccion.PTS_DESPARTE}}
+                                        </td>
+                                        <td style="width:20%">
+                                            {{refaccion.PTS_PCOLISTA | currency}}
+                                        </td>
+                                        <td style="width:18%">
+                                            <input ng-value="1" ng-model="refaccion.cantidad" autocomplete="off" size="5" class="show-hover text-center form-control"
+                                                type="number" value="1" name="cantidad" min="1" max="9999">
+                                        </td>
+                                        <td style="width:12%">
+                                            <button ng-click="eliminarParte($index)" class="btn btn-danger show-hover" type="button" name="button">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="button" ng-disabled='!formAgrega.$valid' type="button" class="btn btn-success" data-dismiss="modal" ng-click="agregarCotizacion()">Agregar</button>
+                <button type="button" ng-disabled="partesAgregadas.length < 1" type="button" class="btn btn-success" data-dismiss="modal" ng-click="agregarCotizacionParte()">Siguiente</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalAgregaDireccion" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="modificaCotizacionDireccionModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modificaCotizacionDireccionModalLabel">Agrega la dirección</h4>
+            </div>
+            <div class="modal-body">
+                <div ng-show="direcciones && direcciones.length > 0">
+                        <div class="radio" ng-repeat="direccion in direcciones">
+                                <label><input type="radio" ng-model="direccionSeleccionada" ng-value="direccion">{{direccion.nombre}}</label>
+                              </div>
+                </div>
+                <div ng-show="direcciones == null || direcciones.length < 1" class="alert alert-danger" role="alert">                    
+                    <strong>No tiene registrado direcciones, es necesario dar de alta alguna.</strong>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" type="button" class="btn btn-success" data-dismiss="modal" ng-click="backCotizacionParte()">Regresar</button>
+                <button type="button" ng-disabled="direcciones == null || direcciones.length < 1" type="button" class="btn btn-success" data-dismiss="modal" ng-click="agregarCotizacionConfirma()">Siguiente</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalAgregaConfirma" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="modificaCotizacionDireccionModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modificaCotizacionDireccionModalLabel">Confirmar pedido</h4>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" ng-disabled="" type="button" class="btn btn-success" data-dismiss="modal" ng-click="backCotizacionDireccion()">Regresar</button>
+                <button type="button" ng-disabled="" type="button" class="btn btn-success" data-dismiss="modal" ng-click="agregarCotizacion()">Finalizar pedido</button>
             </div>
         </div>
     </div>
@@ -100,27 +272,25 @@
     <h2>Cotizaciones</h2>
 
     <div class="row">
-            <div class="col-xs-6">
-                    <div class="form-group" ng-show="cotizaciones && cotizaciones.length > 0">
-                            <div class="input-group">
-                              <input autocomplete="off" ng-model="busquedaCotizacion" placeholder="Buscar cotización" type="text" class="form-control">
-                              <span class="input-group-btn">
-                                  <button ng-click="reiniciaBusqueda()" ng-disabled="!busquedaCotizacion || busquedaCotizacion.length < 1" class="btn btn-danger btn-small" type="button">
-                                      <i class="fa fa-angle-double-left"></i>
-                                    </button>
-                             </span>
-                            </div>
-                          </div>
+        <div class="col-xs-6">
+            <div class="form-group" ng-show="cotizaciones && cotizaciones.length > 0">
+                <div class="input-group">
+                    <input autocomplete="off" ng-model="busquedaCotizacion" placeholder="Buscar cotización" type="text" class="form-control">
+                    <span class="input-group-btn">
+                        <button ng-click="reiniciaBusqueda()" ng-disabled="!busquedaCotizacion || busquedaCotizacion.length < 1" class="btn btn-danger btn-small"
+                            type="button">
+                            <i class="fa fa-angle-double-left"></i>
+                        </button>
+                    </span>
                 </div>
+            </div>
+        </div>
         <div class="col-xs-6 text-right">
             <button type="button" ng-click="showAgregarCotizacion()" class="btn btn-success" data-toggle="tooltip" title="Agregar una nueva cotización">
                 <i class="fa fa-plus"></i>
             </button>
         </div>
     </div>
-    <!-- <div class="row">
-        <hr>
-    </div> -->
 
     <div ng-show="cotizaciones && cotizaciones.length > 0" class="table-responsive">
         <table class="table table-hover table-striped">
@@ -157,16 +327,16 @@
                     <td>
 
                     </td>
-                    <td>    
+                    <td>
 
                     </td>
                     <td align="right">
 
                     </td>
                     <td>
-                            <button type="button" data-toggle="tooltip" title="Elimina una cotización" ng-click="showBorrarCotizacion($index)" class="btn btn-danger btn-icon">
-                                    <i class="fa fa-trash-o"></i>
-                                </button>
+                        <button type="button" data-toggle="tooltip" title="Elimina una cotización" ng-click="showBorrarCotizacion($index)" class="btn btn-danger btn-icon">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
                         <button type="button" data-toggle="tooltip" title="Modifica una cotización" ng-click="showModificaCotizacion($index)" class="btn btn-info btn-icon">
                             <i class="fa fa-pencil"></i>
                         </button>
