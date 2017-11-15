@@ -1,76 +1,71 @@
-registrationModule.controller('cotizacionesController', function ($scope, $rootScope, $location, loginRepository, localStorageService, userFactory, alertFactory, cotizacionesRepository) {
+registrationModule.controller('cotizacionesController', function ($scope, $rootScope, $location, loginRepository, localStorageService, userFactory, alertFactory, cotizacionesRepository, altaDireccionesRepository) {
 
     // ------------------------------------------ CARGA INICIAL
 
     $('[data-toggle="tooltip"]').tooltip();
 
-    $scope.direccionSeleccionada = {
-        id: 0
-    };
     $scope.cotizaciones = [];
     $scope.partesAgregadas = [];
 
-    $scope.reiniciaBusqueda = function () {
-        $scope.busquedaCotizacion = '';
-    }
+    // ----------------------------------------- INICIALIZACION DE CATALOGOS
 
-    $scope.init = function(){
+    $scope.init = function () {
 
         $scope.userData = userFactory.getUserData();
-        
-        cotizacionesRepository.getMarcas().then(function(result){
-            
-                        if (result.data.length > 0 ){
-            
-                            $scope.marcas= result.data;
-                            
-                            // inicializacion
-                            var marca = {idMarca: 0, marca:'Seleccione una marca.'}
-                            $scope.marcas.unshift(marca);
-                            $scope.marcaSeleccionada = $scope.marcas[0];
-                        }
-                        else
-                        alertFactory.info('No se pudieron cargar las marcas');
-                    });
-    };
 
-    $scope.getDirecciones = function () {
-        var data = [{
-                id: 1,
-                nombre: 'Calle michoacan sur 28, cp 90980 San pablo del monte Tlaxcala.'
-            },
-            {
-                id: 2,
-                nombre: 'Calle nahuatlacas 365, cp 04300 Ajusco del coyoacan.'
+        cotizacionesRepository.getMarcas().then(function (result) {
+
+            if (result.data.length > 0) {
+
+                $scope.marcas = result.data;
+
+                // inicializacion
+                var marca = { idMarca: 0, marca: 'Seleccione una marca.' }
+                $scope.marcas.unshift(marca);
+                $scope.marcaSeleccionada = $scope.marcas[0];
             }
-        ]
-        $scope.direcciones = data;
-        if (data.length > 0) {
-            $scope.direccionSeleccionada = data[0];
-        }
+            else
+                alertFactory.info('No se pudieron cargar las marcas');
+        });
+
+        // 2 es para las direcciones de entrega
+        altaDireccionesRepository.getDirecciones($scope.userData.idUsuario, 2).then(function (result) {
+
+            if (result.data.length > 0) {
+                $scope.direcciones = result.data;
+
+                // inicializacion
+                $scope.direccionSeleccionada = $scope.direcciones[0];
+            }
+            else
+                alertFactory.info('El usuario no contiene Direcciones registradas');
+        });
     };
 
-    $scope.getDirecciones();
+    $scope.init();
 
     $scope.getCotizaciones = function () {
 
         var data = [{
-                folio: 12345
-            },
-            {
-                folio: 5234
-            },
-            {
-                folio: 234
-            }
+            folio: 12345
+        },
+        {
+            folio: 5234
+        },
+        {
+            folio: 234
+        }
         ];
 
         $scope.cotizaciones = data;
-        console.log($scope.cotizaciones);
         //TODO falta implementar el servicio para obtener las cotizaciones
     };
 
     $scope.getCotizaciones();
+
+    $scope.reiniciaBusqueda = function () {
+        $scope.busquedaCotizacion = '';
+    }
 
     // ------------------------------------------ AGREGA PARTE
 
@@ -82,10 +77,12 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
 
         $scope.refaccionBusquedaPorVIN = '';
         $scope.refaccionBusqueda = '';
-        $scope.busquedaActual = []
+        $scope.busquedaActual = [];
         $scope.partesAgregadas = [];
-        $scope.marcaSeleccionada = $scope.marcas[0];
-
+        if ($scope.marcas.length > 0)
+            $scope.marcaSeleccionada = $scope.marcas[0];
+        if ($scope.direcciones.length > 0)
+            $scope.direccionSeleccionada = $scope.direcciones[0];
 
         $('#modalAgregaParte').modal('show');
     };
@@ -99,10 +96,8 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
             angular.forEach($scope.marcas, function (marca, key) {
                 if (marca.marca == $scope.refaccionBusquedaPorVIN) {
                     $scope.marcaSeleccionada = marca;
-                    console.log('si es igual la marca, por eso la va a setear');
                 }
             });
-            console.log('Busca el VIN para obtener la marca');
         }
     };
 
@@ -111,36 +106,16 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
     };
 
     $scope.buscarRefaccion = function () {
-        if ($scope.refaccionBusqueda.length > 3) {
-            $scope.busquedaActual = [{
-                    id: 1,
-                    PTS_IDPARTE: '876ASDF',
-                    PTS_DESPARTE: 'foco para nissan',
-                    PTS_PCOLISTA: 800,
-                    cantidad: 1
-                },
-                {
-                    id: 2,
-                    PTS_IDPARTE: '345HKU',
-                    PTS_DESPARTE: 'facia para nissan',
-                    PTS_PCOLISTA: 800,
-                    cantidad: 1
-                },
-                {
-                    id: 2,
-                    PTS_IDPARTE: 'RTU34',
-                    PTS_DESPARTE: 'toldo para nissan',
-                    PTS_PCOLISTA: 800,
-                    cantidad: 1
-                },
-                {
-                    id: 3,
-                    PTS_IDPARTE: 'CVNX345',
-                    PTS_DESPARTE: 'parabrisas para nissan',
-                    PTS_PCOLISTA: 800,
-                    cantidad: 1
-                },
-            ];
+        if ($scope.refaccionBusqueda.length > 2) {
+
+            cotizacionesRepository.getRefacciones($scope.marcaSeleccionada.idMarca, $scope.refaccionBusqueda).then(function (result) {
+
+                if (result.data.length > 0) {
+                    $scope.busquedaActual = result.data;
+                }
+                else
+                    alertFactory.info('No se pudieron cargar las refacciones con esa descripción.');
+            });
         };
     };
 
@@ -175,9 +150,9 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
         //$scope.cotizaciones.push($scope.agregaCotizacion);
     };
 
-    $scope.getTotal = function(){
+    $scope.getTotal = function () {
         var total = 0;
-        for(var i = 0; i < $scope.partesAgregadas.length; i++){
+        for (var i = 0; i < $scope.partesAgregadas.length; i++) {
             var parte = $scope.partesAgregadas[i];
             total += (parte.PTS_PCOLISTA * parte.cantidad);
         }
@@ -188,22 +163,26 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
 
     $scope.backCotizacionParte = function () {
         $('#modalAgregaParte').modal('show');
+    };
+
+    // no pitufa el modelo del radio
+    $scope.elegirDireccion = function (direccion) {
+        $scope.direccionSeleccionada = direccion;
     }
 
     $scope.agregarCotizacionConfirma = function () {
         $('#modalAgregaConfirma').modal('show');
-        console.log($scope.direccionSeleccionada);
-    }
+    };
 
     // ------------------------------------------ AGREGA CONFIRMA PEDIDO
 
     $scope.backCotizacionDireccion = function () {
         $('#modalAgregaDireccion').modal('show');
-    }
+    };
 
     $scope.agregarCotizacion = function () {
 
-    }
+    };
 
     // ------------------------------------------ MODIFICA COTIZACIONES
 

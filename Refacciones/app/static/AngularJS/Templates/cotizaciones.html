@@ -158,9 +158,9 @@
                     </div>
                 </div>
                 <div class="row" style="min-height:210px;">
-                        <div ng-show="partesAgregadas.length > 0">
-                    <div class="col-xs-12">
-                        
+                    <div ng-show="partesAgregadas.length > 0">
+                        <div class="col-xs-12">
+
                             <table class="table table-hover table-striped">
                                 <thead>
                                     <tr>
@@ -177,8 +177,8 @@
                                             Cantidad
                                         </th>
                                         <th class="text-right">
-                                                SubTotal
-                                            </th>
+                                            SubTotal
+                                        </th>
                                         <th>
                                             Eliminar
                                         </th>
@@ -199,8 +199,8 @@
                                                 type="number" value="1" name="cantidad" min="1" max="9999">
                                         </td>
                                         <td class="text-right">
-                                                {{refaccion.PTS_PCOLISTA * refaccion.cantidad | currency}}
-                                            </td>
+                                            {{refaccion.PTS_PCOLISTA * refaccion.cantidad | currency}}
+                                        </td>
                                         <td>
                                             <button ng-click="eliminarParte($index)" class="btn btn-danger show-hover" type="button" name="button">
                                                 <i class="fa fa-minus"></i>
@@ -212,7 +212,7 @@
                                             <strong>Total:</strong>
                                         </td>
                                         <td class="text-right">
-                                            <strong>{{getTotal() | currency}}</strong> 
+                                            <strong>{{getTotal() | currency}}</strong>
                                         </td>
                                         <td></td>
                                     </tr>
@@ -243,8 +243,11 @@
             <div class="modal-body">
                 <div ng-show="direcciones && direcciones.length > 0">
                     <div ng-repeat="direccion in direcciones" class="radio">
-                        <input id="{{'direccionRadio' + direccion.id}}" type="radio" class="magic-radio" name="direccion" ng-model="direccionSeleccionada" ng-value="direccion">
-                        <label for="{{'direccionRadio' + direccion.id}}">{{direccion.nombre}}</label>
+                        <input id="{{'direccionRadio' + direccion.idDireccion}}" type="radio" class="magic-radio" name="direccion" ng-model="direccionSeleccionada"
+                            ng-click="elegirDireccion(direccion)" ng-value="direccion">
+                        <label for="{{'direccionRadio' + direccion.idDireccion}}">{{direccion.Calle + ' NO. ' + direccion.NumeroExterior + ' NO. int. ' + direccion.NumeroInterior
+                            + ' COL. ' + direccion.colonia + ', ' + direccion.EstadoRM + ' C.P. ' + direccion.codigoPostal
+                            }}</label>
                     </div>
                 </div>
                 <div ng-show="direcciones == null || direcciones.length < 1" class="alert alert-danger" role="alert">
@@ -272,83 +275,85 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                <div class="col-xs-12">
+                    <div class="col-xs-12">
                         <h4>Dirección de entrega</h4>
-                        <b>{{direccionSeleccionada.nombre}}</b>
-                </div>
-                <div class="col-xs-12">
+                        <b>{{direccionSeleccionada.Calle + ' NO. ' + direccionSeleccionada.NumeroExterior + ' NO. int. ' + direccionSeleccionada.NumeroInterior
+                            + ' COL. ' + direccionSeleccionada.colonia + ', ' + direccionSeleccionada.EstadoRM + ' C.P. '
+                            + direccionSeleccionada.codigoPostal }}</b>
+                    </div>
+                    <div class="col-xs-12">
                         <h4>Lista de refacciones</h4>
+                    </div>
+                    <div class="col-xs-12">
+
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        No serie
+                                    </th>
+                                    <th>
+                                        Descripción
+                                    </th>
+                                    <th class="text-right">
+                                        Precio
+                                    </th>
+                                    <th class="text-right">
+                                        Cantidad
+                                    </th>
+                                    <th class="text-right">
+                                        SubTotal
+                                    </th>
+                            </thead>
+                            <tbody>
+                                <tr class="list-group-item-custom" ng-repeat="refaccion in partesAgregadas">
+                                    <td>
+                                        {{refaccion.PTS_IDPARTE}}
+                                    </td>
+                                    <td>
+                                        {{refaccion.PTS_DESPARTE}}
+                                    </td>
+                                    <td class="text-right">
+                                        {{refaccion.PTS_PCOLISTA | currency}}
+                                    </td>
+                                    <td class="text-right">
+                                        {{refaccion.cantidad}}
+                                    </td>
+                                    <td class="text-right">
+                                        {{refaccion.PTS_PCOLISTA * refaccion.cantidad | currency}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right" colspan="4">
+                                        <strong>Subtotal:</strong>
+                                    </td>
+                                    <td class="text-right">
+                                        <strong>{{getTotal() | currency}}</strong>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right" colspan="4">
+                                        <strong>IVA:</strong>
+                                    </td>
+                                    <td class="text-right">
+                                        <strong>{{getTotal() * 0.16 | currency}}</strong>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right" colspan="4">
+                                        <strong>Total:</strong>
+                                    </td>
+                                    <td class="text-right">
+                                        <strong>{{getTotal() + (getTotal() * 0.16) | currency}}</strong>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="col-xs-12">
-                        
-                            <table class="table table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            No serie
-                                        </th>
-                                        <th>
-                                            Descripción
-                                        </th>
-                                        <th class="text-right">
-                                            Precio
-                                        </th>
-                                        <th class="text-right">
-                                            Cantidad
-                                        </th>
-                                        <th class="text-right">
-                                                SubTotal
-                                            </th>
-                                </thead>
-                                <tbody>
-                                    <tr class="list-group-item-custom" ng-repeat="refaccion in partesAgregadas">
-                                        <td>
-                                            {{refaccion.PTS_IDPARTE}}
-                                        </td>
-                                        <td>
-                                            {{refaccion.PTS_DESPARTE}}
-                                        </td>
-                                        <td class="text-right">
-                                            {{refaccion.PTS_PCOLISTA | currency}}
-                                        </td>
-                                        <td class="text-right">
-                                                {{refaccion.cantidad}}
-                                        </td>
-                                        <td class="text-right">
-                                                {{refaccion.PTS_PCOLISTA * refaccion.cantidad | currency}}
-                                            </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-right" colspan="4">
-                                            <strong>Subtotal:</strong>
-                                        </td>
-                                        <td class="text-right">
-                                            <strong>{{getTotal() | currency}}</strong> 
-                                            
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                            <td class="text-right" colspan="4">
-                                                <strong>IVA:</strong>
-                                            </td>
-                                            <td class="text-right">
-                                                <strong>{{getTotal() * 0.16 | currency}}</strong> 
-                                                
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                                <td class="text-right" colspan="4">
-                                                    <strong>Total:</strong>
-                                                </td>
-                                                <td class="text-right">
-                                                    <strong>{{getTotal() + (getTotal() * 0.16) | currency}}</strong> 
-                                                    
-                                                </td>
-                                            </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>

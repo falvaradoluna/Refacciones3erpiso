@@ -1,9 +1,10 @@
 var cotizacionesURL = global_settings.urlCORS + 'api/cotizaciones/';
 
-registrationModule.factory('cotizacionesRepository', function($http) {
+registrationModule.factory('cotizacionesRepository', function ($http) {
     return {
 
-        getMarcas: function(idUsuario) {
+        // Obtener marcas para llenar el combo
+        getMarcas: function (idUsuario) {
             return $http({
                 url: cotizacionesURL + 'Marcas/',
                 method: "GET",
@@ -15,24 +16,15 @@ registrationModule.factory('cotizacionesRepository', function($http) {
 
             });
         },
-        getTipoDirecciones: function(idUsuario) {
-            return $http({
-                url: cotizacionesURL + 'tipoDirecciones/',
-                method: "GET",
-                params: {
-                },
-                headers: {
-                    'Content-Type': 'application/json'
-                }
 
-            });
-        },
-        getColonia: function(CodigoPostal) {
+        // Obtener las refacciones por descripcion
+        getRefacciones: function (idMarca, descripcion) {
             return $http({
-                url: cotizacionesURL + 'colonia/',
+                url: cotizacionesURL + 'Refacciones/',
                 method: "GET",
                 params: {
-                    CodigoPostal:CodigoPostal
+                    idMarca: idMarca,
+                    descripcion: descripcion
                 },
                 headers: {
                     'Content-Type': 'application/json'
@@ -40,7 +32,5 @@ registrationModule.factory('cotizacionesRepository', function($http) {
 
             });
         }
-
     };
-
 });
