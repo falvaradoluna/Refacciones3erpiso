@@ -28,7 +28,12 @@ altaDirecciones.prototype.get_Direcciones = function (req, res, next) {
         name: 'idUsuario',
         value: req.query.idUsuario,
         type: self.model.types.INT
-    }];
+    },{
+        name: 'idTipoDireccion',
+        value: req.query.idTipoDireccion,
+        type: self.model.types.INT
+    }
+    ];
 
     self.model.query('[Catalogo].[SEL_Direcciones_SP]', params, function (error, result) {
         self.view.expositor(res, {

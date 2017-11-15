@@ -9,7 +9,7 @@ registrationModule.controller('altaDireccionesController', function ($route,$sco
     //init()
     $scope.init = function () {
         $scope.userData = userFactory.getUserData();
-        altaDireccionesRepository.getDirecciones($scope.userData.idUsuario).then(function (result) {
+        altaDireccionesRepository.getDirecciones($scope.userData.idUsuario,null).then(function (result) {
             if (result.data.length > 0)
                 $scope.direcciones = result.data;
             else
@@ -63,7 +63,7 @@ registrationModule.controller('altaDireccionesController', function ($route,$sco
                 });
             //se cierra la modal
             $('#modalFormulario').modal('hide');
-            altaDireccionesRepository.getDirecciones($scope.userData.idUsuario).then(function (result) {
+            altaDireccionesRepository.getDirecciones($scope.userData.idUsuario,null).then(function (result) {
                 if (result.data.length > 0)
                     $scope.direcciones = result.data;
                 else
