@@ -23,12 +23,112 @@
                 <td>{{d.Entre}} {{d.Y}}</td>
                 <td>{{d.Nota}}</td>
                 <td>
-                    <button type="button" class="btn btn-success btn-icon" title="Editar">
+                    <button type="button" class="btn btn-success btn-icon" data-target="#modalEditDir" title="Editar" data-toggle="modal">
                         <i class="fa fa-pencil"></i>
                     </button>
-                    <button type="button" class="btn btn-danger btn-icon" title="Eliminar">
+                    <div class="modal fade" id="modalEditDir" role="dialog">
+                        <div class="modal-dialog modal-lg">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header modal-header-primary">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Editar Direccion</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="sel1">**Tipo Direccion:</label>
+                                        <select class="form-control" ng-model="tipoDirSelec" ng-options="t.tipoDireccion for t in tipoDirecciones" id="sel1">
+                                            <option value="" disabled selected>Seleccione el tipo de Direccion</option>
+                                        </select>
+                                    </div>
+                                    <br>
+                                    <form class="form-inline">
+                                        <div class="form-group">
+                                            <label for="codigoPostal">**Codigo Postal:</label>
+                                            <input class="form-control" id="codigoPostal" ng-keyup="$event.keyCode == 13 ? obtenerColonia(cp) : null" ng-model="cp">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="sel1">**Colonia:</label>
+                                            <select ng-model="coloniaSel" ng-options="c.colonia for c in colonia" class="form-control" id="sel1">
+                                                <option value="" disabled selected>Seleccione la colonia</option>
+                                            </select>
+                                        </div>
+                                    </form>
+
+                                    <br>
+                                    <p>Estado: {{coloniaSel.EstadoRM}}</p>
+                                    <br>
+                                    <p>Municipio {{coloniaSel.municipio}}</p>
+                                    <br>
+                                    <p>Ciudad: {{coloniaSel.ciudad}}</p>
+                                    <br>
+                                    <form class="form-inline">
+                                        <div class="form-group">
+                                            <label for="Calle">**Calle:</label>
+                                            <input ng-model="Calle" class="form-control" id="Calle">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="numExt">**Numero Ext.:</label>
+                                            <input ng-model="NumeroExterior" class="form-control" id="numExt">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="numInt">Numero Int.:</label>
+                                            <input ng-model="NumeroInterior" class="form-control" id="numInt">
+                                        </div>
+                                    </form>
+                                    <br>
+                                    <form class="form-inline">
+                                        <div class="form-group">
+                                            <label for="entreCalle">Entre</label>
+                                            <input ng-model="Entre" class="form-control" id="entreCalle">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="entreCalle2"> Y </label>
+                                            <input ng-model="yCalle" class="form-control" id="entreCalle2">
+                                        </div>
+                                    </form>
+                                    <br>
+                                    <div class="form-group">
+                                        <label for="comment">Observaciones o Anotaciones:</label>
+                                        <textarea ng-model="Nota" class="form-control" rows="5" id="comment"></textarea>
+                                    </div>
+                                </div>
+                                <br>
+                                <p style="color:red">¡Los campos ** son obligatorios!</p>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-success">Confirmar</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-danger btn-icon" data-toggle="modal" ng-click="eliminarDireccion(d.Calle,d.NumeroExterior)"
+                        data-target="#modalElimDir" title="Eliminar">
                         <i class="fa fa-trash-o"></i>
                     </button>
+                    <div class="modal fade" id="modalElimDir" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Eliminar Direccion</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>¿Esta seguro que desea eliminar la direccion?</p>
+                                    <p>{{modalEliminar.calle}} # {{modalEliminar.numExt}}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-success" data-dismiss="modal">Confirmar</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </td>
             </tr>
         </tbody>
@@ -46,25 +146,25 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="sel1">Tipo Direccion:</label>
+                        <label for="sel1">**Tipo Direccion:</label>
                         <select class="form-control" ng-model="tipoDirSelec" ng-options="t.tipoDireccion for t in tipoDirecciones" id="sel1">
-                                <option value="" disabled selected>Seleccione el tipo de Direccion</option>
+                            <option value="" disabled selected>Seleccione el tipo de Direccion</option>
                         </select>
                     </div>
                     <br>
                     <form class="form-inline">
                         <div class="form-group">
-                            <label for="codigoPostal">Codigo Postal:</label>
-                            <input class="form-control" id="codigoPostal"  ng-keyup="$event.keyCode == 13 ? obtenerColonia(cp) : null" ng-model="cp">
+                            <label for="codigoPostal">**Codigo Postal:</label>
+                            <input class="form-control" id="codigoPostal" ng-keyup="$event.keyCode == 13 ? obtenerColonia(cp) : null" ng-model="cp">
                         </div>
                         <div class="form-group">
-                            <label for="sel1">Colonia:</label>
+                            <label for="sel1">**Colonia:</label>
                             <select ng-model="coloniaSel" ng-options="c.colonia for c in colonia" class="form-control" id="sel1">
-                                    <option value="" disabled selected>Seleccione la colonia</option>
+                                <option value="" disabled selected>Seleccione la colonia</option>
                             </select>
                         </div>
                     </form>
- 
+
                     <br>
                     <p>Estado: {{coloniaSel.EstadoRM}}</p>
                     <br>
@@ -74,37 +174,39 @@
                     <br>
                     <form class="form-inline">
                         <div class="form-group">
-                            <label for="Calle">Calle:</label>
-                            <input class="form-control" id="Calle">
+                            <label for="Calle">**Calle:</label>
+                            <input ng-model="Calle" class="form-control" id="Calle">
                         </div>
                         <div class="form-group">
-                            <label for="numExt">Numero Ext.:</label>
-                            <input class="form-control" id="numExt">
+                            <label for="numExt">**Numero Ext.:</label>
+                            <input ng-model="NumeroExterior" class="form-control" id="numExt">
                         </div>
                         <div class="form-group">
                             <label for="numInt">Numero Int.:</label>
-                            <input class="form-control" id="numInt">
+                            <input ng-model="NumeroInterior" class="form-control" id="numInt">
                         </div>
                     </form>
                     <br>
                     <form class="form-inline">
                         <div class="form-group">
                             <label for="entreCalle">Entre</label>
-                            <input class="form-control" id="entreCalle">
+                            <input ng-model="Entre" class="form-control" id="entreCalle">
                         </div>
                         <div class="form-group">
                             <label for="entreCalle2"> Y </label>
-                            <input class="form-control" id="entreCalle2">
+                            <input ng-model="yCalle" class="form-control" id="entreCalle2">
                         </div>
                     </form>
                     <br>
                     <div class="form-group">
                         <label for="comment">Observaciones o Anotaciones:</label>
-                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                        <textarea ng-model="Nota" class="form-control" rows="5" id="comment"></textarea>
                     </div>
                 </div>
+                <br>
+                <p style="color:red">¡Los campos ** son obligatorios!</p>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Confirmar</button>
+                    <button type="button" class="btn btn-success" ng-click="insDireccion()">Confirmar</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>

@@ -1,9 +1,9 @@
 var altaDireccionesURL = global_settings.urlCORS + 'api/altaDirecciones/';
 
-registrationModule.factory('altaDireccionesRepository', function($http) {
+registrationModule.factory('altaDireccionesRepository', function ($http) {
     return {
-
-        getDirecciones: function(idUsuario) {
+        //obtiene las direcciones registradas a un usuario
+        getDirecciones: function (idUsuario) {
             return $http({
                 url: altaDireccionesURL + 'Direcciones/',
                 method: "GET",
@@ -16,11 +16,25 @@ registrationModule.factory('altaDireccionesRepository', function($http) {
 
             });
         },
-        getTipoDirecciones: function(idUsuario) {
+        //obtiene los tipos de direcciones
+        getTipoDirecciones: function (idUsuario) {
             return $http({
                 url: altaDireccionesURL + 'tipoDirecciones/',
                 method: "GET",
+                params: {},
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            });
+        },
+        //obtiene las colonias asociadas a un cp
+        getColonia: function (CodigoPostal) {
+            return $http({
+                url: altaDireccionesURL + 'colonia/',
+                method: "GET",
                 params: {
+                    CodigoPostal: CodigoPostal
                 },
                 headers: {
                     'Content-Type': 'application/json'
@@ -28,17 +42,15 @@ registrationModule.factory('altaDireccionesRepository', function($http) {
 
             });
         },
-        getColonia: function(CodigoPostal) {
+        //ins para las nuevas direcciones
+        insDireccion: function (params) {
             return $http({
-                url: altaDireccionesURL + 'colonia/',
-                method: "GET",
-                params: {
-                    CodigoPostal:CodigoPostal
-                },
+                url: altaDireccionesURL + 'insertDir/',
+                method: "POST",
+                data: params,
                 headers: {
                     'Content-Type': 'application/json'
                 }
-
             });
         }
 
