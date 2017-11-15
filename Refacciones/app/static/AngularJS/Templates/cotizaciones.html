@@ -87,7 +87,7 @@
                     <div class="col-sm-push-1 col-sm-5">
                         <div class="form-group">
                             <label for="inputRefacciones">Selecciona la marca:</label>
-                            <select class="form-control" ng-options="marca as marca.nombre for marca in marcas track by marca.id" ng-model="marcaSeleccionada"></select>
+                            <select class="form-control" ng-options="marca as marca.marca for marca in marcas track by marca.idMarca" ng-model="marcaSeleccionada"></select>
                         </div>
                     </div>
                 </div>
@@ -96,11 +96,11 @@
                         <div class="form-group">
                             <label for="inputRefacciones">Introduce número de parte o descripción:</label>
                             <div class="input-group">
-                                <input autocomplete="off" ng-disabled="(marcaSeleccionada == null || marcaSeleccionada.id < 1)" ng-change="buscarRefaccion()"
+                                <input autocomplete="off" ng-disabled="(marcaSeleccionada == null || marcaSeleccionada.idMarca < 1)" ng-change="buscarRefaccion()"
                                     ng-model="refaccionBusqueda" placeholder="Buscar numero de parte" id="inputRefacciones" type="text"
                                     class="form-control">
                                 <span class="input-group-btn">
-                                    <button ng-click="limpiarBusquedaParte()" ng-disabled="(marcaSeleccionada == null || marcaSeleccionada.id < 1)" class="btn btn-danger btn-small"
+                                    <button ng-click="limpiarBusquedaParte()" ng-disabled="(marcaSeleccionada == null || marcaSeleccionada.idMarca < 1)" class="btn btn-danger btn-small"
                                         type="button">
                                         <i class="fa fa-angle-double-left"></i>
                                     </button>

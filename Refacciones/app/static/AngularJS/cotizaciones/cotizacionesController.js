@@ -1,4 +1,4 @@
-registrationModule.controller('cotizacionesController', function ($scope, $rootScope, $location, loginRepository, localStorageService, userFactory, alertFactory) {
+registrationModule.controller('cotizacionesController', function ($scope, $rootScope, $location, loginRepository, localStorageService, userFactory, alertFactory, cotizacionesRepository) {
 
     // ------------------------------------------ CARGA INICIAL
 
@@ -14,25 +14,25 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
         $scope.busquedaCotizacion = '';
     }
 
-    $scope.getMarcas = function () {
-        var data = [{
-                id: 0,
-                nombre: 'Selecciona ...'
-            },
-            {
-                id: 1,
-                nombre: 'NISSAN'
-            },
-            {
-                id: 2,
-                nombre: 'GM'
-            }
-        ]
-        $scope.marcas = data;
-        $scope.marcaSeleccionada = $scope.marcas[0];
-    };
+    $scope.init = function(){
 
-    $scope.getMarcas();
+        $scope.userData = userFactory.getUserData();
+        
+        cotizacionesRepository.getMarcas().then(function(result){
+            
+                        if (result.data.length > 0 ){
+            
+                            $scope.marcas= result.data;
+                            
+                            // inicializacion
+                            var marca = {idMarca: 0, marca:'Seleccione una marca.'}
+                            $scope.marcas.unshift(marca);
+                            $scope.marcaSeleccionada = $scope.marcas[0];
+                        }
+                        else
+                        alertFactory.info('No se pudieron cargar las marcas');
+                    });
+    };
 
     $scope.getDirecciones = function () {
         var data = [{
@@ -97,7 +97,7 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
     $scope.buscarRefaccionPorVIN = function () {
         if ($scope.refaccionBusquedaPorVIN && $scope.refaccionBusquedaPorVIN.length > 0) {
             angular.forEach($scope.marcas, function (marca, key) {
-                if (marca.nombre == $scope.refaccionBusquedaPorVIN) {
+                if (marca.marca == $scope.refaccionBusquedaPorVIN) {
                     $scope.marcaSeleccionada = marca;
                     console.log('si es igual la marca, por eso la va a setear');
                 }
