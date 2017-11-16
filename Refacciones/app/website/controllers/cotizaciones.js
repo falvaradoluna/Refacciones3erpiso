@@ -5,6 +5,7 @@ var phantom = require('phantom');
 var path = require('path');
 var webPage = require('webpage');
 var request = require('request');
+var jsonxml = require('jsontoxml');
 
 
 var cotizaciones = function (conf) {
@@ -19,6 +20,25 @@ var cotizaciones = function (conf) {
         this[this.conf.funcionalidad](this.conf.req, this.conf.res, this.conf.next);
     };
 };
+
+cotizaciones.prototype.get_Cotizaciones = function (req, res, next) {
+    
+            var self = this;
+        
+            var params = [{
+                name: 'idUser',
+                value: req.query.idUser,
+                type: self.model.types.INT
+            }
+            ];
+    
+            self.model.query('[Operacion].[SEL_Cotizacion_SP]', params, function (error, result) {
+                self.view.expositor(res, {
+                    error: error,
+                    result: result
+                });
+            });
+        };
 
 cotizaciones.prototype.get_Marcas = function (req, res, next) {
 

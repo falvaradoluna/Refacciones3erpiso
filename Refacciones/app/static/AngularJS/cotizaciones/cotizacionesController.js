@@ -13,6 +13,17 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
 
         $scope.userData = userFactory.getUserData();
 
+        // obtener las cotizaciones del usuario
+        cotizacionesRepository.getCotizaciones($scope.userData.idUsuario).then(function (result) {
+            
+                        if (result.data.length > 0) {
+
+                            $scope.cotizaciones = result.data;
+                        }
+                        else
+                            alertFactory.info('Ocurrio un error al cargar las cotizaciones del usuario.');
+                    });
+
         cotizacionesRepository.getMarcas().then(function (result) {
 
             if (result.data.length > 0) {
@@ -44,24 +55,24 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
 
     $scope.init();
 
-    $scope.getCotizaciones = function () {
+    // $scope.getCotizaciones = function () {
 
-        var data = [{
-            folio: 12345
-        },
-        {
-            folio: 5234
-        },
-        {
-            folio: 234
-        }
-        ];
+    //     var data = [{
+    //         folio: 12345
+    //     },
+    //     {
+    //         folio: 5234
+    //     },
+    //     {
+    //         folio: 234
+    //     }
+    //     ];
 
-        $scope.cotizaciones = data;
-        //TODO falta implementar el servicio para obtener las cotizaciones
-    };
+    //     $scope.cotizaciones = data;
+    //     //TODO falta implementar el servicio para obtener las cotizaciones
+    // };
 
-    $scope.getCotizaciones();
+    // $scope.getCotizaciones();
 
     $scope.reiniciaBusqueda = function () {
         $scope.busquedaCotizacion = '';
@@ -184,13 +195,13 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
 
     };
 
-    // ------------------------------------------ MODIFICA COTIZACIONES
+    // ------------------------------------------ VER DETALLE DE COTIZACIONES
 
-    $scope.showModificaCotizacion = function (idx) {
+    $scope.showCotizacion = function (cotizacion) {
 
-        $scope.idxCotizacion = idx;
-        $scope.modificaCotizacion = angular.copy($scope.cotizaciones[$scope.idxCotizacion]);
-        $('#modalModifica').modal('show');
+        $scope.cotizacionDetalle = cotizacion;
+
+        $('#modalDetalleCotizacion').modal('show');
     };
 
     $scope.modificarCotizacion = function () {

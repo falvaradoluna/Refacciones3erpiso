@@ -3,6 +3,21 @@ var cotizacionesURL = global_settings.urlCORS + 'api/cotizaciones/';
 registrationModule.factory('cotizacionesRepository', function ($http) {
     return {
 
+        // Obtener las cotizaciones por usuario
+        getCotizaciones: function (idUser) {
+            return $http({
+                url: cotizacionesURL + 'Cotizaciones/',
+                method: "GET",
+                params: {
+                    idUser: idUser
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            });
+        },
+
         // Obtener marcas para llenar el combo
         getMarcas: function (idUsuario) {
             return $http({

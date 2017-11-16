@@ -23,37 +23,99 @@
     </div>
 </div>
 
-<div id="modalModifica" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modificaCotizacionModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="modificaCotizacionModalLabel">Modifica cotización</h4>
-            </div>
-            <div class="modal-body">
-                <form name="formModifica">
-                    <div class="form-group">
-                        <label for="txtFolio">Folio</label>
-                        <input type="text" ng-model="modificaCotizacion.folio" class="form-control" id="txtFolio" placeholder="Folio" required>
+<div id="modalDetalleCotizacion" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="modificaCotizacionModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="modificaCotizacionDireccionModalLabel">Detalle de la cotizacion: {{cotizacionDetalle.cotizacionNumber}}</h4>
                     </div>
-                    <div class="form-group">
-                        <label for="txtNombre">Nombre</label>
-                        <input type="text" ng-model="modificaCotizacion.folio" class="form-control" id="txtNombre" placeholder="Nombre" required>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h4>Dirección de entrega</h4>
+                                <b>{{cotizacionDetalle.direccion}}</b>
+                            </div>
+                            <div class="col-xs-12">
+                                <h4>Lista de refacciones</h4>
+                            </div>
+                            <div class="col-xs-12">
+        
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                No serie
+                                            </th>
+                                            <th>
+                                                Descripción
+                                            </th>
+                                            <th class="text-right">
+                                                Precio
+                                            </th>
+                                            <th class="text-right">
+                                                Cantidad
+                                            </th>
+                                            <th class="text-right">
+                                                SubTotal
+                                            </th>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="list-group-item-custom" ng-repeat="refaccion in partesAgregadas">
+                                            <td>
+                                                {{refaccion.PTS_IDPARTE}}
+                                            </td>
+                                            <td>
+                                                {{refaccion.PTS_DESPARTE}}
+                                            </td>
+                                            <td class="text-right">
+                                                {{refaccion.PTS_PCOLISTA | currency}}
+                                            </td>
+                                            <td class="text-right">
+                                                {{refaccion.cantidad}}
+                                            </td>
+                                            <td class="text-right">
+                                                {{refaccion.PTS_PCOLISTA * refaccion.cantidad | currency}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-right" colspan="4">
+                                                <strong>Subtotal:</strong>
+                                            </td>
+                                            <td class="text-right">
+                                                <strong>{{getTotal() | currency}}</strong>
+        
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-right" colspan="4">
+                                                <strong>IVA:</strong>
+                                            </td>
+                                            <td class="text-right">
+                                                <strong>{{getTotal() * 0.16 | currency}}</strong>
+        
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-right" colspan="4">
+                                                <strong>Total:</strong>
+                                            </td>
+                                            <td class="text-right">
+                                                <strong>{{getTotal() + (getTotal() * 0.16) | currency}}</strong>
+        
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input"> Checa
-                        </label>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="button" ng-disabled='!formModifica.$valid' type="button" class="btn btn-success" data-dismiss="modal" ng-click="modificarCotizacion()">Modificar</button>
-            </div>
-        </div>
+                </div>
     </div>
 </div>
 
@@ -398,19 +460,19 @@
             <thead>
                 <tr>
                     <th>
-                        Cotización
+                        Numero de cotización
                     </th>
                     <th>
-                        Empresa
+                        Dirección
                     </th>
-                    <th>
-                        Sucursal
-                    </th>
-                    <th>
-                        Descripción
-                    </th>
-                    <th>
+                    <th class="text-right">
                         Total
+                    </th>
+                    <th class="text-right">
+                        Estatus
+                    </th>
+                    <th>
+                        
                     </th>
                     <th>
 
@@ -420,16 +482,17 @@
             <tbody>
                 <tr ng-repeat="cotizacion in cotizaciones | filter : busquedaCotizacion ">
                     <td>
-                        {{cotizacion.folio}}
+                        {{cotizacion.cotizacionNumber}}
                     </td>
                     <td>
-
+                        Aqui requerimos la direccion
+                        <!-- {{cotizacion.cotizacionNumber}} -->
                     </td>
-                    <td>
-
+                    <td class="text-right">
+                        {{cotizacion.total | currency}}
                     </td>
-                    <td>
-
+                    <td class="text-right">
+                        {{cotizacion.cotizacionEstatus}}
                     </td>
                     <td align="right">
 
@@ -438,8 +501,8 @@
                         <button type="button" data-toggle="tooltip" title="Elimina una cotización" ng-click="showBorrarCotizacion($index)" class="btn btn-danger btn-icon">
                             <i class="fa fa-trash-o"></i>
                         </button>
-                        <button type="button" data-toggle="tooltip" title="Modifica una cotización" ng-click="showModificaCotizacion($index)" class="btn btn-info btn-icon">
-                            <i class="fa fa-pencil"></i>
+                        <button type="button" data-toggle="tooltip" title="Modifica una cotización" ng-click="showCotizacion(cotizacion)" class="btn btn-info btn-icon">
+                            <i class="fa fa-info-circle"></i>
                         </button>
                     </td>
                 </tr>
