@@ -7,11 +7,11 @@
                 <th>Codigo Postal</th>
                 <th>calle</th>
                 <th>Num ext</th>
-
                 <th>Num int</th>
+                <th>Colonia</th>>
                 <th>entre las calles</th>
                 <th>observaciones</th>
-                <th></th>
+                <th style="width:85px"></th>
             </tr>
         </thead>
         <tbody ng-repeat="d in direcciones">
@@ -20,10 +20,12 @@
                 <td>{{d.Calle}}</td>
                 <td>{{d.NumeroExterior}}</td>
                 <td>{{d.NumeroInterior}}</td>
+                <td>{{d.colonia}}</td>
                 <td>{{d.Entre}} {{d.Y}}</td>
                 <td>{{d.Nota}}</td>
                 <td>
-                    <button type="button" class="btn btn-success btn-icon" data-target="#modalEditDir" title="Editar" data-toggle="modal">
+                    <div class="btn-group">
+                    <button type="button" class="btn btn-primary btn-icon" data-target="#modalEditDir" ng-click="editarDireccionModal(d)" title="Editar" data-toggle="modal">
                         <i class="fa fa-pencil"></i>
                     </button>
                     <div class="modal fade" id="modalEditDir" role="dialog">
@@ -39,7 +41,7 @@
                                     <div class="form-group">
                                         <label for="sel1">**Tipo Direccion:</label>
                                         <select class="form-control" ng-model="tipoDirSelec" ng-options="t.tipoDireccion for t in tipoDirecciones" id="sel1">
-                                            <option value="" disabled selected>Seleccione el tipo de Direccion</option>
+                                            <option value="" disabled>Seleccione el tipo de Direccion</option>
                                         </select>
                                     </div>
                                     <br>
@@ -50,8 +52,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="sel1">**Colonia:</label>
-                                            <select ng-model="coloniaSel" ng-options="c.colonia for c in colonia" class="form-control" id="sel1">
-                                                <option value="" disabled selected>Seleccione la colonia</option>
+                                            <select  ng-model="coloniaSel" ng-change="modalEditar.idColonia=coloniaSel.idColonia" ng-options="c.colonia for c in colonia" class="form-control" id="sel1">
+                                                <option value="" disabled>Seleccione la colonia</option>
                                             </select>
                                         </div>
                                     </form>
@@ -66,45 +68,45 @@
                                     <form class="form-inline">
                                         <div class="form-group">
                                             <label for="Calle">**Calle:</label>
-                                            <input ng-model="Calle" class="form-control" id="Calle">
+                                            <input ng-model="modalEditar.Calle" class="form-control" id="Calle">
                                         </div>
                                         <div class="form-group">
                                             <label for="numExt">**Numero Ext.:</label>
-                                            <input ng-model="NumeroExterior" class="form-control" id="numExt">
+                                            <input ng-model="modalEditar.NumeroExterior" class="form-control" id="numExt">
                                         </div>
                                         <div class="form-group">
                                             <label for="numInt">Numero Int.:</label>
-                                            <input ng-model="NumeroInterior" class="form-control" id="numInt">
+                                            <input ng-model="modalEditar.NumeroInterior" class="form-control" id="numInt">
                                         </div>
                                     </form>
                                     <br>
                                     <form class="form-inline">
                                         <div class="form-group">
                                             <label for="entreCalle">Entre</label>
-                                            <input ng-model="Entre" class="form-control" id="entreCalle">
+                                            <input ng-model="modalEditar.Entre" class="form-control" id="entreCalle">
                                         </div>
                                         <div class="form-group">
                                             <label for="entreCalle2"> Y </label>
-                                            <input ng-model="yCalle" class="form-control" id="entreCalle2">
+                                            <input ng-model="modalEditar.Y" class="form-control" id="entreCalle2">
                                         </div>
                                     </form>
                                     <br>
                                     <div class="form-group">
                                         <label for="comment">Observaciones o Anotaciones:</label>
-                                        <textarea ng-model="Nota" class="form-control" rows="5" id="comment"></textarea>
+                                        <textarea ng-model="modalEditar.Nota" class="form-control" rows="5" id="comment"></textarea>
                                     </div>
                                 </div>
                                 <br>
                                 <p style="color:red">¡Los campos ** son obligatorios!</p>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-success">Confirmar</button>
+                                    <button type="button" class="btn btn-success" ng-click="actualizaDireccion()">Aceptar</button>
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                                 </div>
                             </div>
 
                         </div>
                     </div>
-                    <button type="button" class="btn btn-danger btn-icon" data-toggle="modal" ng-click="eliminarDireccion(d.Calle,d.NumeroExterior)"
+                    <button type="button" class="btn btn-danger btn-icon" data-toggle="modal" ng-click="eliminarDireccionModal(d)"
                         data-target="#modalElimDir" title="Eliminar">
                         <i class="fa fa-trash-o"></i>
                     </button>
@@ -119,16 +121,17 @@
                                 </div>
                                 <div class="modal-body">
                                     <p>¿Esta seguro que desea eliminar la direccion?</p>
-                                    <p>{{modalEliminar.calle}} # {{modalEliminar.numExt}}</p>
+                                    <p>{{modalEliminar.Calle}} # {{modalEliminar.NumeroExterior}} Col: {{modalEliminar.colonia}}</p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-success" data-dismiss="modal">Confirmar</button>
+                                    <button type="button" class="btn btn-success" ng-click="eliminar(modalEliminar.idDireccion)">Confirmar</button>
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                                 </div>
                             </div>
 
                         </div>
                     </div>
+                </div>
                 </td>
             </tr>
         </tbody>

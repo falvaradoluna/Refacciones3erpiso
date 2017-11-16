@@ -53,6 +53,26 @@ registrationModule.factory('altaDireccionesRepository', function ($http) {
                     'Content-Type': 'application/json'
                 }
             });
+        },
+        actDireccion: function (params) {
+            return $http({
+                url: altaDireccionesURL + 'actDir/',
+                method: "POST",
+                data: params,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        },
+        elimDireccion: function (idDireccion) {
+            return $http({
+                url: altaDireccionesURL + 'elimDir/',
+                method: "POST",
+                data: {idDireccion:idDireccion},
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
         }
 
     };
