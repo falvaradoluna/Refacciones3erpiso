@@ -128,4 +128,42 @@ cotizaciones.prototype.get_Refacciones = function (req, res, next) {
         });
     };
 
+    cotizaciones.prototype.get_CancelCotizacion = function (req, res, next) {
+        
+                var self = this;
+            
+                var params = [{
+                    name: 'idCotizacion',
+                    value: req.query.idCotizacion,
+                    type: self.model.types.INT
+                }
+                ];
+
+                self.model.query('[Catalogo].[SEL_MarcaVin_SP]', params, function (error, result) {
+                    self.view.expositor(res, {
+                        error: error,
+                        result: result
+                    });
+                });
+            };
+
+            cotizaciones.prototype.get_DetalleCotizacion = function (req, res, next) {
+                
+                        var self = this;
+                    
+                        var params = [{
+                            name: 'idCotizacion',
+                            value: req.query.idCotizacion,
+                            type: self.model.types.INT
+                        }
+                        ];
+                        
+                        self.model.query('[Catalogo].[SEL_MarcaVin_SP]', params, function (error, result) {
+                            self.view.expositor(res, {
+                                error: error,
+                                result: result
+                            });
+                        });
+                    };
+
 module.exports = cotizaciones;

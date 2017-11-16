@@ -72,6 +72,34 @@ registrationModule.factory('cotizacionesRepository', function ($http) {
                     'Content-Type': 'application/json'
                 }
             });
+        },
+
+        // Cancela la cotizacion
+        cancelaCotizacion: function (idCotizacion) {
+            return $http({
+                url: cotizacionesURL + 'CancelCotizacion/',
+                method: "GET",
+                params: {
+                    idCotizacion: idCotizacion
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        },
+
+        // Obtene el desalle de la cotizacion
+        getDetalleCotizacion: function (idCotizacion) {
+            return $http({
+                url: cotizacionesURL + 'DetalleCotizacion/',
+                method: "GET",
+                params: {
+                    idCotizacion: idCotizacion
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
         }
     };
 });

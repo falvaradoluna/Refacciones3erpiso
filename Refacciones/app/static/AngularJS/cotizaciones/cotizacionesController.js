@@ -238,26 +238,45 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
 
         $scope.cotizacionDetalle = cotizacion;
 
+        cotizacionesRepository.cancelaCotizacion(cotizacion.idCotizacion).then(function (result) {
+            
+            console.log('cancela la cotizacion');
+            console.log(result.data);
+                                if (result.data.length > 0) {
+            
+                                    $scope.partesCotizacion = result.data;
+                                    console.log($scope.cotizaciones);
+                                } else
+                                    alertFactory.info('Ocurrio un error al cambiar el estado de la cotización.');
+                            });
+
         $('#modalDetalleCotizacion').modal('show');
-    };
-
-    $scope.modificarCotizacion = function () {
-
-        $scope.cotizaciones[$scope.idxCotizacion] = $scope.modificaCotizacion;
     };
 
     // ------------------------------------------ ELIMINA COTIZACIONES
 
-    $scope.showBorrarCotizacion = function (idx) {
+    $scope.showCancelaCotizacion = function (cotizacion) {
 
-        $scope.idxCotizacion = idx;
-        $scope.nombreCotizacionEliminar = $scope.cotizaciones[$scope.idxCotizacion].folio
+        $scope.idCotizacionCancela = cotizacion.idCotizacion;
+        $scope.nombreCotizacionCancela = cotizacion.cotizacionNumber
         $('#modalElimina').modal('show')
     };
 
-    $scope.eliminaCotizacion = function () {
+    $scope.cancelaCotizacion = function () {
 
-        $scope.cotizaciones.splice($scope.idxCotizacion, 1);
+        cotizacionesRepository.cancelaCotizacion($scope.idCotizacionCancela).then(function (result) {
+            
+            console.log('cancela la cotizacion');
+            console.log(result.data);
+                                if (result.data.length > 0) {
+            
+                                    $scope.cotizaciones = result.data;
+                                    console.log($scope.cotizaciones);
+                                } else
+                                    alertFactory.info('Ocurrio un error al cambiar el estado de la cotización.');
+                            });
+
+        //$scope.cotizaciones.splice($scope.idxCotizacion, 1);
         //TODO: Falta implementar la eliminacion
     };
 });

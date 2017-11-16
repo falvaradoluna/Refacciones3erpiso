@@ -7,17 +7,17 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="eliminaCotizacionModalLabel">Eliminar cotizacion</h4>
+                <h4 class="modal-title" id="eliminaCotizacionModalLabel">Cancela cotizacion</h4>
             </div>
             <div class="modal-body">
                 <div class="alert alert-danger" role="alert">
-                    <label class="text-">¿Esta seguro de eliminar la cotizacion?</label>
-                    <strong>{{nombreCotizacionEliminar}}</strong>
+                    <label class="text-">¿Esta seguro de cancelar la cotizacion?</label>
+                    <strong>{{nombreCotizacionCancela}}</strong>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="eliminaCotizacion()">Eliminar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="cancelaCotizacion()">Eliminar</button>
             </div>
         </div>
     </div>
@@ -63,7 +63,7 @@
                                             </th>
                                     </thead>
                                     <tbody>
-                                        <tr class="list-group-item-custom" ng-repeat="refaccion in partesAgregadas">
+                                        <tr class="list-group-item-custom" ng-repeat="refaccion in partesCotizacion">
                                             <td>
                                                 {{refaccion.PTS_IDPARTE}}
                                             </td>
@@ -503,7 +503,7 @@
                             {{cotizacion.total | currency}}
                     </td>
                     <td>
-                        <button type="button" data-toggle="tooltip" title="Cancelar la cotización" ng-click="showBorrarCotizacion($index)" class="btn btn-danger btn-icon">
+                        <button ng-show="cotizacion.cotizacionEstatus == 1" type="button" data-toggle="tooltip" title="Cancelar la cotización" ng-click="showCancelaCotizacion(cotizacion)" class="btn btn-danger btn-icon">
                             <i class="fa fa-ban"></i>
                         </button>
                     </td>
