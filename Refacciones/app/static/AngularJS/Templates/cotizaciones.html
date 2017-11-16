@@ -227,6 +227,9 @@
                                 <thead>
                                     <tr>
                                         <th>
+                                            Marca
+                                        </th>
+                                        <th>
                                             No serie
                                         </th>
                                         <th>
@@ -247,6 +250,9 @@
                                 </thead>
                                 <tbody>
                                     <tr class="list-group-item-custom" ng-repeat="refaccion in partesAgregadas">
+                                            <td>
+                                                    {{refaccion.marca}}
+                                                </td>
                                         <td>
                                             {{refaccion.PTS_IDPARTE}}
                                         </td>
@@ -307,9 +313,7 @@
                     <div ng-repeat="direccion in direcciones" class="radio">
                         <input id="{{'direccionRadio' + direccion.idDireccion}}" type="radio" class="magic-radio" name="direccion" ng-model="direccionSeleccionada"
                             ng-click="elegirDireccion(direccion)" ng-value="direccion">
-                        <label for="{{'direccionRadio' + direccion.idDireccion}}">{{direccion.Calle + ' NO. ' + direccion.NumeroExterior + ' NO. int. ' + direccion.NumeroInterior
-                            + ' COL. ' + direccion.colonia + ', ' + direccion.EstadoRM + ' C.P. ' + direccion.codigoPostal
-                            }}</label>
+                        <label for="{{'direccionRadio' + direccion.idDireccion}}">{{direccion.DireccionD}}</label>
                     </div>
                 </div>
                 <div ng-show="direcciones == null || direcciones.length < 1" class="alert alert-danger" role="alert">

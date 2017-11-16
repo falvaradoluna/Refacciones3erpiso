@@ -50,7 +50,7 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
                 $scope.direccionSeleccionada = $scope.direcciones[0];
             }
             else
-                alertFactory.info('El usuario no contiene Direcciones registradas');
+                alertFactory.info('El usuario no cuenta con direcciones de embarque registradas');
         });
     };
 
@@ -124,9 +124,13 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
                 if (result.data.length > 0) {
                     $scope.busquedaActual = result.data;
                 }
-                else
-                    alertFactory.info('No se pudieron cargar las refacciones con esa descripción.');
+                else{
+                    $scope.busquedaActual = [];
+                }
+                    //alertFactory.info('No se pudieron cargar las refacciones con esa descripción.');
             });
+        }else{
+            $scope.busquedaActual = [];
         };
     };
 
@@ -147,6 +151,7 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
             $scope.partesAgregadas.push(parteAgregada);
         };
 
+        console.log($scope.partesAgregadas);
         $scope.busquedaActual = []
         $scope.refaccionBusqueda = '';
     };
