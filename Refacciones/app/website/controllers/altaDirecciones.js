@@ -28,12 +28,11 @@ altaDirecciones.prototype.get_Direcciones = function (req, res, next) {
         name: 'idUsuario',
         value: req.query.idUsuario,
         type: self.model.types.INT
-    },{
+    }, {
         name: 'idTipoDireccion',
         value: req.query.idTipoDireccion,
         type: self.model.types.INT
-    }
-    ];
+    }];
 
     self.model.query('[Catalogo].[SEL_Direcciones_SP]', params, function (error, result) {
         self.view.expositor(res, {
@@ -126,7 +125,7 @@ altaDirecciones.prototype.post_insertDir = function (req, res, next) {
 
     this.model.post('[Catalogo].[INS_Direccion_SP]', params, function (error, result) {
 
-        self.view.expositor(res,  {
+        self.view.expositor(res, {
             error: error,
             result: result
         });
@@ -190,7 +189,7 @@ altaDirecciones.prototype.post_actDir = function (req, res, next) {
 
     this.model.post('[Catalogo].[UPD_Direccion_SP]', params, function (error, result) {
 
-        self.view.expositor(res,  {
+        self.view.expositor(res, {
             error: error,
             result: result
         });
@@ -201,17 +200,15 @@ altaDirecciones.prototype.post_actDir = function (req, res, next) {
 altaDirecciones.prototype.post_elimDir = function (req, res, next) {
     var self = this;
 
-    var params = [
-        {
-            name: 'idDireccion',
-            value: req.body.idDireccion,
-            type: self.model.types.INT
-        }
-    ];
+    var params = [{
+        name: 'idDireccion',
+        value: req.body.idDireccion,
+        type: self.model.types.INT
+    }];
 
     this.model.post('[Catalogo].[DEL_Direccion_SP]', params, function (error, result) {
 
-        self.view.expositor(res,  {
+        self.view.expositor(res, {
             error: error,
             result: result
         });

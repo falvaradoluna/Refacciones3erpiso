@@ -49,10 +49,10 @@ registrationModule.controller('altaDireccionesController', function ($route, $sc
             $scope.nuevaDireccion.idColonia = $scope.coloniaSel.idColonia; //obligatorio
             $scope.nuevaDireccion.Calle = $scope.Calle; //obligatorio
             $scope.nuevaDireccion.NumeroExterior = $scope.NumeroExterior; //obligatorio
-            $scope.nuevaDireccion.NumeroInterior = $scope.NumeroInterior == null || $scope.NumeroInterior == undefined ? 'Sin numero interior' : $scope.NumeroInterior;
-            $scope.nuevaDireccion.Entre = $scope.Entre == null || $scope.Entre == undefined ? '' : $scope.Entre; //ob
-            $scope.nuevaDireccion.Y = $scope.yCalle == null || $scope.yCalle == undefined ? '' : $scope.yCalle; //ob
-            $scope.nuevaDireccion.Nota = $scope.Nota == null || $scope.Nota == undefined ? '' : $scope.Nota; //
+            $scope.nuevaDireccion.NumeroInterior = $scope.NumeroInterior == null || $scope.NumeroInterior == undefined ? null : $scope.NumeroInterior;
+            $scope.nuevaDireccion.Entre = $scope.Entre == null || $scope.Entre == undefined ? ' ' : $scope.Entre; //ob
+            $scope.nuevaDireccion.Y = $scope.yCalle == null || $scope.yCalle == undefined ? ' ' : $scope.yCalle; //ob
+            $scope.nuevaDireccion.Nota = $scope.Nota == null || $scope.Nota == undefined ? 'Sin observaciones' : $scope.Nota; //
             //inserta la nueva direccion
             altaDireccionesRepository.insDireccion(
                     $scope.nuevaDireccion)
@@ -72,8 +72,10 @@ registrationModule.controller('altaDireccionesController', function ($route, $sc
                 else
                     alertFactory.error('El usuario no contiene Direcciones registradas');
             });
-        } else
+        } else {
+            console.log($scope.coloniaSel);
             alertFactory.error('verifique los campos obligatorios (**) porfavor');
+        }
 
     };
     //eliminar direcciones
@@ -86,7 +88,7 @@ registrationModule.controller('altaDireccionesController', function ($route, $sc
         altaDireccionesRepository.elimDireccion($scope.modalEliminar.idDireccion).then(function (result) {
 
             if (result.data.length > 0 && (result.data[0].control == 1)) {
-                alertFactory.success('Se elimino la direccion correctaen');
+                alertFactory.success('Se elimino la direccion correctamente');
                 //se cierra la modal
 
                 $('#modalElimDir').modal('hide');
@@ -124,13 +126,11 @@ registrationModule.controller('altaDireccionesController', function ($route, $sc
         var Actualizar = true;
         Actualizar = $scope.userData.idUsuario == null || $scope.userData.idUsuario == undefined ? false : Actualizar;
         Actualizar = $scope.tipoDirSelec == null || $scope.tipoDirSelec == undefined ? false : Actualizar;
-        Actualizar = $scope.coloniaSel == null || $scope.coloniaSel == undefined ? false : Actualizar;
+        Actualizar = $scope.modalEditar.idColonia == null || $scope.modalEditar.idColonia == undefined ? false : Actualizar;
         Actualizar = $scope.modalEditar.Calle == null || $scope.modalEditar.Calle == undefined ? false : Actualizar;
         Actualizar = $scope.modalEditar.NumeroExterior == null || $scope.modalEditar.NumeroExterior == undefined ? false : Actualizar;
 
         if (Actualizar == true) {
-            console.log($scope.coloniaSel.idColonia);
-            //$scope.modalEditar.idColonia=$scope.coloniaSel.idColonia;
             altaDireccionesRepository.actDireccion($scope.modalEditar).then(function (result) {
 
                 if (result.data.length > 0 && (result.data[0].control == 1)) {
@@ -150,19 +150,10 @@ registrationModule.controller('altaDireccionesController', function ($route, $sc
                 else
                     alertFactory.error('El usuario no contiene Direcciones registradas');
             });
-        } else
+        } else {
             alertFactory.error('verifique los campos obligatorios (**) porfavor');
-        /*
-          @idUsuario INT,
-          @idTipoDireccion INT,
-          @idColonia INT,
-          @Calle VARCHAR(MAX),
-          @NumeroExterior VARCHAR(50),
-          @NumeroInterior VARCHAR(50),
-          @Entre VARCHAR(MAX),
-          @Y VARCHAR(MAX),
-          @Nota VARCHAR(MAX),
-          @idDireccion int
-         */
+
+        }
+
     };
 });

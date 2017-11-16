@@ -3,13 +3,13 @@ var altaDireccionesURL = global_settings.urlCORS + 'api/altaDirecciones/';
 registrationModule.factory('altaDireccionesRepository', function ($http) {
     return {
         //obtiene las direcciones registradas a un usuario
-        getDirecciones: function (idUsuario,idTipoDireccion) {
+        getDirecciones: function (idUsuario, idTipoDireccion) {
             return $http({
                 url: altaDireccionesURL + 'Direcciones/',
                 method: "GET",
                 params: {
                     idUsuario: idUsuario,
-                    idTipoDireccion:idTipoDireccion  
+                    idTipoDireccion: idTipoDireccion
                 },
                 headers: {
                     'Content-Type': 'application/json'
@@ -68,7 +68,9 @@ registrationModule.factory('altaDireccionesRepository', function ($http) {
             return $http({
                 url: altaDireccionesURL + 'elimDir/',
                 method: "POST",
-                data: {idDireccion:idDireccion},
+                data: {
+                    idDireccion: idDireccion
+                },
                 headers: {
                     'Content-Type': 'application/json'
                 }
