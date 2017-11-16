@@ -77,6 +77,26 @@ cotizaciones.prototype.get_Refacciones = function (req, res, next) {
         });
     };
 
+    cotizaciones.prototype.get_MarcaVIN = function (req, res, next) {
+        
+                var self = this;
+            
+                var params = [{
+                    name: 'vin',
+                    value: req.query.vin,
+                    type: self.model.types.STRING
+                }
+                ];
+        
+                console.log(params);
+                self.model.query('[Catalogo].[SEL_MarcaVin_SP]', params, function (error, result) {
+                    self.view.expositor(res, {
+                        error: error,
+                        result: result
+                    });
+                });
+            };
+
     cotizaciones.prototype.post_AltaCotizacion = function (req, res, next) {
         var self = this;
     
@@ -92,7 +112,7 @@ cotizaciones.prototype.get_Refacciones = function (req, res, next) {
             },
             {
                 name: 'refacciones',
-                value: jsonxml(req.body.refacciones),
+                value: jsonxml({refacciones : req.body.refacciones}),
                 type: self.model.types.STRING
             }
         ];

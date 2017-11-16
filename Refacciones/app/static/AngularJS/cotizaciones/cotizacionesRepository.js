@@ -48,6 +48,20 @@ registrationModule.factory('cotizacionesRepository', function ($http) {
             });
         },
 
+        // Obtener las refacciones por descripcion
+        getMarcaVIN: function (vin) {
+            return $http({
+                url: cotizacionesURL + 'MarcaVIN/',
+                method: "GET",
+                params: {
+                    vin: vin
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        },
+
         // Alta de una nueva cotizacion con las refacciones dentro del xml
         addCotizacion: function (params) {
             return $http({

@@ -12,7 +12,7 @@
                 $rootScope.userData = userFactory.getUsuario(user);
                 $rootScope.mostrarMenu = 1;
             } else if (($('#lgnUser').val().indexOf('[') > -1) && !localStorageService.get('lgnUser')) {
-                alert('Debe iniciar sesión primero');
+                //alert('Debe iniciar sesión primero');
 
             }
         }

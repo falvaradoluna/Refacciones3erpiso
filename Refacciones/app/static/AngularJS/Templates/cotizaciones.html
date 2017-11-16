@@ -36,7 +36,7 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <h4>Dirección de entrega</h4>
-                                <b>{{cotizacionDetalle.direccion}}</b>
+                                <b>{{cotizacionDetalle.DireccionD}}</b>
                             </div>
                             <div class="col-xs-12">
                                 <h4>Lista de refacciones</h4>
@@ -134,13 +134,13 @@
                         <div class="form-group">
                             <label for="vin">Introduce el VIN:</label>
                             <div class="input-group">
-                                <input autocomplete="off" ng-model="refaccionBusquedaPorVIN" placeholder="Buscar VIN" id="vin" type="text" class="form-control">
+                                <input data-toggle="tooltip" title="Se require por lo menos 17 caracteres." autocomplete="off" ng-model="refaccionBusquedaPorVIN" maxlength="17" placeholder="Buscar VIN" id="vin" type="text" class="form-control">
                                 <span class="input-group-btn">
-                                    <button ng-click="clearQueryPorVIN()" class="btn btn-danger btn-small" type="button">
+                                    <button ng-disabled="refaccionBusquedaPorVIN == null || refaccionBusquedaPorVIN.length < 1" ng-click="clearQueryPorVIN()" class="btn btn-danger btn-small" type="button">
                                         <i class="fa fa-angle-double-left"></i>
                                     </button>
-                                    <button ng-click="buscarRefaccionPorVIN()" class="btn btn-primary btn-small" type="button">
-                                        <i class="fa fa-check"></i>
+                                    <button ng-disabled="refaccionBusquedaPorVIN == null ||refaccionBusquedaPorVIN.length < 17" ng-click="buscarRefaccionPorVIN()" class="btn btn-primary btn-small" type="button">
+                                        <i class="fa fa-search"></i>
                                     </button>
                                 </span>
                             </div>
@@ -318,7 +318,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="button" type="button" class="btn btn-success" data-dismiss="modal" ng-click="backCotizacionParte()">Regresar</button>
+                <button type="button" type="button" class="btn btn-info" data-dismiss="modal" ng-click="backCotizacionParte()">Regresar</button>
                 <button type="button" ng-disabled="(direcciones == null || direcciones.length < 1)" type="button" class="btn btn-success"
                     data-dismiss="modal" ng-click="agregarCotizacionConfirma()">Siguiente</button>
             </div>
@@ -419,7 +419,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="button" ng-disabled="" type="button" class="btn btn-success" data-dismiss="modal" ng-click="backCotizacionDireccion()">Regresar</button>
+                <button type="button" ng-disabled="" type="button" class="btn btn-info" data-dismiss="modal" ng-click="backCotizacionDireccion()">Regresar</button>
                 <button type="button" ng-disabled="" type="button" class="btn btn-success" data-dismiss="modal" ng-click="agregarCotizacion()">Finalizar pedido</button>
             </div>
         </div>
@@ -450,6 +450,7 @@
         </div>
         <div class="col-xs-6 text-right">
             <button type="button" ng-click="showAgregarCotizacion()" class="btn btn-success" data-toggle="tooltip" title="Agregar una nueva cotización">
+                    Nueva cotización
                 <i class="fa fa-plus"></i>
             </button>
         </div>
@@ -474,7 +475,7 @@
                     <th class="text-right">
                         Total
                     </th>
-                    <th>
+                    <th colspan="2">
 
                     </th>
                 </tr>
@@ -498,13 +499,15 @@
                             {{cotizacion.total | currency}}
                     </td>
                     <td>
-                        <button type="button" data-toggle="tooltip" title="Elimina una cotización" ng-click="showBorrarCotizacion($index)" class="btn btn-danger btn-icon">
-                            <i class="fa fa-trash-o"></i>
-                        </button>
-                        <button type="button" data-toggle="tooltip" title="Modifica una cotización" ng-click="showCotizacion(cotizacion)" class="btn btn-info btn-icon">
-                            <i class="fa fa-info-circle"></i>
+                        <button type="button" data-toggle="tooltip" title="Cancelar la cotización" ng-click="showBorrarCotizacion($index)" class="btn btn-danger btn-icon">
+                            <i class="fa fa-ban"></i>
                         </button>
                     </td>
+                    <td>
+                            <button type="button" data-toggle="tooltip" title="Detalle de la cotización" ng-click="showCotizacion(cotizacion)" class="btn btn-info btn-icon">
+                                <i class="fa fa-info-circle"></i>
+                            </button>
+                        </td>
                 </tr>
             </tbody>
         </table>
