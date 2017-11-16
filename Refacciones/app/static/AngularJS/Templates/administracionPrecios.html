@@ -1,6 +1,62 @@
-<h2>Administracion de Precios</h2>
+<h2 style="padding-left:15px">Administracion de Precios</h2>
 
 <div class="container">
-    
+    <form class="form-inline">
+        <div class="form-group">
+            <label for="user">tipo Usuario:</label>
+            <select class="form-control" id="user">
+                <option>Usuario 1</option>
+                <option>Usuario 2</option>
+                <option>Usuario 3</option>
+                <option>Usuario 4</option>
+            </select>
+        </div>
+        <div class="form-group" style="padding-left:15px">
+            <label for="marca">Marca:</label>
+            <select class="form-control" id="marca">
+                <option>Marca 1</option>
+                <option>Marca 2</option>
+                <option>Marca 3</option>
+                <option>Marca 4</option>
+            </select>
+        </div>
+    </form>
+    <br>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr class="info">
+                    <th style="color:#38a0f4">Categoria</th>
+                    <th style="color:#38a0f4">Clave Parte</th>
+                    <th style="color:#38a0f4">Descripcion Parte</th>
+                    <th style="color:#38a0f4">Descuento</th>
+                    <th style="color:#38a0f4">Fecha Inicio</th>
+                    <th style="color:#38a0f4">Fecha Fin</th>
+                    <th style="width:85px"></th>
+                </tr>
+            </thead>
+            <td>categoria</td>
+            <td>clave</td>
+            <td>descripcion</td>
+            <td>descuento</td>
+            <td>inicio</td>
+            <td>fin</td>
+            <td>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary btn-icon btn-md"
+                        title="Editar" data-toggle="modal">
+                        <i class="fa fa-pencil"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-icon btn-md" data-toggle="modal"
+                        title="Eliminar">
+                        <i class="fa fa-trash-o"></i>
+                    </button>
+                </div>
+            </td>
+            <tbody>
 
+            </tbody>
+
+        </table>
+    </div>
 </div>

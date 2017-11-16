@@ -29,7 +29,7 @@ var registrationModule = angular.module("registrationModule", ["ngRoute", "Local
         });
         $routeProvider.when('/AdministracionPrecios', {
             templateUrl: 'AngularJS/Templates/administracionPrecios.html'
-            ,controller: 'administracionPrecios'
+            ,controller: 'administracionPreciosController'
         });
 
         //Route /default
