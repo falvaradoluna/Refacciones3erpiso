@@ -77,4 +77,35 @@ cotizaciones.prototype.get_Refacciones = function (req, res, next) {
         });
     };
 
+    cotizaciones.prototype.post_AltaCotizacion = function (req, res, next) {
+        var self = this;
+    
+        var params = [{
+                name: 'idUsuario',
+                value: req.body.idUsuario,
+                type: self.model.types.INT
+            },
+            {
+                name: 'idDireccion',
+                value: req.body.idDireccion,
+                type: self.model.types.INT
+            },
+            {
+                name: 'refacciones',
+                value: jsonxml(req.body.refacciones),
+                type: self.model.types.STRING
+            }
+        ];
+    
+        console.log(params);
+        //console.log(params);
+        this.model.post('[Operacion].[INS_Cotizacion_SP]', params, function (error, result) {
+    
+            self.view.expositor(res,  {
+                error: error,
+                result: result
+            });
+        });
+    };
+
 module.exports = cotizaciones;

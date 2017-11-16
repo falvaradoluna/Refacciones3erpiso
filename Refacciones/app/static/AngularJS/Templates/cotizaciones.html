@@ -465,14 +465,14 @@
                     <th>
                         Dirección
                     </th>
-                    <th class="text-right">
-                        Total
-                    </th>
-                    <th class="text-right">
-                        Estatus
+                    <th>
+                        Fecha
                     </th>
                     <th>
-                        
+                        Estatus
+                    </th>
+                    <th class="text-right">
+                        Total
                     </th>
                     <th>
 
@@ -485,17 +485,17 @@
                         {{cotizacion.cotizacionNumber}}
                     </td>
                     <td>
-                        Aqui requerimos la direccion
+                            {{cotizacion.DireccionD }}
                         <!-- {{cotizacion.cotizacionNumber}} -->
                     </td>
-                    <td class="text-right">
-                        {{cotizacion.total | currency}}
+                    <td>
+                            {{cotizacion.cotizacionCreate | date}}
+                    </td>
+                    <td>
+                            {{cotizacion.Estatus}}
                     </td>
                     <td class="text-right">
-                        {{cotizacion.cotizacionEstatus}}
-                    </td>
-                    <td align="right">
-
+                            {{cotizacion.total | currency}}
                     </td>
                     <td>
                         <button type="button" data-toggle="tooltip" title="Elimina una cotización" ng-click="showBorrarCotizacion($index)" class="btn btn-danger btn-icon">

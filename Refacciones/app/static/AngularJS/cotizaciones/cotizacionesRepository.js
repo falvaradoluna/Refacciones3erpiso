@@ -46,6 +46,18 @@ registrationModule.factory('cotizacionesRepository', function ($http) {
                 }
 
             });
+        },
+
+        // Alta de una nueva cotizacion con las refacciones dentro del xml
+        addCotizacion: function (params) {
+            return $http({
+                url: cotizacionesURL + 'AltaCotizacion/',
+                method: "POST",
+                data: params,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
         }
     };
 });

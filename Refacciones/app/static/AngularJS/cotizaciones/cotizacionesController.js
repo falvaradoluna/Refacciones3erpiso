@@ -15,14 +15,15 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
 
         // obtener las cotizaciones del usuario
         cotizacionesRepository.getCotizaciones($scope.userData.idUsuario).then(function (result) {
-            
-                        if (result.data.length > 0) {
 
-                            $scope.cotizaciones = result.data;
-                        }
-                        else
-                            alertFactory.info('Ocurrio un error al cargar las cotizaciones del usuario.');
-                    });
+            if (result.data.length > 0) {
+
+                $scope.cotizaciones = result.data;
+                console.log($scope.cotizaciones);
+            }
+            else
+                alertFactory.info('Aun no tiene cotizaciones registradas.');
+        });
 
         cotizacionesRepository.getMarcas().then(function (result) {
 
@@ -54,25 +55,6 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
     };
 
     $scope.init();
-
-    // $scope.getCotizaciones = function () {
-
-    //     var data = [{
-    //         folio: 12345
-    //     },
-    //     {
-    //         folio: 5234
-    //     },
-    //     {
-    //         folio: 234
-    //     }
-    //     ];
-
-    //     $scope.cotizaciones = data;
-    //     //TODO falta implementar el servicio para obtener las cotizaciones
-    // };
-
-    // $scope.getCotizaciones();
 
     $scope.reiniciaBusqueda = function () {
         $scope.busquedaCotizacion = '';
@@ -157,6 +139,7 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
 
     $scope.agregarCotizacionParte = function () {
         $('#modalAgregaDireccion').modal('show');
+
         //modalModifica
         //$scope.cotizaciones.push($scope.agregaCotizacion);
     };
@@ -193,6 +176,31 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
 
     $scope.agregarCotizacion = function () {
 
+        var cotizacionAlta = {
+            idUsuario: $scope.userData.idUsuario,
+            idDireccion: $scope.direccionSeleccionada.idDireccion,
+            refacciones: $scope.partesAgregadas
+        };
+        console.log(cotizacionAlta);
+
+        cotizacionesRepository.addCotizacion(cotizacionAlta).then(function (result) {
+            console.log(result.data);
+
+            if (result.data.length > 0 && result.data[0].control > 0) {
+
+                cotizacionesRepository.getCotizaciones($scope.userData.idUsuario).then(function (result) {
+
+                    if (result.data.length > 0) {
+
+                        $scope.cotizaciones = result.data;
+                        console.log($scope.cotizaciones);
+                    } else
+                        alertFactory.info('Ocurrio un error al cargar las cotizaciones del usuario.');
+                });
+            } else {
+                alertFactory.info('Ocurrio un error al agregar la cotización.');
+            }
+        });
     };
 
     // ------------------------------------------ VER DETALLE DE COTIZACIONES
