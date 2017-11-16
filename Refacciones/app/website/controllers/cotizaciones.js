@@ -139,7 +139,7 @@ cotizaciones.prototype.get_Refacciones = function (req, res, next) {
                 }
                 ];
 
-                self.model.query('[Catalogo].[SEL_MarcaVin_SP]', params, function (error, result) {
+                self.model.query('[Operacion].[DEL_Cotizacion_SP]', params, function (error, result) {
                     self.view.expositor(res, {
                         error: error,
                         result: result
@@ -158,7 +158,7 @@ cotizaciones.prototype.get_Refacciones = function (req, res, next) {
                         }
                         ];
                         
-                        self.model.query('[Catalogo].[SEL_MarcaVin_SP]', params, function (error, result) {
+                        self.model.query('[Operacion].[SEL_CotizacionDetalle_SP]', params, function (error, result) {
                             self.view.expositor(res, {
                                 error: error,
                                 result: result

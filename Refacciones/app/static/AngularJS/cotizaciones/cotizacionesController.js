@@ -176,6 +176,15 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
         return total;
     }
 
+    $scope.getTotalDetalle = function () {
+        var total = 0;
+        for (var i = 0; i < $scope.partesCotizacion.length; i++) {
+            var parte = $scope.partesCotizacion[i];
+            total += (parte.Precio * parte.Cantidad);
+        }
+        return total;
+    }
+
     // ------------------------------------------ AGREGA DIRECCION
 
     $scope.backCotizacionParte = function () {
@@ -226,6 +235,9 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
                     } else
                         alertFactory.info('Ocurrio un error al cargar las cotizaciones del usuario.');
                 });
+
+                alertFactory.info('Correcto. Agregó una nueva cotización.');
+
             } else {
                 alertFactory.info('Ocurrio un error al agregar la cotización.');
             }
@@ -238,7 +250,7 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
 
         $scope.cotizacionDetalle = cotizacion;
 
-        cotizacionesRepository.cancelaCotizacion(cotizacion.idCotizacion).then(function (result) {
+        cotizacionesRepository.getDetalleCotizacion(cotizacion.idCotizacion).then(function (result) {
             
             console.log('cancela la cotizacion');
             console.log(result.data);
@@ -268,9 +280,20 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
             
             console.log('cancela la cotizacion');
             console.log(result.data);
-                                if (result.data.length > 0) {
-            
-                                    $scope.cotizaciones = result.data;
+                                if (result.data.length > 0 && result.data[0].control > 0) {
+
+                                    cotizacionesRepository.getCotizaciones($scope.userData.idUsuario).then(function (result) {
+                                        
+                                                            if (result.data.length > 0) {
+                                        
+                                                                $scope.cotizaciones = result.data;
+                                                                console.log($scope.cotizaciones);
+                                                            } else
+                                                                alertFactory.info('Ocurrio un error al cargar las cotizaciones del usuario.');
+                                                        });
+
+                                    alertFactory.info('Correcto. Cambio el estatus.');
+                                    //$scope.cotizaciones = result.data;
                                     console.log($scope.cotizaciones);
                                 } else
                                     alertFactory.info('Ocurrio un error al cambiar el estado de la cotización.');

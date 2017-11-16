@@ -16,8 +16,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="cancelaCotizacion()">Eliminar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="cancelaCotizacion()">Cancelar cotización</button>
             </div>
         </div>
     </div>
@@ -43,72 +43,78 @@
                             </div>
                             <div class="col-xs-12">
         
-                                <table class="table table-hover table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                No serie
-                                            </th>
-                                            <th>
-                                                Descripción
-                                            </th>
-                                            <th class="text-right">
-                                                Precio
-                                            </th>
-                                            <th class="text-right">
-                                                Cantidad
-                                            </th>
-                                            <th class="text-right">
-                                                SubTotal
-                                            </th>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="list-group-item-custom" ng-repeat="refaccion in partesCotizacion">
-                                            <td>
-                                                {{refaccion.PTS_IDPARTE}}
-                                            </td>
-                                            <td>
-                                                {{refaccion.PTS_DESPARTE}}
-                                            </td>
-                                            <td class="text-right">
-                                                {{refaccion.PTS_PCOLISTA | currency}}
-                                            </td>
-                                            <td class="text-right">
-                                                {{refaccion.cantidad}}
-                                            </td>
-                                            <td class="text-right">
-                                                {{refaccion.PTS_PCOLISTA * refaccion.cantidad | currency}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-right" colspan="4">
-                                                <strong>Subtotal:</strong>
-                                            </td>
-                                            <td class="text-right">
-                                                <strong>{{getTotal() | currency}}</strong>
-        
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-right" colspan="4">
-                                                <strong>IVA:</strong>
-                                            </td>
-                                            <td class="text-right">
-                                                <strong>{{getTotal() * 0.16 | currency}}</strong>
-        
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-right" colspan="4">
-                                                <strong>Total:</strong>
-                                            </td>
-                                            <td class="text-right">
-                                                <strong>{{getTotal() + (getTotal() * 0.16) | currency}}</strong>
-        
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                    <table class="table table-hover table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        Marca
+                                                    </th>
+                                                    <th>
+                                                        No serie
+                                                    </th>
+                                                    <th>
+                                                        Descripción
+                                                    </th>
+                                                    <th class="text-right">
+                                                        Precio
+                                                    </th>
+                                                    <th class="text-right">
+                                                        Cantidad
+                                                    </th>
+                                                    <th class="text-right">
+                                                        SubTotal
+                                                    </th>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="list-group-item-custom" ng-repeat="refaccion in partesCotizacion">
+                                                    <td>
+                                                            {{refaccion.marca}}
+                                                    </td>
+                                                    <td>
+                                                        {{refaccion.PTS_IDPARTE}}
+                                                    </td>
+                                                    <td>
+                                                        {{refaccion.PTS_DESPARTE}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{refaccion.Precio | currency}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{refaccion.Cantidad}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{refaccion.Precio * refaccion.Cantidad | currency}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-right" colspan="5">
+                                                        <strong>Subtotal:</strong>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <strong>{{getTotalDetalle() | currency}}</strong>
+                
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-right" colspan="5">
+                                                        <strong>IVA:</strong>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <strong>{{getTotalDetalle() * 0.16 | currency}}</strong>
+                
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-right" colspan="5">
+                                                        <strong>Total:</strong>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <strong>{{getTotalDetalle() + (getTotalDetalle() * 0.16) | currency}}</strong>
+                
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                             </div>
                         </div>
                     </div>
