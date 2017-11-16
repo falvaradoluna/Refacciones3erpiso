@@ -2,7 +2,7 @@ registrationModule.controller('altaDireccionesController', function ($route, $sc
     //declaracion de variables
     $scope.modalEliminar = {};
     $scope.modalEditar = {};
-    $scope.direcciones = {};
+    $scope.direcciones = [];
     $scope.nuevaDireccion = {};
     $scope.tipoDirecciones = {};
     $scope.colonia = {};
@@ -25,6 +25,7 @@ registrationModule.controller('altaDireccionesController', function ($route, $sc
     };
     //obtiene las colonias asociadas al codigo postal
     $scope.obtenerColonia = function (cp) {
+        if(cp.length==5)
         altaDireccionesRepository.getColonia(cp)
             .then(function (result) {
                 if (result.data.length > 0)
@@ -108,6 +109,7 @@ registrationModule.controller('altaDireccionesController', function ($route, $sc
     //editar Direcciones
     $scope.editarDireccionModal = function (d) {
         $scope.modalEditar = d;
+        $scope.codigoPostal=d.codigoPostal;
         //obtenemos el tipo direccion
 
         //obtenemos la colonia

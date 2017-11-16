@@ -3,29 +3,35 @@
 <div class="container" style="padding-top:15px" ng-init="init()">
     <table class="table table-bordered table-hover">
         <thead>
-            <tr class="info">
-                <th>Codigo Postal</th>
-                <th>calle</th>
+            <tr class="info" >
+                
+                    <th style="color:#38a0f4">Tipo direccion</th>
+                <th style="color:#38a0f4">Codigo Postal</th>
+                <!-- <th>calle</th>
                 <th>Num ext</th>
                 <th>Num int</th>
-                <th>Colonia</th>
-                <th>entre las calles</th>
-                <th>observaciones</th>
+                <th>Colonia</th> -->
+                <th style="color:#38a0f4">Direccion</th>
+                <th style="color:#38a0f4">entre las calles</th>
+                <th style="color:#38a0f4">observaciones</th>
                 <th style="width:85px"></th>
             </tr>
         </thead>
-        <tbody ng-repeat="d in direcciones track by d.idDireccion">
+        <tbody ng-repeat="d in direcciones|orderBy:codigoPostal track by d.idDireccion">
             <tr>
+                <td>{{d.tipoDireccion}}</td>
                 <td>{{d.codigoPostal}}</td>
-                <td>{{d.Calle}}</td>
+                <!-- <td>{{d.Calle}}</td>
                 <td>{{d.NumeroExterior}}</td>
                 <td>{{d.NumeroInterior}}</td>
-                <td>{{d.colonia}}</td>
+                <td>{{d.colonia}}</td> -->
+                <td ng-if="d.NumeroInterior.length>0" >{{d.Calle}} #{{d.NumeroExterior}} interior:{{d.NumeroInterior}} col. {{d.colonia}}</td>
+                <td ng-if="d.NumeroInterior.length==0||d.NumeroInterior==null||d.NumeroInterior==undefined" >{{d.Calle}} #{{d.NumeroExterior}}  col. {{d.colonia}}</td>
                 <td>{{d.Entre}} {{d.Y}}</td>
                 <td>{{d.Nota}}</td>
                 <td>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary btn-icon" data-target="#modalEditDir" ng-click="editarDireccionModal(d)" title="Editar"
+                        <button type="button" class="btn btn-primary btn-icon btn-md" data-target="#modalEditDir" ng-click="editarDireccionModal(d)" title="Editar"
                             data-toggle="modal">
                             <i class="fa fa-pencil"></i>
                         </button>
@@ -35,13 +41,13 @@
                                 <!-- Modal content-->
                                 <div class="modal-content">
                                     <div class="modal-header modal-header-primary">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Editar Direccion</h4>
+                                        <button style="color:red" type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 style="color:#38a0f4" class="modal-title">Editar Direccion</h4>
                                     </div>
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="sel1">**Tipo Direccion:</label>
-                                            <select class="form-control" ng-model="tipoDirSelec" ng-options="t.tipoDireccion for t in tipoDirecciones" id="sel1">
+                                            <select disabled class="form-control" ng-model="tipoDirSelec" ng-options="t.tipoDireccion for t in tipoDirecciones" id="sel1">
                                                 <option value="" disabled>Seleccione el tipo de Direccion</option>
                                             </select>
                                         </div>
@@ -49,7 +55,7 @@
                                         <form class="form-inline">
                                             <div class="form-group">
                                                 <label for="codigoPostal">**Codigo Postal:</label>
-                                                <input class="form-control" id="codigoPostal" ng-keyup="$event.keyCode == 13 ? obtenerColonia(codigoPostal) : null" ng-change="modalEditar.codigoPostal=codigoPostal"
+                                                <input class="form-control" id="codigoPostal" maxlength="5" ng-change="obtenerColonia(codigoPostal)" ng-change="modalEditar.codigoPostal=codigoPostal"
                                                     ng-model="codigoPostal">
                                             </div>
                                             <div class="form-group">
@@ -102,14 +108,14 @@
                                     <br>
                                     <p style="color:red">¡Los campos ** son obligatorios!</p>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-success" ng-click="actualizaDireccion()">Aceptar</button>
+                                        <button type="button" class="btn btn-primary" ng-click="actualizaDireccion()">Aceptar</button>
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                                     </div>
                                 </div>
 
                             </div>
                         </div>
-                        <button type="button" class="btn btn-danger btn-icon" data-toggle="modal" ng-click="eliminarDireccionModal(d)" data-target="#modalElimDir"
+                        <button type="button" class="btn btn-danger btn-icon btn-md" data-toggle="modal" ng-click="eliminarDireccionModal(d)" data-target="#modalElimDir"
                             title="Eliminar">
                             <i class="fa fa-trash-o"></i>
                         </button>
@@ -119,15 +125,15 @@
                                 <!-- Modal content-->
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Eliminar Direccion</h4>
+                                        <button type="button" class="close" data-dismiss="modal" style="color:red">&times;</button>
+                                        <h4 class="modal-title" style="color:#38a0f4">Eliminar Direccion</h4>
                                     </div>
                                     <div class="modal-body">
                                         <p>¿Esta seguro que desea eliminar la direccion?</p>
                                         <p>{{modalEliminar.Calle}} # {{modalEliminar.NumeroExterior}} Col. {{modalEliminar.colonia}}</p>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-success" ng-click="eliminar(modalEliminar.idDireccion)">Confirmar</button>
+                                        <button type="button" class="btn btn-primary" ng-click="eliminar(modalEliminar.idDireccion)">Confirmar</button>
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                                     </div>
                                 </div>
@@ -140,15 +146,15 @@
         </tbody>
     </table>
     <br>
-    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modalFormulario">Agregar Direccion</button>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalFormulario">Agregar Direccion</button>
     <div class="modal fade" id="modalFormulario" role="dialog">
         <div class="modal-dialog modal-lg">
 
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header modal-header-primary">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Alta de Direcciones</h4>
+                    <button type="button" class="close" data-dismiss="modal" style="color:red">&times;</button>
+                    <h4 class="modal-title" style="color:#38a0f4">Alta de Direcciones</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
@@ -161,7 +167,7 @@
                     <form class="form-inline">
                         <div class="form-group">
                             <label for="codigoPostal">**Codigo Postal:</label>
-                            <input class="form-control" id="codigoPostal" ng-keyup="$event.keyCode == 13 ? obtenerColonia(cp) : null" ng-model="cp">
+                            <input class="form-control" id="codigoPostal" maxlength="5" ng-change="obtenerColonia(cp)" ng-model="cp">
                         </div>
                         <div class="form-group">
                             <label for="sel1">**Colonia:</label>
@@ -212,7 +218,7 @@
                 <br>
                 <p style="color:red">¡Los campos ** son obligatorios!</p>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" ng-click="insDireccion()">Confirmar</button>
+                    <button type="button" class="btn btn-primary" ng-click="insDireccion()">Confirmar</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>
