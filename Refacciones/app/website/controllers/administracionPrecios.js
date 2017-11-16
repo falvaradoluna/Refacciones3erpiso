@@ -1,13 +1,13 @@
 var administracionPreciosView = require('../views/reference'),
-administracionPreciosModel = require('../models/dataAccess'),
-moment = require('moment');
+    administracionPreciosModel = require('../models/dataAccess'),
+    moment = require('moment');
 var phantom = require('phantom');
 var path = require('path');
 var webPage = require('webpage');
 var request = require('request');
 
 
-var administracionPrecios = function(conf) {
+var administracionPrecios = function (conf) {
     this.conf = conf || {};
 
     this.view = new administracionPreciosView();
@@ -15,9 +15,36 @@ var administracionPrecios = function(conf) {
         parameters: this.conf.parameters
     });
 
-    this.response = function() {
+    this.response = function () {
         this[this.conf.funcionalidad](this.conf.req, this.conf.res, this.conf.next);
     };
+};
+
+administracionPrecios.prototype.get_marcas = function (req, res, next) {
+
+    var self = this;
+
+    var params = [];
+
+    self.model.query('[Catalogo].[SEL_Marcas_SP]', params, function (error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
+administracionPrecios.prototype.get_Usuarios = function (req, res, next) {
+
+    var self = this;
+
+    var params = [];
+
+    self.model.query('[Seguridad].[SEL_Usuarios_SP]', params, function (error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
 };
 
 /*

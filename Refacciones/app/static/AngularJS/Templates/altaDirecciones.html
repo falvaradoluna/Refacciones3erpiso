@@ -12,9 +12,9 @@
                 <th>Num int</th>
                 <th>Colonia</th> -->
                 <th style="color:#38a0f4">Direccion</th>
-                <th style="color:#38a0f4">entre las calles</th>
-                <th style="color:#38a0f4">observaciones</th>
-                <th style="width:85px"></th>
+                <th style="color:#38a0f4">Entre las calles</th>
+                <th style="color:#38a0f4">Observaciones</th>
+                <th style="width:125px"></th>
             </tr>
         </thead>
         <tbody ng-repeat="d in direcciones|orderBy:codigoPostal track by d.idDireccion">
@@ -31,7 +31,7 @@
                 <td>{{d.Nota}}</td>
                 <td>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary btn-icon btn-md" data-target="#modalEditDir" ng-click="editarDireccionModal(d)" title="Editar"
+                        <button type="button" class="btn btn-primary btn-icon btn-lg" data-target="#modalEditDir" ng-click="editarDireccionModal(d)" title="Editar"
                             data-toggle="modal">
                             <i class="fa fa-pencil"></i>
                         </button>
@@ -115,7 +115,7 @@
 
                             </div>
                         </div>
-                        <button type="button" class="btn btn-danger btn-icon btn-md" data-toggle="modal" ng-click="eliminarDireccionModal(d)" data-target="#modalElimDir"
+                        <button type="button" class="btn btn-danger btn-icon btn-lg" data-toggle="modal" ng-click="eliminarDireccionModal(d)" data-target="#modalElimDir"
                             title="Eliminar">
                             <i class="fa fa-trash-o"></i>
                         </button>
