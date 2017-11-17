@@ -140,7 +140,7 @@
                         <div class="form-group">
                             <label for="vin">Introduce el VIN:</label>
                             <div class="input-group">
-                                <input data-toggle="tooltip" title="Se require por lo menos 17 caracteres." autocomplete="off" ng-model="refaccionBusquedaPorVIN" maxlength="17" placeholder="Buscar VIN" id="vin" type="text" class="form-control">
+                                <input ng-change="buscarRefaccionPorVIN()" data-toggle="tooltip" title="Se require por lo menos 17 caracteres." autocomplete="off" ng-model="refaccionBusquedaPorVIN" maxlength="17" placeholder="Buscar VIN" id="vin" type="text" class="form-control">
                                 <span class="input-group-btn">
                                     <button ng-disabled="refaccionBusquedaPorVIN == null || refaccionBusquedaPorVIN.length < 1" ng-click="clearQueryPorVIN()" class="btn btn-danger btn-small" type="button">
                                         <i class="fa fa-angle-double-left"></i>
@@ -232,7 +232,7 @@
                             <table class="table table-hover table-striped">
                                 <thead>
                                     <tr>
-                                        <th>
+                                        <th style="display:none">
                                             Marca
                                         </th>
                                         <th>
@@ -256,7 +256,7 @@
                                 </thead>
                                 <tbody>
                                     <tr class="list-group-item-custom" ng-repeat="refaccion in partesAgregadas">
-                                            <td>
+                                            <td style="display:none">
                                                     {{refaccion.marca}}
                                                 </td>
                                         <td>
@@ -312,7 +312,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="modificaCotizacionDireccionModalLabel">Agrega la dirección</h4>
+                <h4 class="modal-title" id="modificaCotizacionDireccionModalLabel">Seleccionar una dirección</h4>
             </div>
             <div class="modal-body">
                 <div ng-show="direcciones && direcciones.length > 0">

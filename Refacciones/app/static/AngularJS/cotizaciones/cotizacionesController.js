@@ -85,30 +85,32 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
     };
 
     $scope.buscarRefaccionPorVIN = function () {
-        if ($scope.refaccionBusquedaPorVIN && $scope.refaccionBusquedaPorVIN.length > 16) {
-
-            cotizacionesRepository.getMarcaVIN($scope.refaccionBusquedaPorVIN).then(function (result) {
-                console.log('RESPUESTA DEL VIN');
-                console.log(result.data);
-                if (result.data.length > 0) {
-                    if (result.data[0].idmarca && result.data[0].idmarca > 0) {
-
-                        angular.forEach($scope.marcas, function (marca, key) {
-                            console.log('comparacion');
-                            console.log(marca);
-                            console.log(result.data[0].idmarca);
-                            if (marca.idMarca == result.data[0].idmarca) {
-                                $scope.marcaSeleccionada = marca;
-                            }
-                        });
-                    } else
-                        alertFactory.info('Aun no contamos con refacciones para la marca ' + result.data[0].marca + '.');
-                }
-                else
-                    alertFactory.info('El VIN no es valido.');
-            });
-        } else {
-            alertFactory.info('Debe colocar un VIN valido.');
+        if($scope.refaccionBusquedaPorVIN.length > 16){
+            if ($scope.refaccionBusquedaPorVIN && $scope.refaccionBusquedaPorVIN.length > 16) {
+                
+                            cotizacionesRepository.getMarcaVIN($scope.refaccionBusquedaPorVIN).then(function (result) {
+                                console.log('RESPUESTA DEL VIN');
+                                console.log(result.data);
+                                if (result.data.length > 0) {
+                                    if (result.data[0].idmarca && result.data[0].idmarca > 0) {
+                
+                                        angular.forEach($scope.marcas, function (marca, key) {
+                                            console.log('comparacion');
+                                            console.log(marca);
+                                            console.log(result.data[0].idmarca);
+                                            if (marca.idMarca == result.data[0].idmarca) {
+                                                $scope.marcaSeleccionada = marca;
+                                            }
+                                        });
+                                    } else
+                                        alertFactory.info('Aun no contamos con refacciones para la marca ' + result.data[0].marca + '.');
+                                }
+                                else
+                                    alertFactory.info('El VIN no es valido.');
+                            });
+                        } else {
+                            alertFactory.info('Debe colocar un VIN valido.');
+                        }
         }
     };
 
