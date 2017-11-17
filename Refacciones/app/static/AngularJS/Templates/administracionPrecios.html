@@ -1,23 +1,17 @@
 <h2 style="padding-left:15px">Administracion de Precios</h2>
 
-<div class="container">
+<div class="container container-fluid " ng-init="init()">
     <form class="form-inline">
         <div class="form-group">
-            <label for="user">tipo Usuario:</label>
-            <select class="form-control" id="user">
-                <option>Usuario 1</option>
-                <option>Usuario 2</option>
-                <option>Usuario 3</option>
-                <option>Usuario 4</option>
+            <label for="user">Usuarios:</label>
+            <select class="form-control" id="user" ng-model="UsuarioSel" ng-options="u.combo for u in Usuarios">
+                <option value="" disabled selected>Seleccione un Usuario</option>
             </select>
         </div>
         <div class="form-group" style="padding-left:15px">
             <label for="marca">Marca:</label>
-            <select class="form-control" id="marca">
-                <option>Marca 1</option>
-                <option>Marca 2</option>
-                <option>Marca 3</option>
-                <option>Marca 4</option>
+            <select class="form-control" id="marca" ng-model="marcaSel" ng-options="m.marca for m in marcas">
+                <option value="" disabled selected>Seleccione una marca</option>
             </select>
         </div>
     </form>
@@ -32,31 +26,80 @@
                     <th style="color:#38a0f4">Descuento</th>
                     <th style="color:#38a0f4">Fecha Inicio</th>
                     <th style="color:#38a0f4">Fecha Fin</th>
-                    <th style="width:85px"></th>
+                    <th style="width:125px"></th>
                 </tr>
             </thead>
-            <td>categoria</td>
-            <td>clave</td>
-            <td>descripcion</td>
-            <td>descuento</td>
-            <td>inicio</td>
-            <td>fin</td>
-            <td>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-primary btn-icon btn-md"
-                        title="Editar" data-toggle="modal">
-                        <i class="fa fa-pencil"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger btn-icon btn-md" data-toggle="modal"
-                        title="Eliminar">
-                        <i class="fa fa-trash-o"></i>
-                    </button>
-                </div>
-            </td>
             <tbody>
-
+                <tr>
+                    <td>categoria</td>
+                    <td>clave</td>
+                    <td>descripcion</td>
+                    <td>descuento</td>
+                    <td>inicio</td>
+                    <td>fin</td>
+                    <td>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary btn-icon btn-lg" data-target="#modalEditar" title="Editar" data-toggle="modal">
+                                <i class="fa fa-pencil"></i>
+                            </button>
+                            <div class="modal fade" id="modalEditar" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" style="color:red">&times;</button>
+                                            <h4 class="modal-title" style="color:#38a0f4">Editar</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Some text in the modal.</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-danger btn-icon btn-lg" data-toggle="modal" data-target="#modalEliminar" title="Eliminar">
+                                <i class="fa fa-trash-o"></i>
+                            </button>
+                            <div class="modal fade" id="modalEliminar" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" style="color:red">&times;</button>
+                                            <h4 class="modal-title" style="color:#38a0f4">Eliminar</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Some text in the modal.</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
             </tbody>
 
         </table>
+        <br>
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalFormulario">Agregar</button>
+        <div class="modal fade" id="modalFormulario" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" style="color:red">&times;</button>
+                        <h4 class="modal-title" style="color:#38a0f4">Formulario</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Some text in the modal.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
