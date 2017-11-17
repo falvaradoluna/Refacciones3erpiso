@@ -1,11 +1,11 @@
-<h2 style="padding-left:15px">Direcciones</h2>
+ <h2 style="padding-left:15px">Direcciones</h2>
 <!--Alta-->
 <div class="container table-responsive" style="padding-top:15px" ng-init="init()">
     <table class="table table-bordered table-hover">
         <thead>
-            <tr class="info" >
-                
-                    <th style="color:#38a0f4">Tipo direccion</th>
+            <tr class="info">
+
+                <th style="color:#38a0f4">Tipo direccion</th>
                 <th style="color:#38a0f4">Codigo Postal</th>
                 <!-- <th>calle</th>
                 <th>Num ext</th>
@@ -25,14 +25,14 @@
                 <td>{{d.NumeroExterior}}</td>
                 <td>{{d.NumeroInterior}}</td>
                 <td>{{d.colonia}}</td> -->
-                <td ng-if="d.NumeroInterior.length>0" >{{d.Calle}} #{{d.NumeroExterior}} interior:{{d.NumeroInterior}} col. {{d.colonia}}</td>
-                <td ng-if="d.NumeroInterior.length==0||d.NumeroInterior==null||d.NumeroInterior==undefined" >{{d.Calle}} #{{d.NumeroExterior}}  col. {{d.colonia}}</td>
+                <td ng-if="d.NumeroInterior.length>0">{{d.Calle}} #{{d.NumeroExterior}} interior:{{d.NumeroInterior}} col. {{d.colonia}}</td>
+                <td ng-if="d.NumeroInterior.length==0||d.NumeroInterior==null||d.NumeroInterior==undefined">{{d.Calle}} #{{d.NumeroExterior}} col. {{d.colonia}}</td>
                 <td>{{d.Entre}} {{d.Y}}</td>
                 <td>{{d.Nota}}</td>
                 <td>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary btn-icon btn-lg" data-target="#modalEditDir" ng-click="editarDireccionModal(d)" title="Editar"
-                            data-toggle="modal">
+                        <button type="button" class="btn btn-primary btn-icon btn-lg" data-target="#modalEditDir" ng-click="editarDireccionModal(d)"
+                            title="Editar" data-toggle="modal">
                             <i class="fa fa-pencil"></i>
                         </button>
                         <div class="modal fade" id="modalEditDir" role="dialog">
@@ -45,69 +45,103 @@
                                         <h4 style="color:#38a0f4" class="modal-title">Editar Direccion</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="form-group">
-                                            <label for="sel1">**Tipo Direccion:</label>
-                                            <select disabled class="form-control" ng-model="tipoDirSelec" ng-options="t.tipoDireccion for t in tipoDirecciones" id="sel1">
-                                                <option value="" disabled>Seleccione el tipo de Direccion</option>
-                                            </select>
-                                        </div>
-                                        <br>
-                                        <form class="form-inline">
-                                            <div class="form-group">
-                                                <label for="codigoPostal">**Codigo Postal:</label>
-                                                <input class="form-control" id="codigoPostal" maxlength="5" ng-change="obtenerColonia(codigoPostal)" ng-change="modalEditar.codigoPostal=codigoPostal"
-                                                    ng-model="codigoPostal">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="sel1">**Colonia:{{modalEditar.idColonia}}</label>
-                                                <select ng-model="coloniaSel" ng-change="modalEditar.idColonia=coloniaSel.idColonia;coloniaSel=coloniaSel" ng-options="c.colonia for c in colonia"
-                                                    class="form-control" id="sel1">
-                                                    <option value="" disabled selected>Seleccione la colonia</option>
-                                                </select>
-                                            </div>
-                                        </form>
+                                        <div class="container" style="padding-left:8.3%">
+                                            <div class="row">
+                                                <div class="col-md-8">
 
-                                        <br>
-                                        <p>Estado: {{coloniaSel.EstadoRM}}</p>
-                                        <br>
-                                        <p>Municipio {{coloniaSel.municipio}}</p>
-                                        <br>
-                                        <p>Ciudad: {{coloniaSel.ciudad}}</p>
-                                        <br>
-                                        <form class="form-inline">
-                                            <div class="form-group">
-                                                <label for="Calle">**Calle:</label>
-                                                <input ng-model="modalEditar.Calle" class="form-control" id="Calle">
+                                                    <div class="form-group">
+                                                        <label for="sel1">**Tipo Direccion:</label>
+                                                        <select disabled class="form-control" ng-model="tipoDirSelec" ng-options="t.tipoDireccion for t in tipoDirecciones" id="sel1">
+                                                            <option value="" disabled>Seleccione el tipo de Direccion</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="numExt">**Numero Ext.:</label>
-                                                <input ng-model="modalEditar.NumeroExterior" class="form-control" id="numExt">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="codigoPostal">**Codigo Postal:</label>
+                                                        <input class="form-control" id="codigoPostal" maxlength="5" ng-change="obtenerColonia(codigoPostal)" ng-change="modalEditar.codigoPostal=codigoPostal"
+                                                            ng-model="codigoPostal">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+
+                                                    <div class="form-group">
+                                                        <label for="sel1">**Colonia:{{modalEditar.idColonia}}</label>
+                                                        <select ng-model="coloniaSel" ng-change="modalEditar.idColonia=coloniaSel.idColonia;coloniaSel=coloniaSel" ng-options="c.colonia for c in colonia"
+                                                            class="form-control" id="sel1">
+                                                            <option value="" disabled selected>Seleccione la colonia</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="numInt">Numero Int.:</label>
-                                                <input ng-model="modalEditar.NumeroInterior" class="form-control" id="numInt">
+                                            <div class="row">
+                                                <div class="col-md-8">
+
+                                                    <p>Estado: {{coloniaSel.EstadoRM}} Municipio: {{coloniaSel.municipio}} Ciudad:
+                                                        {{coloniaSel.ciudad}}
+                                                    </p>
+
+                                                </div>
                                             </div>
-                                        </form>
-                                        <br>
-                                        <form class="form-inline">
-                                            <div class="form-group">
-                                                <label for="entreCalle">Entre</label>
-                                                <input ng-model="modalEditar.Entre" class="form-control" id="entreCalle">
+
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="form-group">
+                                                        <label for="Calle">**Calle:</label>
+                                                        <input ng-model="modalEditar.Calle" class="form-control" id="Calle">
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="entreCalle2"> Y </label>
-                                                <input ng-model="modalEditar.Y" class="form-control" id="entreCalle2">
+
+                                            <div class="row">
+                                                <div class="col-md-8">
+
+                                                </div>
                                             </div>
-                                        </form>
-                                        <br>
-                                        <div class="form-group">
-                                            <label for="comment">Observaciones o Anotaciones:</label>
-                                            <textarea ng-model="modalEditar.Nota" class="form-control" rows="5" id="comment"></textarea>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <form>
+                                                        <div class="form-group">
+                                                            <label for="numExt">**Numero Ext.:</label>
+                                                            <input ng-model="modalEditar.NumeroExterior" class="form-control" id="numExt">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="entreCalle">Entre</label>
+                                                            <input ng-model="modalEditar.Entre" class="form-control" id="entreCalle">
+                                                        </div>
+                                                    </form>
+
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <form>
+                                                        <div class="form-group">
+                                                            <label for="numInt">Numero Int.:</label>
+                                                            <input ng-model="modalEditar.NumeroInterior" class="form-control" id="numInt">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="entreCalle2"> Y </label>
+                                                            <input ng-model="modalEditar.Y" class="form-control" id="entreCalle2">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="form-group">
+                                                        <label for="comment">Observaciones o Anotaciones:</label>
+                                                        <textarea ng-model="modalEditar.Nota" class="form-control" rows="5" id="comment"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <br>
-                                    <p style="color:red">¡Los campos ** son obligatorios!</p>
-                                    <div class="modal-footer">
+                                    <p style="color:red;padding-left:8.3%">¡Los campos ** son obligatorios!</p>
+                                    <div class="modal-footer" style="padding-right:8.3%">
                                         <button type="button" class="btn btn-primary" ng-click="actualizaDireccion()">Aceptar</button>
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                                     </div>
@@ -149,7 +183,6 @@
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalFormulario">Agregar Direccion</button>
     <div class="modal fade" id="modalFormulario" role="dialog">
         <div class="modal-dialog modal-lg">
-
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header modal-header-primary">
@@ -157,67 +190,96 @@
                     <h4 class="modal-title" style="color:#38a0f4">Alta de Direcciones</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="sel1">**Tipo Direccion:</label>
-                        <select class="form-control" ng-model="tipoDirSelec" ng-options="t.tipoDireccion for t in tipoDirecciones" id="sel1">
-                            <option value="" disabled selected>Seleccione el tipo de Direccion</option>
-                        </select>
-                    </div>
-                    <br>
-                    <form class="form-inline">
-                        <div class="form-group">
-                            <label for="codigoPostal">**Codigo Postal:</label>
-                            <input class="form-control" id="codigoPostal" maxlength="5" ng-change="obtenerColonia(cp)" ng-model="cp">
+                    <div class="container" style="padding-left:8.3%">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="sel1">**Tipo Direccion:</label>
+                                    <select class="form-control" ng-model="tipoDirSelec" ng-options="t.tipoDireccion for t in tipoDirecciones" id="sel1">
+                                        <option value="" disabled selected>Seleccione el tipo de Direccion</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="sel1">**Colonia:</label>
-                            <select ng-model="coloniaSel" ng-options="c.colonia for c in colonia" class="form-control" id="sel1">
-                                <option value="" disabled selected>Seleccione la colonia</option>
-                            </select>
-                        </div>
-                    </form>
+                        <div class="row">
+                            <form class="form-inline">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="codigoPostal">**Codigo Postal:</label>
+                                        <input class="form-control" id="codigoPostal" maxlength="5" ng-change="obtenerColonia(cp)" ng-model="cp">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="sel1">**Colonia:</label>
+                                        <select ng-model="coloniaSel" ng-options="c.colonia for c in colonia" class="form-control" id="sel1">
+                                            <option value="" disabled selected>Seleccione la colonia</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
 
-                    <br>
-                    <p>Estado: {{coloniaSel.EstadoRM}}</p>
-                    <br>
-                    <p>Municipio {{coloniaSel.municipio}}</p>
-                    <br>
-                    <p>Ciudad: {{coloniaSel.ciudad}}</p>
-                    <br>
-                    <form class="form-inline">
-                        <div class="form-group">
-                            <label for="Calle">**Calle:</label>
-                            <input ng-model="Calle" class="form-control" id="Calle">
+                            <br>
                         </div>
-                        <div class="form-group">
-                            <label for="numExt">**Numero Ext.:</label>
-                            <input ng-model="NumeroExterior" class="form-control" id="numExt">
+                        <br>
+                        <div class="row" style="height:30px">
+                            <div class="col-md-8">
+                                <div>
+                                    <p ng-if="coloniaSel!=null&&coloniaSel!=undefined">Estado: {{coloniaSel.EstadoRM}} Municipio: {{coloniaSel.municipio}} Ciudad: {{coloniaSel.ciudad}}</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="numInt">Numero Int.:</label>
-                            <input ng-model="NumeroInterior" class="form-control" id="numInt">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="Calle">**Calle:</label>
+                                    <input ng-model="Calle" class="form-control" id="Calle">
+                                </div>
+                            </div>
                         </div>
-                    </form>
-                    <br>
-                    <form class="form-inline">
-                        <div class="form-group">
-                            <label for="entreCalle">Entre</label>
-                            <input ng-model="Entre" class="form-control" id="entreCalle">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <form class="form">
+                                    <div class="form-group">
+                                        <label for="numExt">**Numero Ext.:</label>
+                                        <input ng-model="NumeroExterior" class="form-control" id="numExt">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="entreCalle">Entre</label>
+                                        <input ng-model="Entre" class="form-control" id="entreCalle">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-4">
+                                <form class="form">
+
+                                    <div class="form-group">
+                                        <label for="numInt">Numero Int.:</label>
+                                        <input ng-model="NumeroInterior" class="form-control" id="numInt">
+                                    </div>
+                                    <div class="form_group">
+                                        <label for="entreCalle2"> Y </label>
+                                        <input ng-model="yCalle" class="form-control" id="entreCalle2">
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="entreCalle2"> Y </label>
-                            <input ng-model="yCalle" class="form-control" id="entreCalle2">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="comment">Observaciones o Anotaciones:</label>
+                                    <textarea ng-model="Nota" class="form-control" rows="5" id="comment"></textarea>
+                                </div>
+                            </div>
                         </div>
-                    </form>
-                    <br>
-                    <div class="form-group">
-                        <label for="comment">Observaciones o Anotaciones:</label>
-                        <textarea ng-model="Nota" class="form-control" rows="5" id="comment"></textarea>
+
                     </div>
+                    <br>
                 </div>
                 <br>
-                <p style="color:red">¡Los campos ** son obligatorios!</p>
-                <div class="modal-footer">
+
+                <p style="color:red;padding-left:8.3%">¡Los campos ** son obligatorios!</p>
+                <div class="modal-footer" style="padding-right:8.3%">
                     <button type="button" class="btn btn-primary" ng-click="insDireccion()">Confirmar</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 </div>
@@ -225,4 +287,4 @@
 
         </div>
     </div>
-</div>
+</div> -->
