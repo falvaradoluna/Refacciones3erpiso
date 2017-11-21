@@ -39,7 +39,7 @@ Login.prototype.get_usuario = function(req, res, next) {
 
     var self = this;
 
-    var params = [{ name: 'rfc', value: req.query.rfc, type: self.model.types.STRING },
+    var params = [{ name: 'usuario', value: req.query.rfc, type: self.model.types.STRING },
         { name: 'Pwd', value: req.query.Pwd, type: self.model.types.STRING }
     ];
 

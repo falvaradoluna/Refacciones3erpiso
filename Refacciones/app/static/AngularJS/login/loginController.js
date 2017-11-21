@@ -23,6 +23,7 @@
         loginRepository.getIdUsuario(rfc, contrasena).then(function(result) {
             if (result.data.length > 0 ) {
                  $rootScope.userData = result.data[0];
+                 console.log($rootScope.userData);
                  localStorageService.set('userData', $rootScope.userData);
                  $rootScope.mostrarMenu = 1;
                  location.href = '/Cotizaciones';

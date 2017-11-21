@@ -10,6 +10,7 @@ registrationModule.controller('altaDireccionesController', function ($route, $sc
     //init()
     $scope.init = function () {
         $scope.userData = userFactory.getUserData();
+        console.log($scope.userData.idUsuario);
         altaDireccionesRepository.getDirecciones($scope.userData.idUsuario, null).then(function (result) {
             if (result.data.length > 0)
                 $scope.direcciones = result.data;

@@ -38,6 +38,16 @@ registrationModule.factory('administracionUsuariosRepository', function ($http) 
                 }
 
             });
+        },
+        insUsuario: function (params) {
+            return $http({
+                url: administracionUsuariosURL + 'insertUsu/',
+                method: "POST",
+                data: params,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
         }
     };
 });
