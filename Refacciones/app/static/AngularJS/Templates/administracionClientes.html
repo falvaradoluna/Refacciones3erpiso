@@ -1,0 +1,23 @@
+<h2 style="padding-left:15px">Clientes</h2>
+<!--Alta-->
+<div class="container table-responsive" style="padding-top:15px" ng-init="init()">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr class="info">
+
+                <th>Razon Social</th>
+                <th>Nombre Comercial</th>
+                <th style="width:125px"></th>
+            </tr>
+        </thead>
+        <tbody ng-repeat="c in Clientes">
+            <tr>
+                <td>{{c.razonSocial}}</td>
+                <td>{{c.nombreComercial}}</td>
+               
+            </tr>
+        </tbody>
+    </table>
+    <br>
+
+</div>
