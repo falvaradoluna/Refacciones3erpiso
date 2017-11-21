@@ -4,5 +4,6 @@
      altaDirecciones: require('./controllers/altaDirecciones'),
      pedidos: require('./controllers/pedidos'),
      administracionPrecios:require('./controllers/administracionPrecios'),
-     administracionClientes:require('./controllers/administracionClientes')
+     administracionClientes:require('./controllers/administracionClientes'),
+     administracionUsuarios:require('./controllers/administracionUsuarios')
  }

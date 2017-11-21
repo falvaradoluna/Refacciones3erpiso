@@ -1,1 +1,111 @@
-<h2>Usuarios </h2>
+<h2 style="padding-left:15px">Usuarios</h2>
+<div class="container table-responsive" style="padding-top:15px" ng-init="init()">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr class="info">
+                <th style="color:#38a0f4">Usuario</th>
+                <th style="color:#38a0f4">Rol</th>
+                <th style="color:#38a0f4">Nombre completo</th>
+                <th style="color:#38a0f4">Nombre comercial</th>
+                <th style="color:#38a0f4">Correo Electronico</th>
+                <th style="width:125px"></th>
+            </tr>
+        </thead>
+        <tbody ng-repeat=" u in usuarios">
+            <tr>
+                <td>{{u.Usuario}}</td>
+                <td>{{u.Rol}}</td>
+                <td>{{u.nombreCompleto}}</td>
+                <td>{{u.nombreComercial}}</td>
+                <td>{{u.correoElectronico}}</td>
+                <td>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-icon btn-lg" title="Editar">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-icon btn-lg" title="Eliminar">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#agregarModal">Agregar Usuario</button>
+    <div id="agregarModal" class="modal fade" role="dialog">
+        <div class="modal-dialog  modal-lg container">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" style="color:red">&times;</button>
+                    <h4 class="modal-title" style="color:#38a0f4">Alta de Usuario</h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="sel1">**Rol Usuario:</label>
+                                    <select class="form-control" ng-model="tipoRolSel" ng-options="r.Rol for r in roles" id="sel1">
+                                        <option value="" disabled selected>Seleccione el Rol del usuario</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="nombreUsuario">**Nombre usuario:</label>
+                                        <input class="form-control" id="nombreUsuario" ng-model="usuario">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="contrasenia">**Contrasenia:</label>
+                                            <input class="form-control" id="contrasenia" ng-model="contrasenia">
+                                        </div>
+                                    </div>
+                        </div>
+                        <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="nombreCompleto">**Nombre Completo:</label>
+                                        <input class="form-control" id="nombreCompleto" ng-model="nombreCompleto">
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="correoElectronico">**Correo Electronico:</label>
+                                        <input class="form-control" id="correoElectronico" ng-model="correoElectronico">
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="sel2">**Cliente:</label>
+                                        <select class="form-control" ng-model="clienteSel" ng-options="c.nombreComercial for c in clientes" id="sel2">
+                                            <option value="" disabled selected>Seleccione el Cliente</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <br>
+                
+                                <p style="color:red;">¡Los campos ** son obligatorios!</p>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Confirmar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
