@@ -1,4 +1,4 @@
- <h2 style="padding-left:15px">Direcciones</h2>
+<h2 style="padding-left:15px">Direcciones</h2>
 <!--Alta-->
 <div class="container table-responsive" style="padding-top:15px" ng-init="init()">
     <table class="table table-bordered table-hover">
@@ -36,7 +36,7 @@
                             <i class="fa fa-pencil"></i>
                         </button>
                         <div class="modal fade" id="modalEditDir" role="dialog">
-                            <div class="modal-dialog modal-lg">
+                            <div class="modal-dialog modal-lg container">
 
                                 <!-- Modal content-->
                                 <div class="modal-content">
@@ -45,21 +45,21 @@
                                         <h4 style="color:#38a0f4" class="modal-title">Editar Direccion</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="container" style="padding-left:8.3%">
+                                        <div>
                                             <div class="row">
-                                                <div class="col-md-8">
+                                                <div class="col-md-12">
                                                     <p>Tipo Direccion: {{modalEditar.tipoDireccion}}</p>
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-4">
+                                                <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="codigoPostal">**Codigo Postal:</label>
                                                         <input class="form-control" id="codigoPostal" maxlength="5" ng-change="obtenerColonia(codigoPostal)" ng-change="modalEditar.codigoPostal=codigoPostal"
                                                             ng-model="codigoPostal">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-6">
 
                                                     <div class="form-group">
                                                         <label for="sel1">**Colonia:{{modalEditar.idColonia}}</label>
@@ -71,7 +71,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-8">
+                                                <div class="col-md-12">
 
                                                     <p>Estado: {{coloniaSel.EstadoRM}} Municipio: {{coloniaSel.municipio}} Ciudad:
                                                         {{coloniaSel.ciudad}}
@@ -81,7 +81,7 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-md-8">
+                                                <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="Calle">**Calle:</label>
                                                         <input ng-model="modalEditar.Calle" class="form-control" id="Calle">
@@ -90,12 +90,12 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-md-8">
+                                                <div class="col-md-12">
 
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-4">
+                                                <div class="col-md-6">
                                                     <form>
                                                         <div class="form-group">
                                                             <label for="numExt">**Numero Ext.:</label>
@@ -109,7 +109,7 @@
 
                                                 </div>
 
-                                                <div class="col-md-4">
+                                                <div class="col-md-6">
                                                     <form>
                                                         <div class="form-group">
                                                             <label for="numInt">Numero Int.:</label>
@@ -124,7 +124,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-8">
+                                                <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="comment">Observaciones o Anotaciones:</label>
                                                         <textarea ng-model="modalEditar.Nota" class="form-control" rows="5" id="comment"></textarea>
@@ -134,8 +134,8 @@
                                         </div>
                                     </div>
                                     <br>
-                                    <p style="color:red;padding-left:8.3%">¡Los campos ** son obligatorios!</p>
-                                    <div class="modal-footer" style="padding-right:8.3%">
+                                    <p style="color:red;">¡Los campos ** son obligatorios!</p>
+                                    <div class="modal-footer">
                                         <button type="button" class="btn btn-primary" ng-click="actualizaDireccion()">Aceptar</button>
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                                     </div>
@@ -174,9 +174,10 @@
         </tbody>
     </table>
     <br>
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" ng-click="coloniaSel=undefined;cp=undefined;colonia=undefined" data-target="#modalFormulario">Agregar Direccion</button>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" ng-click="coloniaSel=undefined;cp=undefined;colonia=undefined"
+        data-target="#modalFormulario">Agregar Direccion</button>
     <div class="modal fade" id="modalFormulario" role="dialog">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lg container">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header modal-header-primary">
@@ -184,9 +185,9 @@
                     <h4 class="modal-title" style="color:#38a0f4">Alta de Direcciones</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="container" style="padding-left:8.3%">
+                    <div>
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="sel1">**Tipo Direccion:</label>
                                     <select class="form-control" ng-model="tipoDirSelec" ng-options="t.tipoDireccion for t in tipoDirecciones" id="sel1">
@@ -197,13 +198,13 @@
                         </div>
                         <div class="row">
                             <form class="form-inline">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="codigoPostal">**Codigo Postal:</label>
                                         <input class="form-control" id="codigoPostal" maxlength="5" ng-change="obtenerColonia(cp)" ng-model="cp">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="sel1">**Colonia:</label>
                                         <select ng-model="coloniaSel" ng-options="c.colonia for c in colonia" class="form-control" id="sel1">
@@ -217,14 +218,14 @@
                         </div>
                         <br>
                         <div class="row" style="height:30px">
-                            <div class="col-md-8">
+                            <div class="col-md-12">
                                 <div>
                                     <p ng-if="coloniaSel!=null&&coloniaSel!=undefined">Estado: {{coloniaSel.EstadoRM}} Municipio: {{coloniaSel.municipio}} Ciudad: {{coloniaSel.ciudad}}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="Calle">**Calle:</label>
                                     <input ng-model="Calle" class="form-control" id="Calle">
@@ -232,7 +233,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <form class="form">
                                     <div class="form-group">
                                         <label for="numExt">**Numero Ext.:</label>
@@ -244,7 +245,7 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <form class="form">
 
                                     <div class="form-group">
@@ -259,7 +260,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="comment">Observaciones o Anotaciones:</label>
                                     <textarea ng-model="Nota" class="form-control" rows="5" id="comment"></textarea>
@@ -272,8 +273,8 @@
                 </div>
                 <br>
 
-                <p style="color:red;padding-left:8.3%">¡Los campos ** son obligatorios!</p>
-                <div class="modal-footer" style="padding-right:8.3%">
+                <p style="color:red;">¡Los campos ** son obligatorios!</p>
+                <div class="modal-footer">
                     <button type="button" class="btn btn-primary" ng-click="insDireccion()">Confirmar</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 </div>
@@ -281,4 +282,4 @@
 
         </div>
     </div>
-</div> -->
+</div>
