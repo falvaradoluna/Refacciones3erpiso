@@ -3,12 +3,11 @@ var administracionClientesURL = global_settings.urlCORS + 'api/administracionCli
 registrationModule.factory('administracionClientesRepository', function ($http) {
     return{
          //obtiene clientes
-         getClientes: function (idUsuario) {
+         getClientes: function () {
             return $http({
                 url: administracionClientesURL + 'Clientes/',
                 method: "GET",
                 params: {
-                    idUsuario: idUsuario
                 },
                 headers: {
                     'Content-Type': 'application/json'

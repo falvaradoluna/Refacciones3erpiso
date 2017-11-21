@@ -2,7 +2,7 @@ registrationModule.controller('administracionClientesController', function ($rou
 // variables
 $scope.modalEliminar = {};
 $scope.modalEditar = {};
-$scope.Clientes = {};
+$scope.Clientes = [];
 $scope.nuevoCliente = {};
 $scope.userData = {};
 
@@ -11,7 +11,7 @@ $scope.init = function () {
     administracionClientesRepository.getClientes().then(function (result) {
         if (result.data.length > 0){
             $scope.Clientes = result.data;
-           console.log($scope.Clientes);
+          // console.log($scope.Clientes);
         }
         else
             alertFactory.error('NO SE ENCONTRARON CLIENTES');
