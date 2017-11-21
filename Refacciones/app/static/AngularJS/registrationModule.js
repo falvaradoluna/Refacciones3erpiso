@@ -31,6 +31,16 @@ var registrationModule = angular.module("registrationModule", ["ngRoute", "Local
             templateUrl: 'AngularJS/Templates/administracionPrecios.html'
             ,controller: 'administracionPreciosController'
         });
+        
+        $routeProvider.when('/AdministracionClientes', {
+            //templateUrl: 'AngularJS/Templates/nombre.html'
+            //,controller: 'nombreController'
+        });
+        
+        $routeProvider.when('/AdministracionUsuarios', {
+            templateUrl: 'AngularJS/Templates/administracionUsuarios.html'
+            ,controller: 'administracionUsuariosController'
+        });
 
         //Route /default
         $routeProvider.otherwise({ redirectTo: '/' });
