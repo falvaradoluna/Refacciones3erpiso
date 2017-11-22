@@ -9,6 +9,11 @@ registrationModule.controller('altaDireccionesController', function ($route, $sc
     $scope.userData = {};
     //init()
     $scope.init = function () {
+        
+    //redirecciona al login si no hay un usuario logeado
+        var userData = userFactory.getUserData();
+        if(userData==null||userData==undefined)
+            location.href = '/';
         $scope.userData = userFactory.getUserData();
         console.log($scope.userData.idUsuario);
         altaDireccionesRepository.getDirecciones($scope.userData.idUsuario, null).then(function (result) {

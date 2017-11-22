@@ -6,7 +6,13 @@ registrationModule.controller('administracionUsuariosController', function ($rou
     $scope.roles = {};
     $scope.clientes = {};
     $scope.user = {};
+    $scope.userData={};
     $scope.init = function () {
+        
+    //redirecciona al login si no hay un usuario logeado
+        var userData = userFactory.getUserData();
+        if(userData==null||userData==undefined)
+            location.href = '/';
         administracionUsuariosRepository.getUsuarios().then(function (result) {
             if (result.data.length > 0) {
                 $scope.usuarios = result.data;
