@@ -7,6 +7,8 @@
 
                 <th>Razon Social</th>
                 <th>Nombre Comercial</th>
+                <th>Contacto</th>
+                <th>RFC</th>
                 <th style="width:125px"></th>
             </tr>
         </thead>
@@ -14,10 +16,110 @@
             <tr>
                 <td>{{c.razonSocial}}</td>
                 <td>{{c.nombreComercial}}</td>
-               
+                <td>{{c.contacto}}</td>
+                <td>{{c.rfc}}</td>
+                <td>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary btn-icon btn-lg" data-target="#modalEditDir" ng-click="editarDireccionModal(d)"
+                                title="Editar" data-toggle="modal">
+                                <i class="fa fa-pencil"></i>
+                            </button>
+                            <div class="modal fade" id="modalEditDir" role="dialog">
+                                    <div class="modal-dialog modal-lg container">
+        
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header modal-header-primary">
+                                                <button style="color:red" type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 style="color:#38a0f4" class="modal-title">Editar Cliente</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                    <div>
+                                                        <div class="row">
+                                                                <div class="col-md-6">
+                                                                        <form>
+                                                                            <div class="form-group">
+                                                                                <label for="razonSocial">Razon Social</label>
+                                                                                <input ng-model="modalEditar.razonSocial" class="form-control" id="razonSocial">
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="nombreComercial">Nombre Comercial</label>
+                                                                                <input ng-model="modalEditar.nombreComercial" class="form-control" id="nombreComercial">
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                    <label for="contacto">Contacto</label>
+                                                                                    <input ng-model="modalEditar.contacto" class="form-control" id="contacto">
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label for="rfc">RFC</label>
+                                                                                    <input ng-model="modalEditar.rfc" class="form-control" id="rfc">
+                                                                                </div>
+                                                                        </form>
+                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                            <br>
+                                            <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary" ng-click="actualizaDireccion()">Aceptar</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                            </div>
+                                         </div>
+                                     </div>
+                                </div>
+                            <button type="button" class="btn btn-danger btn-icon btn-lg" title="Eliminar">
+                                <i class="fa fa-trash-o"></i>
+                            </button>
+                        </div>
+                    </td>
             </tr>
         </tbody>
     </table>
     <br>
-
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#agregarModal">Agregar Cliente</button>
+    <div id="agregarModal" class="modal fade" role="dialog">
+         <div class="modal-dialog  modal-lg container">
+            <div class="modal-content">
+                    <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" style="color:red">&times;</button>
+                            <h4 class="modal-title">Alta de Cliente</h4>
+                    </div>
+                    <div class="modal-body">
+                            <div>
+                                <div class="row">
+                                    
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="razonSocial">Razon Social</label>
+                                                <input class="form-control" id="razonSocial" ng-model="razonSocial">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="nombreComercial">Nombre Comercial:</label>
+                                                    <input class="form-control" id="nombreComercial" ng-model="nombreComercial">
+                                                </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="contacto">Contacto:</label>
+                                                    <input class="form-control" id="contacto" ng-model="contacto">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="rfc">RFC:</label>
+                                                        <input class="form-control" id="rfc" ng-model="rfc">
+                                                    </div>
+                                            </div>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" ng-click="insertar()">Confirmar</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        </div>    
+            </div>       
+        </div>
+    </div>
 </div>

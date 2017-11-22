@@ -32,5 +32,40 @@ administracionClientes.prototype.get_Clientes = function (req, res, next) {
             });
         });
     };
+
+    administracionClientes.prototype.post_insertCli = function (req, res, next) {
+        var self = this;
+    
+        var params = [
+            {
+                name: 'razonSocial',
+                value: req.body.razonSocial,
+                type: self.model.types.STRING
+            },
+            {
+                name: 'nombreComercial',
+                value: req.body.nombreComercial,
+                type: self.model.types.STRING
+            },
+            {
+                name: 'contacto',
+                value: req.body.contacto,
+                type: self.model.types.STRING
+            },
+            {
+                name: 'rfc',
+                value: req.body.rfc,
+                type: self.model.types.STRING
+            }
+        ];
+    
+        this.model.post('[Catalogo].[INS_Clientes_SP]', params, function (error, result) {
+    
+            self.view.expositor(res, {
+                error: error,
+                result: result
+            });
+        });
+    };
     module.exports = administracionClientes;
 

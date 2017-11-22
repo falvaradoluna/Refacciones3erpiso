@@ -14,6 +14,26 @@ registrationModule.factory('administracionClientesRepository', function ($http) 
                 }
 
             });
+        },
+        insClientes: function (params) {
+            return $http({
+                url: administracionClientesURL + 'insertCli/',
+                method: "POST",
+                data: params,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        },
+        updCliente: function (params) {
+            return $http({
+                url: administracionClientesURL + 'updCli/',
+                method: "POST",
+                data: params,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
         }
     };
 });
