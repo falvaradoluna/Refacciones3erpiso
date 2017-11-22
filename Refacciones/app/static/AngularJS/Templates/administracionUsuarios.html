@@ -23,16 +23,36 @@
                         <button type="button" class="btn btn-primary btn-icon btn-lg" title="Editar">
                             <i class="fa fa-pencil"></i>
                         </button>
-                        <button type="button" class="btn btn-danger btn-icon btn-lg" title="Eliminar">
+                        <button type="button" class="btn btn-danger btn-icon btn-lg" data-toggle="modal" ng-click="modalEliminar(u)" data-target="#eliminarModal" title="Eliminar">
                             <i class="fa fa-trash-o"></i>
                         </button>
+                        <div id="eliminarModal" class="modal fade" role="dialog">
+                            <div class="modal-dialog  modal-lg container">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" style="color:red">&times;</button>
+                                        <h4 class="modal-title" style="color:#38a0f4">Eliminar Usuario</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        {{ModalUsuarioEliminado.nombreCompleto}}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" ng-click="elimina()">Confirmar</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </td>
             </tr>
         </tbody>
     </table>
     <br>
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#agregarModal">Agregar Usuario</button>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" ng-click="clienteSel=undefined;tipoRolSel=undefined;" data-target="#agregarModal">Agregar Usuario</button>
     <div id="agregarModal" class="modal fade" role="dialog">
         <div class="modal-dialog  modal-lg container">
 
@@ -55,51 +75,51 @@
                             </div>
                         </div>
                         <div class="row">
-                            
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="nombreUsuario">**Nombre usuario:</label>
-                                        <input class="form-control" id="nombreUsuario" ng-model="usuario">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="contrasenia">**Contrasenia:</label>
-                                            <input class="form-control" id="contrasenia" ng-model="contrasenia">
-                                        </div>
-                                    </div>
-                        </div>
-                        <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="nombreCompleto">Nombre Completo:</label>
-                                        <input class="form-control" id="nombreCompleto" ng-model="nombreCompleto">
-                                    </div>
-                                </div>
-                        </div>
-                        <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="correoElectronico">Correo Electronico:</label>
-                                        <input class="form-control" id="correoElectronico" ng-model="correoElectronico">
-                                    </div>
-                                </div>
-                        </div>
-                        <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="sel2">**Cliente:</label>
-                                        <select class="form-control" ng-model="clienteSel" ng-options="c.nombreComercial for c in clientes" id="sel2">
-                                            <option value="" disabled selected>Seleccione el Cliente</option>
-                                        </select>
-                                    </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nombreUsuario">**Nombre usuario:</label>
+                                    <input class="form-control" id="nombreUsuario" ng-model="usuario">
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="contrasenia">**Contrasenia:</label>
+                                    <input class="form-control" id="contrasenia" ng-model="contrasenia">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="nombreCompleto">Nombre Completo:</label>
+                                    <input class="form-control" id="nombreCompleto" ng-model="nombreCompleto">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="correoElectronico">Correo Electronico:</label>
+                                    <input class="form-control" id="correoElectronico" ng-model="correoElectronico">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="sel2">**Cliente:</label>
+                                    <select class="form-control" ng-model="clienteSel" ng-options="c.nombreComercial for c in clientes" id="sel2">
+                                        <option value="" disabled selected>Seleccione el Cliente</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <br>
-                
-                                <p style="color:red;">¡Los campos ** son obligatorios!</p>
+
+                <p style="color:red;">¡Los campos ** son obligatorios!</p>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" ng-click="insertar()">Confirmar</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>

@@ -103,4 +103,24 @@ administracionUsuarios.prototype.post_insertUsu = function (req, res, next) {
         });
     });
 };
+
+administracionUsuarios.prototype.post_DeleteUsu = function (req, res, next) {
+    var self = this;
+
+    var params = [
+        {
+            name: 'idUsuario',
+            value: req.body.idUsuario,
+            type: self.model.types.INT
+        }
+    ];
+
+    this.model.post('[Seguridad].[DEL_Usuario_SP]', params, function (error, result) {
+
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
 module.exports = administracionUsuarios;

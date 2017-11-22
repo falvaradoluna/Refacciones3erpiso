@@ -48,6 +48,16 @@ registrationModule.factory('administracionUsuariosRepository', function ($http) 
                     'Content-Type': 'application/json'
                 }
             });
+        },
+        DelUsuario: function (params) {
+            return $http({
+                url: administracionUsuariosURL + 'DeleteUsu/',
+                method: "POST",
+                data: params,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
         }
     };
 });
