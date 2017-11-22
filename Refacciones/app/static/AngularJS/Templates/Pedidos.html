@@ -446,11 +446,11 @@
 
     <div class="row">
         <div class="col-xs-6">
-            <div class="form-group" ng-show="cotizaciones && cotizaciones.length > 0">
+            <div class="form-group" ng-show="pedidos && pedidos.length > 0">
                 <div class="input-group">
-                    <input autocomplete="off" ng-model="busquedaCotizacion" placeholder="Buscar cotización" type="text" class="form-control">
+                    <input autocomplete="off" ng-model="busquedaPedido" placeholder="Buscar pedido" type="text" class="form-control">
                     <span class="input-group-btn">
-                        <button ng-click="reiniciaBusqueda()" ng-disabled="!busquedaCotizacion || busquedaCotizacion.length < 1" class="btn btn-danger btn-small"
+                        <button ng-click="reiniciaBusqueda()" ng-disabled="!busquedaPedido || busquedaPedido.length < 1" class="btn btn-danger btn-small"
                             type="button">
                             <i class="fa fa-angle-double-left"></i>
                         </button>
@@ -458,20 +458,14 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-6 text-right">
-            <button type="button" ng-click="showAgregarCotizacion()" class="btn btn-success" data-toggle="tooltip" title="Agregar una nueva cotización">
-                    Nueva cotización
-                <i class="fa fa-plus"></i>
-            </button>
-        </div>
     </div>
 
-    <div ng-show="cotizaciones && cotizaciones.length > 0" class="table-responsive">
+    <div ng-show="pedidos && pedidos.length > 0" class="table-responsive">
         <table class="table table-hover table-striped">
             <thead>
                 <tr>
                     <th>
-                        Numero de cotización
+                        Numero de pedido
                     </th>
                     <th>
                         Dirección
@@ -479,8 +473,11 @@
                     <th>
                         Fecha
                     </th>
-                    <th>
-                        Estatus
+                    <th class="text-right">
+                        Subtotal
+                    </th>
+                    <th class="text-right">
+                        IVA
                     </th>
                     <th class="text-right">
                         Total
@@ -491,30 +488,33 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="cotizacion in cotizaciones | filter : busquedaCotizacion ">
+                <tr ng-repeat="pedido in pedidos | filter : busquedaPedido ">
                     <td>
-                        {{cotizacion.cotizacionNumber}}
+                        {{pedido.pedidoNumber}}
                     </td>
                     <td>
-                            {{cotizacion.DireccionD }}
-                        <!-- {{cotizacion.cotizacionNumber}} -->
+                            {{pedido.DireccionD }}
+                        <!-- {{pedido.pedidoNumber}} -->
                     </td>
                     <td>
-                            {{cotizacion.cotizacionCreate | date}}
-                    </td>
-                    <td>
-                            {{cotizacion.Estatus}}
+                            {{pedido.pedidoCreacion | date}}
                     </td>
                     <td class="text-right">
-                            {{cotizacion.total | currency}}
+                            {{pedido.subTotal | currency}}
                     </td>
+                    <td class="text-right">
+                        {{pedido.iva | currency}}
+                </td>
+                <td class="text-right">
+                    {{pedido.total | currency}}
+            </td>
                     <td>
-                        <button ng-show="cotizacion.cotizacionEstatus == 1" type="button" data-toggle="tooltip" title="Cancelar la cotización" ng-click="showCancelaCotizacion(cotizacion)" class="btn btn-danger btn-icon">
+                        <button ng-show="pedido.pedidoEstatus == 1" type="button" data-toggle="tooltip" title="Cancelar la cotización" ng-click="showCancelaPedido(pedido)" class="btn btn-danger btn-icon">
                             <i class="fa fa-ban"></i>
                         </button>
                     </td>
                     <td>
-                            <button type="button" data-toggle="tooltip" title="Detalle de la cotización" ng-click="showCotizacion(cotizacion)" class="btn btn-info btn-icon">
+                            <button type="button" data-toggle="tooltip" title="Detalle de la cotización" ng-click="showPedido(pedido)" class="btn btn-info btn-icon">
                                 <i class="fa fa-info-circle"></i>
                             </button>
                         </td>

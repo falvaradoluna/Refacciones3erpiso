@@ -4,12 +4,12 @@ registrationModule.factory('pedidosRepository', function ($http) {
     return {
 
         // Obtener las cotizaciones por usuario
-        getCotizaciones: function (idUser) {
+        getPedidos: function (idUsuario) {
             return $http({
-                url: pedidosURL + 'Cotizaciones/',
+                url: pedidosURL + 'Pedidos/',
                 method: "GET",
                 params: {
-                    idUser: idUser
+                    idUsuario: idUsuario
                 },
                 headers: {
                     'Content-Type': 'application/json'

@@ -20,18 +20,18 @@ var pedidos = function (conf) {
     };
 };
 
-pedidos.prototype.get_Cotizaciones = function (req, res, next) {
+pedidos.prototype.get_Pedidos = function (req, res, next) {
 
     var self = this;
 
     var params = [{
-        name: 'idUser',
-        value: req.query.idUser,
+        name: 'idUsuario',
+        value: req.query.idUsuario,
         type: self.model.types.INT
     }
     ];
 
-    self.model.query('[Operacion].[SEL_Cotizacion_SP]', params, function (error, result) {
+    self.model.query('[BPRO].[SEL_Pedido_SP]', params, function (error, result) {
         self.view.expositor(res, {
             error: error,
             result: result
