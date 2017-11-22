@@ -1,2 +1,528 @@
-<h2>Pedidos</h2>
-<!--Pedidos-->
+<!-- INICIO MODALES-->
+
+<div id="modalElimina" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="eliminaCotizacionModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="eliminaCotizacionModalLabel">Cancela cotizacion</h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger" role="alert">
+                    <label class="text-">¿Esta seguro de cancelar la cotizacion?</label>
+                    <strong>{{nombreCotizacionCancela}}</strong>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="cancelaCotizacion()">Cancelar cotización</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalDetalleCotizacion" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="modificaCotizacionModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="modificaCotizacionDireccionModalLabel">Detalle de la cotizacion: {{cotizacionDetalle.cotizacionNumber}}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h4>Dirección de entrega</h4>
+                                <b>{{cotizacionDetalle.DireccionD}}</b>
+                            </div>
+                            <div class="col-xs-12">
+                                <h4>Lista de refacciones</h4>
+                            </div>
+                            <div class="col-xs-12">
+        
+                                    <table class="table table-hover table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        Marca
+                                                    </th>
+                                                    <th>
+                                                        No serie
+                                                    </th>
+                                                    <th>
+                                                        Descripción
+                                                    </th>
+                                                    <th class="text-right">
+                                                        Precio
+                                                    </th>
+                                                    <th class="text-right">
+                                                        Cantidad
+                                                    </th>
+                                                    <th class="text-right">
+                                                        SubTotal
+                                                    </th>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="list-group-item-custom" ng-repeat="refaccion in partesCotizacion">
+                                                    <td>
+                                                            {{refaccion.marca}}
+                                                    </td>
+                                                    <td>
+                                                        {{refaccion.PTS_IDPARTE}}
+                                                    </td>
+                                                    <td>
+                                                        {{refaccion.PTS_DESPARTE}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{refaccion.Precio | currency}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{refaccion.Cantidad}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{refaccion.Precio * refaccion.Cantidad | currency}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-right" colspan="5">
+                                                        <strong>Subtotal:</strong>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <strong>{{getTotalDetalle() | currency}}</strong>
+                
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-right" colspan="5">
+                                                        <strong>IVA:</strong>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <strong>{{getTotalDetalle() * 0.16 | currency}}</strong>
+                
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-right" colspan="5">
+                                                        <strong>Total:</strong>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <strong>{{getTotalDetalle() + (getTotalDetalle() * 0.16) | currency}}</strong>
+                
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+                    </div>
+                </div>
+    </div>
+</div>
+
+<div id="modalAgregaParte" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="agregaCotizacionModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="agregaCotizacionModalLabel">Agrega nueva cotización</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="vin">Introduce el VIN:</label>
+                            <div class="input-group">
+                                <input ng-change="buscarRefaccionPorVIN()" data-toggle="tooltip" title="Se require por lo menos 17 caracteres." autocomplete="off" ng-model="refaccionBusquedaPorVIN" maxlength="17" placeholder="Buscar VIN" id="vin" type="text" class="form-control">
+                                <span class="input-group-btn">
+                                    <button ng-disabled="refaccionBusquedaPorVIN == null || refaccionBusquedaPorVIN.length < 1" ng-click="clearQueryPorVIN()" class="btn btn-danger btn-small" type="button">
+                                        <i class="fa fa-angle-double-left"></i>
+                                    </button>
+                                    <button ng-disabled="refaccionBusquedaPorVIN == null ||refaccionBusquedaPorVIN.length < 17" ng-click="buscarRefaccionPorVIN()" class="btn btn-primary btn-small" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-push-1 col-sm-5">
+                        <div class="form-group">
+                            <label for="inputRefacciones">Selecciona la marca:</label>
+                            <select class="form-control" ng-options="marca as marca.marca for marca in marcas track by marca.idMarca" ng-model="marcaSeleccionada"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="inputRefacciones">Introduce número de parte o descripción:</label>
+                            <div class="input-group">
+                                <input autocomplete="off" ng-disabled="(marcaSeleccionada == null || marcaSeleccionada.idMarca < 1)" ng-change="buscarRefaccion()"
+                                    ng-model="refaccionBusqueda" placeholder="Buscar numero de parte" id="inputRefacciones" type="text"
+                                    class="form-control">
+                                <span class="input-group-btn">
+                                    <button ng-click="limpiarBusquedaParte()" ng-disabled="(marcaSeleccionada == null || marcaSeleccionada.idMarca < 1)" class="btn btn-danger btn-small"
+                                        type="button">
+                                        <i class="fa fa-angle-double-left"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="margin-top: -15px;" class="col-xs-12">
+                        <div ng-show="busquedaActual.length > 0" class="query-container">
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            No serie
+                                        </th>
+                                        <th>
+                                            Descripción
+                                        </th>
+                                        <th>
+                                            Precio
+                                        </th>
+                                        <th>
+                                            Cantidad
+                                        </th>
+                                        <th>
+                                            Agregar
+                                        </th>
+                                </thead>
+                                <tbody>
+                                    <tr class="list-group-item-custom" ng-repeat="refaccion in busquedaActual">
+                                        <td>
+                                            {{refaccion.PTS_IDPARTE}}
+                                        </td>
+                                        <td>
+                                            {{refaccion.PTS_DESPARTE}}
+                                        </td>
+                                        <td>
+                                            {{refaccion.PTS_PCOLISTA | currency}}
+                                        </td>
+                                        <td>
+                                            <input ng-value="1" ng-model="refaccion.cantidad" autocomplete="off" size="5" class="show-hover text-center form-control"
+                                                type="number" value="1" name="cantidad" min="1" max="9999">
+                                        </td>
+                                        <td>
+                                            <button ng-click="agregarParte(refaccion)" class="btn btn-primary show-hover" type="button" name="button">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="min-height:210px;">
+                    <div ng-show="partesAgregadas.length > 0">
+                        <div class="col-xs-12">
+
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="display:none">
+                                            Marca
+                                        </th>
+                                        <th>
+                                            No serie
+                                        </th>
+                                        <th>
+                                            Descripción
+                                        </th>
+                                        <th class="text-right">
+                                            Precio
+                                        </th>
+                                        <th class="text-right">
+                                            Cantidad
+                                        </th>
+                                        <th class="text-right">
+                                            SubTotal
+                                        </th>
+                                        <th>
+                                            Eliminar
+                                        </th>
+                                </thead>
+                                <tbody>
+                                    <tr class="list-group-item-custom" ng-repeat="refaccion in partesAgregadas">
+                                            <td style="display:none">
+                                                    {{refaccion.marca}}
+                                                </td>
+                                        <td>
+                                            {{refaccion.PTS_IDPARTE}}
+                                        </td>
+                                        <td>
+                                            {{refaccion.PTS_DESPARTE}}
+                                        </td>
+                                        <td class="text-right">
+                                            {{refaccion.PTS_PCOLISTA | currency}}
+                                        </td>
+                                        <td class="text-right">
+                                            <input ng-value="1" ng-model="refaccion.cantidad" autocomplete="off" size="5" class="show-hover text-center form-control"
+                                                type="number" value="1" name="cantidad" min="1" max="9999">
+                                        </td>
+                                        <td class="text-right">
+                                            {{refaccion.PTS_PCOLISTA * refaccion.cantidad | currency}}
+                                        </td>
+                                        <td>
+                                            <button ng-click="eliminarParte($index)" class="btn btn-danger show-hover" type="button" name="button">
+                                                <i class="fa fa-minus"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right" colspan="4">
+                                            <strong>Total:</strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <strong>{{getTotal() | currency}}</strong>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" ng-disabled="partesAgregadas.length < 1" type="button" class="btn btn-success" data-dismiss="modal"
+                    ng-click="agregarCotizacionParte()">Siguiente</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalAgregaDireccion" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="modificaCotizacionDireccionModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modificaCotizacionDireccionModalLabel">Seleccionar una dirección</h4>
+            </div>
+            <div class="modal-body">
+                <div ng-show="direcciones && direcciones.length > 0">
+                    <div ng-repeat="direccion in direcciones" class="radio">
+                        <input id="{{'direccionRadio' + direccion.idDireccion}}" type="radio" class="magic-radio" name="direccion" ng-model="direccionSeleccionada"
+                            ng-click="elegirDireccion(direccion)" ng-value="direccion">
+                        <label for="{{'direccionRadio' + direccion.idDireccion}}">{{direccion.DireccionD}}</label>
+                    </div>
+                </div>
+                <div ng-show="direcciones == null || direcciones.length < 1" class="alert alert-danger" role="alert">
+                    <strong>No tiene registrado direcciones, es necesario dar de alta alguna.</strong>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" type="button" class="btn btn-info" data-dismiss="modal" ng-click="backCotizacionParte()">Regresar</button>
+                <button type="button" ng-disabled="(direcciones == null || direcciones.length < 1)" type="button" class="btn btn-success"
+                    data-dismiss="modal" ng-click="agregarCotizacionConfirma()">Siguiente</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalAgregaConfirma" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="modificaCotizacionDireccionModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modificaCotizacionDireccionModalLabel">Confirmar pedido</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4>Dirección de entrega</h4>
+                        <b>{{direccionSeleccionada.Calle + ' NO. ' + direccionSeleccionada.NumeroExterior + ' NO. int. ' + direccionSeleccionada.NumeroInterior
+                            + ' COL. ' + direccionSeleccionada.colonia + ', ' + direccionSeleccionada.EstadoRM + ' C.P. '
+                            + direccionSeleccionada.codigoPostal }}</b>
+                    </div>
+                    <div class="col-xs-12">
+                        <h4>Lista de refacciones</h4>
+                    </div>
+                    <div class="col-xs-12">
+
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        No serie
+                                    </th>
+                                    <th>
+                                        Descripción
+                                    </th>
+                                    <th class="text-right">
+                                        Precio
+                                    </th>
+                                    <th class="text-right">
+                                        Cantidad
+                                    </th>
+                                    <th class="text-right">
+                                        SubTotal
+                                    </th>
+                            </thead>
+                            <tbody>
+                                <tr class="list-group-item-custom" ng-repeat="refaccion in partesAgregadas">
+                                    <td>
+                                        {{refaccion.PTS_IDPARTE}}
+                                    </td>
+                                    <td>
+                                        {{refaccion.PTS_DESPARTE}}
+                                    </td>
+                                    <td class="text-right">
+                                        {{refaccion.PTS_PCOLISTA | currency}}
+                                    </td>
+                                    <td class="text-right">
+                                        {{refaccion.cantidad}}
+                                    </td>
+                                    <td class="text-right">
+                                        {{refaccion.PTS_PCOLISTA * refaccion.cantidad | currency}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right" colspan="4">
+                                        <strong>Subtotal:</strong>
+                                    </td>
+                                    <td class="text-right">
+                                        <strong>{{getTotal() | currency}}</strong>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right" colspan="4">
+                                        <strong>IVA:</strong>
+                                    </td>
+                                    <td class="text-right">
+                                        <strong>{{getTotal() * 0.16 | currency}}</strong>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right" colspan="4">
+                                        <strong>Total:</strong>
+                                    </td>
+                                    <td class="text-right">
+                                        <strong>{{getTotal() + (getTotal() * 0.16) | currency}}</strong>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" ng-disabled="" type="button" class="btn btn-info" data-dismiss="modal" ng-click="backCotizacionDireccion()">Regresar</button>
+                <button type="button" ng-disabled="" type="button" class="btn btn-success" data-dismiss="modal" ng-click="agregarCotizacion()">Finalizar pedido</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FIN MODALES-->
+
+<!-- INICIO PRINCIPAL-->
+
+<div class="container">
+
+    <h2>Pedidos</h2>
+
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="form-group" ng-show="cotizaciones && cotizaciones.length > 0">
+                <div class="input-group">
+                    <input autocomplete="off" ng-model="busquedaCotizacion" placeholder="Buscar cotización" type="text" class="form-control">
+                    <span class="input-group-btn">
+                        <button ng-click="reiniciaBusqueda()" ng-disabled="!busquedaCotizacion || busquedaCotizacion.length < 1" class="btn btn-danger btn-small"
+                            type="button">
+                            <i class="fa fa-angle-double-left"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 text-right">
+            <button type="button" ng-click="showAgregarCotizacion()" class="btn btn-success" data-toggle="tooltip" title="Agregar una nueva cotización">
+                    Nueva cotización
+                <i class="fa fa-plus"></i>
+            </button>
+        </div>
+    </div>
+
+    <div ng-show="cotizaciones && cotizaciones.length > 0" class="table-responsive">
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Numero de cotización
+                    </th>
+                    <th>
+                        Dirección
+                    </th>
+                    <th>
+                        Fecha
+                    </th>
+                    <th>
+                        Estatus
+                    </th>
+                    <th class="text-right">
+                        Total
+                    </th>
+                    <th colspan="2">
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="cotizacion in cotizaciones | filter : busquedaCotizacion ">
+                    <td>
+                        {{cotizacion.cotizacionNumber}}
+                    </td>
+                    <td>
+                            {{cotizacion.DireccionD }}
+                        <!-- {{cotizacion.cotizacionNumber}} -->
+                    </td>
+                    <td>
+                            {{cotizacion.cotizacionCreate | date}}
+                    </td>
+                    <td>
+                            {{cotizacion.Estatus}}
+                    </td>
+                    <td class="text-right">
+                            {{cotizacion.total | currency}}
+                    </td>
+                    <td>
+                        <button ng-show="cotizacion.cotizacionEstatus == 1" type="button" data-toggle="tooltip" title="Cancelar la cotización" ng-click="showCancelaCotizacion(cotizacion)" class="btn btn-danger btn-icon">
+                            <i class="fa fa-ban"></i>
+                        </button>
+                    </td>
+                    <td>
+                            <button type="button" data-toggle="tooltip" title="Detalle de la cotización" ng-click="showCotizacion(cotizacion)" class="btn btn-info btn-icon">
+                                <i class="fa fa-info-circle"></i>
+                            </button>
+                        </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- FIN PRINCIPAL-->

@@ -131,7 +131,7 @@
                                     <!--Category name-->
                                     <li class="list-header">Navegación</li>
                                     <!--Menu list item-->
-                                    <li>
+                                    <li ng-show="userData.idRol == 1 || userData.idRol == 2 || userData.idRol == 3 || userData.idRol == 4 || userData.idRol == 5 || userData.idRol == 6 || userData.idRol == 8">
                                         <a href="/Cotizaciones">
                                             <i class="ti-wallet"></i>
                                             <span class="menu-title">
@@ -139,7 +139,7 @@
                                             </span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li ng-show="userData.idRol == 1 || userData.idRol == 8">
                                         <a href="/AdministracionPrecios">
                                             <i class="ti-bar-chart-alt"></i>
                                             <span class="menu-title">
@@ -147,7 +147,7 @@
                                             </span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li ng-show="userData.idRol == 1 || userData.idRol == 8 || userData.idRol == 9">
                                         <a href="/Pedidos">
                                             <i class="ti-truck"></i>
                                             <span class="menu-title">
@@ -155,7 +155,7 @@
                                             </span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li ng-show="userData.idRol == 1 || userData.idRol == 8">
                                         <a href="/Histórico">
                                             <i class="ti-stats-up"></i>
                                             <span class="menu-title">
@@ -163,7 +163,7 @@
                                             </span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li ng-show="userData.idRol == 1 || userData.idRol == 8">
                                         <a href="/Altadirecciones">
                                             <i class="ti-home"></i>
                                             <span class="menu-title">
@@ -171,7 +171,7 @@
                                             </span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li ng-show="userData.idRol == 1 || userData.idRol == 8">
                                         <a href="#">
                                             <i class="ti-archive"></i>
                                             <span class="menu-title">

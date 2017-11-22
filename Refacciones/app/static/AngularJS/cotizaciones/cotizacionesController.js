@@ -180,9 +180,11 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
 
     $scope.getTotalDetalle = function () {
         var total = 0;
-        for (var i = 0; i < $scope.partesCotizacion.length; i++) {
-            var parte = $scope.partesCotizacion[i];
-            total += (parte.Precio * parte.Cantidad);
+        if($scope.partesCotizacion){
+            for (var i = 0; i < $scope.partesCotizacion.length; i++) {
+                var parte = $scope.partesCotizacion[i];
+                total += (parte.Precio * parte.Cantidad);
+            }
         }
         return total;
     }
