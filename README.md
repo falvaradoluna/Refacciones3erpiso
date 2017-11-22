@@ -1,8 +1,23 @@
 # Refacciones3erpiso
 
-Pedido de Refacciones
+Portal web para pedido de refacciones multi marca
 
 
-Angular 1.0
+## Technologia
 
-SQL Server
+*Angular 1.0
+
+*SQL Server 2008 R2
+
+
+## Execution
+
+install
+-------------------------------------------
+npm install
+-------------------------------------------
+
+
+
+## Validators
+@
