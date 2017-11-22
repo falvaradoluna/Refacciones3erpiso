@@ -62,8 +62,7 @@ administracionUsuarios.prototype.get_Clientes = function (req, res, next) {
 administracionUsuarios.prototype.post_insertUsu = function (req, res, next) {
     var self = this;
 
-    var params = [
-        {
+    var params = [{
             name: 'usuario',
             value: req.body.usuario,
             type: self.model.types.STRING
@@ -107,15 +106,61 @@ administracionUsuarios.prototype.post_insertUsu = function (req, res, next) {
 administracionUsuarios.prototype.post_DeleteUsu = function (req, res, next) {
     var self = this;
 
-    var params = [
-        {
+    var params = [{
+        name: 'idUsuario',
+        value: req.body.idUsuario,
+        type: self.model.types.INT
+    }];
+
+    this.model.post('[Seguridad].[DEL_Usuario_SP]', params, function (error, result) {
+
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
+administracionUsuarios.prototype.post_updUsu = function (req, res, next) {
+    var self = this;
+
+    var params = [{
             name: 'idUsuario',
             value: req.body.idUsuario,
+            type: self.model.types.INT
+        },
+        {
+            name: 'usuario',
+            value: req.body.Usuario,
+            type: self.model.types.STRING
+        },
+        {
+            name: 'contrasenia',
+            value: req.body.contrasenia,
+            type: self.model.types.STRING
+        },
+        {
+            name: 'idRol',
+            value: req.body.idRol,
+            type: self.model.types.INT
+        }, 
+        {
+            name: 'correoElectronico',
+            value: req.body.correoElectronico,
+            type: self.model.types.STRING
+        },
+        {
+            name: 'nombreCompleto',
+            value: req.body.nombreCompleto,
+            type: self.model.types.STRING
+        },
+        {
+            name: 'idCliente',
+            value: req.body.IdCliente,
             type: self.model.types.INT
         }
     ];
 
-    this.model.post('[Seguridad].[DEL_Usuario_SP]', params, function (error, result) {
+    this.model.post('[Seguridad].[UPD_Usuario_SP]', params, function (error, result) {
 
         self.view.expositor(res, {
             error: error,

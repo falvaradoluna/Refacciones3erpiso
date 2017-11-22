@@ -2,6 +2,7 @@ registrationModule.controller('administracionUsuariosController', function ($rou
 
     $scope.usuarios = {};
     $scope.ModalUsuarioEliminado = {};
+    $scope.ModalUsuarioActualizar = {};
     $scope.roles = {};
     $scope.clientes = {};
     $scope.user = {};
@@ -85,5 +86,35 @@ registrationModule.controller('administracionUsuariosController', function ($rou
             }
         });
     };
+    $scope.modalUpdateUsuario = function (u) {
+        $scope.ModalUsuarioActualizar = u;
+        $scope.tipoRolSel = $scope.roles.find(a => a.idRol == $scope.ModalUsuarioActualizar.idRol);
+        $scope.clienteSel = $scope.clientes.find(a => a.id == $scope.ModalUsuarioActualizar.IdCliente);
+    };
+    $scope.UpdateUsuario = function () {
+        var actualiza = true;
+        actualiza = $scope.ModalUsuarioActualizar.Usuario == null || $scope.ModalUsuarioActualizar.Usuario == undefined ? false : actualiza;
+        //actualiza = $scope.ModalUsuarioActualizar.contrasenia == null || $scope.ModalUsuarioActualizar.contrasenia == undefined ? false : actualiza;
 
+        if (actualiza == true) {
+            administracionUsuariosRepository.updUsuario($scope.ModalUsuarioActualizar).then(function (result) {
+                if (result.data.length > 0 && (result.data[0].control == 1)) {
+                    alertFactory.success('El usuario se a actualizado Correctamente');
+                    administracionUsuariosRepository.getUsuarios().then(function (result) {
+                        if (result.data.length > 0) {
+                            $scope.usuarios = result.data;
+                        } else {
+                            alertFactory.error('No hay usuarios registrados');
+                        }
+                    });
+                } else
+                    alertFactory.error('ocurrio un error durante la actualizacion de los datos');
+            });
+            $('#actualizarModal').modal('hide');
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+        } else {
+            alertFactory.error('verifique los campos obligatorios (**) porfavor');
+        }
+    };
 });

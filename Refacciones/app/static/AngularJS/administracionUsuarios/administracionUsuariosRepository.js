@@ -58,6 +58,16 @@ registrationModule.factory('administracionUsuariosRepository', function ($http) 
                     'Content-Type': 'application/json'
                 }
             });
+        },
+        updUsuario: function (params) {
+            return $http({
+                url: administracionUsuariosURL + 'updUsu/',
+                method: "POST",
+                data: params,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
         }
     };
 });
