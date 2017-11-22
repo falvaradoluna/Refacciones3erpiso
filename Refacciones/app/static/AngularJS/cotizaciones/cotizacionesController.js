@@ -10,7 +10,11 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
     // ----------------------------------------- INICIALIZACION DE CATALOGOS
 
     $scope.init = function () {
-
+        
+    //redirecciona al login si no hay un usuario logeado
+        var userData = userFactory.getUserData();
+        if (userData == null || userData == undefined)
+            location.href = '/';
         $scope.userData = userFactory.getUserData();
 
         // obtener las cotizaciones del usuario
@@ -20,8 +24,7 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
 
                 $scope.cotizaciones = result.data;
                 console.log($scope.cotizaciones);
-            }
-            else
+            } else
                 alertFactory.info('Aun no tiene cotizaciones registradas.');
         });
 
@@ -32,11 +35,13 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
                 $scope.marcas = result.data;
 
                 // inicializacion
-                var marca = { idMarca: 0, marca: 'Seleccione una marca.' }
+                var marca = {
+                    idMarca: 0,
+                    marca: 'Seleccione una marca.'
+                }
                 $scope.marcas.unshift(marca);
                 $scope.marcaSeleccionada = $scope.marcas[0];
-            }
-            else
+            } else
                 alertFactory.info('No se pudieron cargar las marcas');
         });
 
@@ -48,8 +53,7 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
 
                 // inicializacion
                 $scope.direccionSeleccionada = $scope.direcciones[0];
-            }
-            else
+            } else
                 alertFactory.info('El usuario no cuenta con direcciones de embarque registradas');
         });
     };
@@ -85,32 +89,31 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
     };
 
     $scope.buscarRefaccionPorVIN = function () {
-        if($scope.refaccionBusquedaPorVIN.length > 16){
+        if ($scope.refaccionBusquedaPorVIN.length > 16) {
             if ($scope.refaccionBusquedaPorVIN && $scope.refaccionBusquedaPorVIN.length > 16) {
-                
-                            cotizacionesRepository.getMarcaVIN($scope.refaccionBusquedaPorVIN).then(function (result) {
-                                console.log('RESPUESTA DEL VIN');
-                                console.log(result.data);
-                                if (result.data.length > 0) {
-                                    if (result.data[0].idmarca && result.data[0].idmarca > 0) {
-                
-                                        angular.forEach($scope.marcas, function (marca, key) {
-                                            console.log('comparacion');
-                                            console.log(marca);
-                                            console.log(result.data[0].idmarca);
-                                            if (marca.idMarca == result.data[0].idmarca) {
-                                                $scope.marcaSeleccionada = marca;
-                                            }
-                                        });
-                                    } else
-                                        alertFactory.info('Aun no contamos con refacciones para la marca ' + result.data[0].marca + '.');
+
+                cotizacionesRepository.getMarcaVIN($scope.refaccionBusquedaPorVIN).then(function (result) {
+                    console.log('RESPUESTA DEL VIN');
+                    console.log(result.data);
+                    if (result.data.length > 0) {
+                        if (result.data[0].idmarca && result.data[0].idmarca > 0) {
+
+                            angular.forEach($scope.marcas, function (marca, key) {
+                                console.log('comparacion');
+                                console.log(marca);
+                                console.log(result.data[0].idmarca);
+                                if (marca.idMarca == result.data[0].idmarca) {
+                                    $scope.marcaSeleccionada = marca;
                                 }
-                                else
-                                    alertFactory.info('El VIN no es valido.');
                             });
-                        } else {
-                            alertFactory.info('Debe colocar un VIN valido.');
-                        }
+                        } else
+                            alertFactory.info('Aun no contamos con refacciones para la marca ' + result.data[0].marca + '.');
+                    } else
+                        alertFactory.info('El VIN no es valido.');
+                });
+            } else {
+                alertFactory.info('Debe colocar un VIN valido.');
+            }
         }
     };
 
@@ -125,13 +128,12 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
 
                 if (result.data.length > 0) {
                     $scope.busquedaActual = result.data;
-                }
-                else{
+                } else {
                     $scope.busquedaActual = [];
                 }
-                    //alertFactory.info('No se pudieron cargar las refacciones con esa descripción.');
+                //alertFactory.info('No se pudieron cargar las refacciones con esa descripción.');
             });
-        }else{
+        } else {
             $scope.busquedaActual = [];
         };
     };
@@ -180,7 +182,7 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
 
     $scope.getTotalDetalle = function () {
         var total = 0;
-        if($scope.partesCotizacion){
+        if ($scope.partesCotizacion) {
             for (var i = 0; i < $scope.partesCotizacion.length; i++) {
                 var parte = $scope.partesCotizacion[i];
                 total += (parte.Precio * parte.Cantidad);
@@ -213,8 +215,10 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
     $scope.agregarCotizacion = function () {
 
         var partes = [];
-        angular.forEach($scope.partesAgregadas, function(value,key){
-            partes.push({refaccion: value});
+        angular.forEach($scope.partesAgregadas, function (value, key) {
+            partes.push({
+                refaccion: value
+            });
         })
         var cotizacionAlta = {
             idUsuario: $scope.userData.idUsuario,
@@ -255,16 +259,16 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
         $scope.cotizacionDetalle = cotizacion;
 
         cotizacionesRepository.getDetalleCotizacion(cotizacion.idCotizacion).then(function (result) {
-            
+
             console.log('cancela la cotizacion');
             console.log(result.data);
-                                if (result.data.length > 0) {
-            
-                                    $scope.partesCotizacion = result.data;
-                                    console.log($scope.cotizaciones);
-                                } else
-                                    alertFactory.info('Ocurrio un error al cambiar el estado de la cotización.');
-                            });
+            if (result.data.length > 0) {
+
+                $scope.partesCotizacion = result.data;
+                console.log($scope.cotizaciones);
+            } else
+                alertFactory.info('Ocurrio un error al cambiar el estado de la cotización.');
+        });
 
         $('#modalDetalleCotizacion').modal('show');
     };
@@ -281,27 +285,27 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
     $scope.cancelaCotizacion = function () {
 
         cotizacionesRepository.cancelaCotizacion($scope.idCotizacionCancela).then(function (result) {
-            
+
             console.log('cancela la cotizacion');
             console.log(result.data);
-                                if (result.data.length > 0 && result.data[0].control > 0) {
+            if (result.data.length > 0 && result.data[0].control > 0) {
 
-                                    cotizacionesRepository.getCotizaciones($scope.userData.idUsuario).then(function (result) {
-                                        
-                                                            if (result.data.length > 0) {
-                                        
-                                                                $scope.cotizaciones = result.data;
-                                                                console.log($scope.cotizaciones);
-                                                            } else
-                                                                alertFactory.info('Ocurrio un error al cargar las cotizaciones del usuario.');
-                                                        });
+                cotizacionesRepository.getCotizaciones($scope.userData.idUsuario).then(function (result) {
 
-                                    alertFactory.info('Correcto. Cambio el estatus.');
-                                    //$scope.cotizaciones = result.data;
-                                    console.log($scope.cotizaciones);
-                                } else
-                                    alertFactory.info('Ocurrio un error al cambiar el estado de la cotización.');
-                            });
+                    if (result.data.length > 0) {
+
+                        $scope.cotizaciones = result.data;
+                        console.log($scope.cotizaciones);
+                    } else
+                        alertFactory.info('Ocurrio un error al cargar las cotizaciones del usuario.');
+                });
+
+                alertFactory.info('Correcto. Cambio el estatus.');
+                //$scope.cotizaciones = result.data;
+                console.log($scope.cotizaciones);
+            } else
+                alertFactory.info('Ocurrio un error al cambiar el estado de la cotización.');
+        });
 
         //$scope.cotizaciones.splice($scope.idxCotizacion, 1);
         //TODO: Falta implementar la eliminacion

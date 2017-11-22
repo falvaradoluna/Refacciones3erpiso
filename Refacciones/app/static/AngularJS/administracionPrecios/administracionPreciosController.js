@@ -3,6 +3,10 @@ registrationModule.controller('administracionPreciosController', function ($rout
     $scope.Usuarios = {};
     //Inicia 
     $scope.init = function () {
+    //redirecciona al login si no hay un usuario logeado
+        var userData = userFactory.getUserData();
+        if(userData==null||userData==undefined)
+            location.href = '/';
         administracionPreciosRepository.getMarcas().then(function (result) {
             if (result.data.length > 0)
                 $scope.marcas = result.data;
