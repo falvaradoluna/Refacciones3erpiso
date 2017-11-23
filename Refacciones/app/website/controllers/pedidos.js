@@ -5,6 +5,7 @@ var phantom = require('phantom');
 var path = require('path');
 var webPage = require('webpage');
 var request = require('request');
+var jsonxml = require('jsontoxml');
 
 
 var pedidos = function (conf) {
@@ -38,6 +39,25 @@ pedidos.prototype.get_Pedidos = function (req, res, next) {
         });
     });
 };
+
+pedidos.prototype.get_DetallePedido = function (req, res, next) {
+    
+        var self = this;
+    
+        var params = [{
+            name: 'idPedido',
+            value: req.query.idPedido,
+            type: self.model.types.INT
+        }
+        ];
+    
+        self.model.query('[BPRO].[SEL_PedidoDetalle_SP]', params, function (error, result) {
+            self.view.expositor(res, {
+                error: error,
+                result: result
+            });
+        });
+    };
 
 pedidos.prototype.get_Marcas = function (req, res, next) {
 
@@ -110,8 +130,8 @@ pedidos.prototype.post_AltaCotizacion = function (req, res, next) {
         type: self.model.types.INT
     },
     {
-        name: 'refacciones',
-        value: jsonxml({ refacciones: req.body.refacciones }),
+        name: 'paquetes',
+        value: jsonxml({ paquetes: req.body.paquetes }),
         type: self.model.types.STRING
     }
     ];

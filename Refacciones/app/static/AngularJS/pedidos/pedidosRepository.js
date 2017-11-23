@@ -18,6 +18,33 @@ registrationModule.factory('pedidosRepository', function ($http) {
             });
         },
 
+        // Obtener el detalle del pedido
+        getDetallePedido: function (idPedido) {
+            return $http({
+                url: pedidosURL + 'DetallePedido/',
+                method: "GET",
+                params: {
+                    idPedido: idPedido
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            });
+        },
+
+        // Alta de una nueva cotizacion con las refacciones dentro del xml
+        addPartes: function (params) {
+            return $http({
+                url: pedidosURL + 'AltaCotizacion/',
+                method: "POST",
+                data: params,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        },
+
         // Obtener marcas para llenar el combo
         getMarcas: function (idUsuario) {
             return $http({

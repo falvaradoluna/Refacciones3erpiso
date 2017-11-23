@@ -25,103 +25,103 @@
 
 <div id="modalDetalleCotizacion" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="modificaCotizacionModalLabel">
     <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h4 class="modal-title" id="modificaCotizacionDireccionModalLabel">Detalle de la cotizacion: {{cotizacionDetalle.cotizacionNumber}}</h4>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modificaCotizacionDireccionModalLabel">Detalle de la cotizacion: {{cotizacionDetalle.cotizacionNumber}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4>Dirección de entrega</h4>
+                        <b>{{cotizacionDetalle.DireccionD}}</b>
                     </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <h4>Dirección de entrega</h4>
-                                <b>{{cotizacionDetalle.DireccionD}}</b>
-                            </div>
-                            <div class="col-xs-12">
-                                <h4>Lista de refacciones</h4>
-                            </div>
-                            <div class="col-xs-12">
-        
-                                    <table class="table table-hover table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>
-                                                        Marca
-                                                    </th>
-                                                    <th>
-                                                        No serie
-                                                    </th>
-                                                    <th>
-                                                        Descripción
-                                                    </th>
-                                                    <th class="text-right">
-                                                        Precio
-                                                    </th>
-                                                    <th class="text-right">
-                                                        Cantidad
-                                                    </th>
-                                                    <th class="text-right">
-                                                        SubTotal
-                                                    </th>
-                                            </thead>
-                                            <tbody>
-                                                <tr class="list-group-item-custom" ng-repeat="refaccion in partesCotizacion">
-                                                    <td>
-                                                            {{refaccion.marca}}
-                                                    </td>
-                                                    <td>
-                                                        {{refaccion.PTS_IDPARTE}}
-                                                    </td>
-                                                    <td>
-                                                        {{refaccion.PTS_DESPARTE}}
-                                                    </td>
-                                                    <td class="text-right">
-                                                        {{refaccion.Precio | currency}}
-                                                    </td>
-                                                    <td class="text-right">
-                                                        {{refaccion.Cantidad}}
-                                                    </td>
-                                                    <td class="text-right">
-                                                        {{refaccion.Precio * refaccion.Cantidad | currency}}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-right" colspan="5">
-                                                        <strong>Subtotal:</strong>
-                                                    </td>
-                                                    <td class="text-right">
-                                                        <strong>{{getTotalDetalle() | currency}}</strong>
-                
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-right" colspan="5">
-                                                        <strong>IVA:</strong>
-                                                    </td>
-                                                    <td class="text-right">
-                                                        <strong>{{getTotalDetalle() * 0.16 | currency}}</strong>
-                
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-right" colspan="5">
-                                                        <strong>Total:</strong>
-                                                    </td>
-                                                    <td class="text-right">
-                                                        <strong>{{getTotalDetalle() + (getTotalDetalle() * 0.16) | currency}}</strong>
-                
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                            </div>
-                        </div>
+                    <div class="col-xs-12">
+                        <h4>Lista de refacciones</h4>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+                    <div class="col-xs-12">
+
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Marca
+                                    </th>
+                                    <th>
+                                        No serie
+                                    </th>
+                                    <th>
+                                        Descripción
+                                    </th>
+                                    <th class="text-right">
+                                        Precio
+                                    </th>
+                                    <th class="text-right">
+                                        Cantidad
+                                    </th>
+                                    <th class="text-right">
+                                        SubTotal
+                                    </th>
+                            </thead>
+                            <tbody>
+                                <tr class="list-group-item-custom" ng-repeat="refaccion in partesCotizacion">
+                                    <td>
+                                        {{refaccion.marca}}
+                                    </td>
+                                    <td>
+                                        {{refaccion.PTS_IDPARTE}}
+                                    </td>
+                                    <td>
+                                        {{refaccion.PTS_DESPARTE}}
+                                    </td>
+                                    <td class="text-right">
+                                        {{refaccion.Precio | currency}}
+                                    </td>
+                                    <td class="text-right">
+                                        {{refaccion.Cantidad}}
+                                    </td>
+                                    <td class="text-right">
+                                        {{refaccion.Precio * refaccion.Cantidad | currency}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right" colspan="5">
+                                        <strong>Subtotal:</strong>
+                                    </td>
+                                    <td class="text-right">
+                                        <strong>{{getTotalDetalle() | currency}}</strong>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right" colspan="5">
+                                        <strong>IVA:</strong>
+                                    </td>
+                                    <td class="text-right">
+                                        <strong>{{getTotalDetalle() * 0.16 | currency}}</strong>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right" colspan="5">
+                                        <strong>Total:</strong>
+                                    </td>
+                                    <td class="text-right">
+                                        <strong>{{getTotalDetalle() + (getTotalDetalle() * 0.16) | currency}}</strong>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -140,12 +140,16 @@
                         <div class="form-group">
                             <label for="vin">Introduce el VIN:</label>
                             <div class="input-group">
-                                <input ng-change="buscarRefaccionPorVIN()" data-toggle="tooltip" title="Se require por lo menos 17 caracteres." autocomplete="off" ng-model="refaccionBusquedaPorVIN" maxlength="17" placeholder="Buscar VIN" id="vin" type="text" class="form-control">
+                                <input ng-change="buscarRefaccionPorVIN()" data-toggle="tooltip" title="Se require por lo menos 17 caracteres." autocomplete="off"
+                                    ng-model="refaccionBusquedaPorVIN" maxlength="17" placeholder="Buscar VIN" id="vin" type="text"
+                                    class="form-control">
                                 <span class="input-group-btn">
-                                    <button ng-disabled="refaccionBusquedaPorVIN == null || refaccionBusquedaPorVIN.length < 1" ng-click="clearQueryPorVIN()" class="btn btn-danger btn-small" type="button">
+                                    <button ng-disabled="refaccionBusquedaPorVIN == null || refaccionBusquedaPorVIN.length < 1" ng-click="clearQueryPorVIN()"
+                                        class="btn btn-danger btn-small" type="button">
                                         <i class="fa fa-angle-double-left"></i>
                                     </button>
-                                    <button ng-disabled="refaccionBusquedaPorVIN == null ||refaccionBusquedaPorVIN.length < 17" ng-click="buscarRefaccionPorVIN()" class="btn btn-primary btn-small" type="button">
+                                    <button ng-disabled="refaccionBusquedaPorVIN == null ||refaccionBusquedaPorVIN.length < 17" ng-click="buscarRefaccionPorVIN()"
+                                        class="btn btn-primary btn-small" type="button">
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </span>
@@ -256,9 +260,9 @@
                                 </thead>
                                 <tbody>
                                     <tr class="list-group-item-custom" ng-repeat="refaccion in partesAgregadas">
-                                            <td style="display:none">
-                                                    {{refaccion.marca}}
-                                                </td>
+                                        <td style="display:none">
+                                            {{refaccion.marca}}
+                                        </td>
                                         <td>
                                             {{refaccion.PTS_IDPARTE}}
                                         </td>
@@ -436,6 +440,185 @@
     </div>
 </div>
 
+
+<div id="modalProcesaPedido" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="procesaModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="procesaModalLabel">Procesa pedido</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <label>Pedido:</label>
+                        <span>{{pedidoProcesa.pedidoNumber}}</span>
+                    </div>
+                </div>
+                <div class="row" style="max-height:210px;">
+                    <div ng-show="partes && partes.length > 0">
+                        <div class="col-xs-12">
+
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            No serie
+                                        </th>
+                                        <th>
+                                            Descripción
+                                        </th>
+                                        <th class="text-right">
+                                            Cantidad
+                                        </th>
+                                </thead>
+                                <tbody>
+                                    <tr class="list-group-item-custom" ng-repeat="parte in partes">
+                                        <td>
+                                            {{parte.PTS_IDPARTE}}
+                                        </td>
+                                        <td>
+                                            {{parte.PTS_DESPARTE}}
+                                        </td>
+                                        <td class="text-right">
+                                            {{parte.Cantidad}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="text-right col-xs-12">
+                        <button type="button" ng-disabled="nuevoPaquete" ng-click="showNuevoPaquete()" class="btn btn-success">
+                            <span class="glyphicon glyphicon-plus"></span> Embarcar</button>
+                    </div>
+                </div>
+                <div class="row">
+                        <div class="col-xs-12" style="max-height: 300px;overflow-y: scroll;">
+                                <div ng-show="(paquetes && paquetes.length > 0) || nuevoPaquete">
+                                    <table class="table table-hover table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Paquete
+                                                </th>
+                                                <th class="text-right">
+                                                    Alto
+                                                </th>
+                                                <th class="text-right">
+                                                    Ancho
+                                                </th>
+                                                <th class="text-right">
+                                                    Largo
+                                                </th>
+                                                <th class="text-right">
+                                                    Peso
+                                                </th>
+                                                <th colspan="2"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-show="nuevoPaquete">
+                                                <td>
+                                                    <input id="paqueteNombre" ng-model="nuevo.nombre" type="text" class="form-control">
+                                                </td>
+                                                <td>
+                                                    <input ng-model="nuevo.alto" min="0" type="number" class="form-control">
+                                                </td>
+                                                <td>
+                                                    <input ng-model="nuevo.ancho" min="0" type="number" class="form-control">
+                                                </td>
+                                                <td>
+                                                    <input ng-model="nuevo.largo" min="0" type="number" class="form-control">
+                                                </td>
+                                                <td>
+                                                    <input ng-model="nuevo.peso" min="0" type="number" class="form-control">
+                                                </td>
+                                                <td class="text-right">
+                                                    <button type="button" class="btn btn-danger" ng-click="cancelarPaquete()">
+                                                        <span class="glyphicon glyphicon-remove"></span>
+                                                    </button>
+                                                </td>
+                                                    <td>   
+                                                    <button type="button" class="btn btn-success" ng-click="agregarPaquete()">
+                                                        <span class="glyphicon glyphicon-ok"></span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr ng-repeat="paquete in paquetes" ng-include="getTemplate(paquete)">
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <script type="text/ng-template" id="display">
+                                        <td>
+                                            {{paquete.nombre}}
+                                        </td>
+                                        <td class="text-right">
+                                            {{paquete.alto}}
+                                        </td>
+                                        <td class="text-right">
+                                            {{paquete.ancho}}
+                                        </td>
+                                        <td class="text-right">
+                                            {{paquete.largo}}
+                                        </td>
+                                        <td class="text-right">
+                                            {{paquete.peso}}
+                                        </td>
+                                        <td class="text-right">
+                                            <button type="button" class="btn btn-danger" ng-click="eliminarPaquete($index)">
+                                                <span class="glyphicon glyphicon-minus"></span>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-info" ng-click="showModificarPaquete(paquete)">
+                                                <span class="glyphicon glyphicon-pencil"></span>
+                                            </button>
+                                        </td>
+                                    </script>
+                                    <script type="text/ng-template" id="edit">
+                                        <td>
+                                            <input id="paqueteNombre" ng-model="selected.nombre" type="text" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input ng-model="selected.alto" min="0" type="number" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input ng-model="selected.ancho" min="0" type="number" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input ng-model="selected.largo" min="0" type="number" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input ng-model="selected.peso" min="0" type="number" class="form-control">
+                                        </td>
+                                        <td class="text-right">
+                                            <button type="button" class="btn btn-danger" ng-click="cancelarModificacionPaquete()">
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-success" ng-click="modificarPaquete($index)">
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </button>
+                                        </td>
+                                    </script>
+                                </div>
+                            </div>
+                </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+                    <button type="button" class="btn btn-info" data-dismiss="modal" ng-click="enviaPedido()">Envia</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- FIN MODALES-->
 
 <!-- INICIO PRINCIPAL-->
@@ -465,22 +648,19 @@
             <thead>
                 <tr>
                     <th>
-                        Numero de pedido
+                        Pedido
+                    </th>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Razon social
                     </th>
                     <th>
                         Dirección
                     </th>
                     <th>
                         Fecha
-                    </th>
-                    <th class="text-right">
-                        Subtotal
-                    </th>
-                    <th class="text-right">
-                        IVA
-                    </th>
-                    <th class="text-right">
-                        Total
                     </th>
                     <th colspan="2">
 
@@ -493,31 +673,36 @@
                         {{pedido.pedidoNumber}}
                     </td>
                     <td>
-                            {{pedido.DireccionD }}
+                        {{pedido.nombreCompleto }}
                         <!-- {{pedido.pedidoNumber}} -->
                     </td>
                     <td>
-                            {{pedido.pedidoCreacion | date}}
+                        {{pedido.razonSocial }}
+                        <!-- {{pedido.pedidoNumber}} -->
                     </td>
-                    <td class="text-right">
-                            {{pedido.subTotal | currency}}
-                    </td>
-                    <td class="text-right">
-                        {{pedido.iva | currency}}
-                </td>
-                <td class="text-right">
-                    {{pedido.total | currency}}
-            </td>
                     <td>
-                        <button ng-show="pedido.pedidoEstatus == 1" type="button" data-toggle="tooltip" title="Cancelar la cotización" ng-click="showCancelaPedido(pedido)" class="btn btn-danger btn-icon">
+                        {{pedido.DireccionD }}
+                        <!-- {{pedido.pedidoNumber}} -->
+                    </td>
+                    <td>
+                        {{pedido.pedidoCreacion | date}}
+                    </td>
+                    <td>
+                        <button ng-show="pedido.pedidoEstatus == 1" type="button" data-toggle="tooltip" title="Cancelar la cotización" ng-click="showCancelaPedido(pedido)"
+                            class="btn btn-danger btn-icon">
                             <i class="fa fa-ban"></i>
                         </button>
                     </td>
                     <td>
+                        <button type="button" data-toggle="tooltip" title="Procesa pedido" ng-click="showProcesaPedido(pedido)" class="btn btn-info btn-icon">
+                            <i class="fa fa-send"></i>
+                        </button>
+                    </td>
+                    <!-- <td>
                             <button type="button" data-toggle="tooltip" title="Detalle de la cotización" ng-click="showPedido(pedido)" class="btn btn-info btn-icon">
                                 <i class="fa fa-info-circle"></i>
                             </button>
-                        </td>
+                        </td> -->
                 </tr>
             </tbody>
         </table>
