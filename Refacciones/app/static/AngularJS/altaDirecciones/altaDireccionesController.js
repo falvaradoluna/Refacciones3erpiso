@@ -66,12 +66,6 @@ registrationModule.controller('altaDireccionesController', function ($route, $sc
                 .then(function (result) {
                     if (result.data.length > 0 && (result.data[0].control == 1)) {
                         alertFactory.success('Se agrego correctamente la nueva direccion');
-                        altaDireccionesRepository.getDirecciones($scope.userData.idUsuario, null).then(function (result) {
-                            if (result.data.length > 0)
-                                $scope.direcciones = result.data;
-                            else
-                                alertFactory.error('El usuario no contiene Direcciones registradas');
-                        });
                     } else
                         alertFactory.error('ocurrio un error durante la insercion de los datos');
                 });
@@ -79,6 +73,12 @@ registrationModule.controller('altaDireccionesController', function ($route, $sc
             $('#modalFormulario').modal('hide');
             $('body').removeClass('modal-open');
             $('.modal-backdrop').remove();
+            altaDireccionesRepository.getDirecciones($scope.userData.idUsuario, null).then(function (result) {
+                if (result.data.length > 0)
+                    $scope.direcciones = result.data;
+                else
+                    alertFactory.error('El usuario no contiene Direcciones registradas');
+            });
         } else {
             console.log($scope.coloniaSel);
             alertFactory.error('verifique los campos obligatorios (**) porfavor');
