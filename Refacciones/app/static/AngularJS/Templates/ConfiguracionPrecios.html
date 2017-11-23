@@ -1,0 +1,124 @@
+<h2 style="padding-left:15px">Configuracion de Precios</h2>
+<!--boton de agregar-->
+<div style="padding-right:30px">
+    <button type="button" class="btn btn-primary btn-lg pull-right" data-toggle="modal" ng-click="coloniaSel=undefined;cp=undefined;colonia=undefined"
+        data-target="#modalFormulario">Agregar Configuracion</button>
+    <br>
+</div>
+<!--modal de agregar-->
+<div class="modal fade" id="modalFormulario" role="dialog">
+    <div class="modal-dialog modal-lg container">
+        <div class="modal-content">
+            <div class="modal-header modal-header-primary">
+                <button type="button" class="close" data-dismiss="modal" style="color:red">&times;</button>
+                <h4 class="modal-title" style="color:#38a0f4">Alta de Configuracion</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="sel1">**Tipo Configuracion:</label>
+                            <select class="form-control" ng-model="tipoConfSelec" ng-options="t.tipoConfiguracion for t in tiposConf" id="sel1">
+                                <option value="" disabled selected>Seleccione el tipo de Configuracion</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="sel1">**Grupo:</label>
+                            <select ng-disabled="tipoConfSelec.id!=2" class="form-control" ng-model="grupoSelec" ng-options="g.grupoDescripcion for g in Grupo"
+                                id="sel1">
+                                <option value="" disabled selected>Seleccione el tipo de Configuracion</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="sel2">**Base:</label>
+                            <select class="form-control" ng-model="baseSelec" ng-options="b.base for b in Base" id="sel2">
+                                <option value="" disabled selected>Seleccione la base</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="sel4">**Operacion:</label>
+                            <select class="form-control" ng-model="operacionSelec" ng-options="o.operacion for o in Operacion" id="sel4">
+                                <option value="" disabled selected>Seleccione la Operacion</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="porcentaje">**Porcentaje:</label>
+                            <input class="form-control" id="porcentaje" maxlength="5" ng-change="" ng-model="porcentaje">
+                        </div>
+                    </div>
+                </div>
+                <div class="row" >
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="porcentaje">**Rango inferior:</label>
+                            <input ng-disabled="tipoConfSelec.id!=3" class="form-control" id="porcentaje" maxlength="5" ng-change="" ng-model="rangoInf">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="porcentaje">**Rango superior:</label>
+                            <input ng-disabled="tipoConfSelec.id!=3" class="form-control" id="porcentaje" maxlength="5" ng-change="" ng-model="rangoSup">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <p style="color:red; padding-left:10px">¡Los campos ** son obligatorios!</p>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="insDireccion()">Confirmar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--tabla-->
+<div class="container table-responsive" style="padding-top:15px" ng-init="init()">
+    <table class="table  table-hover">
+        <thead>
+            <tr class="info">
+                <th style="color:#38a0f4">Configuracion</th>
+                <th style="color:#38a0f4">Grupo</th>
+                <th style="color:#38a0f4">Base</th>
+                <th style="color:#38a0f4">Operacion</th>
+                <th style="color:#38a0f4">Porcentaje</th>
+                <th style="color:#38a0f4">Rango</th>
+                <th style="width:125px"></th>
+            </tr>
+        </thead>
+        <tbody ng-repeat="c in confPrecios">
+            <tr>
+                <td>{{c.tipoConfiguracion}}</td>
+                <td>{{c.idGrupoPartes}}</td>
+                <td>{{c.base}}</td>
+                <td>{{c.operacion}}</td>
+                <td>{{c.porcentaje}}</td>
+                <td>{{c.Rango}}</td>
+                <td>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-icon btn-lg" data-target="#modalEditDir" ng-click="editarDireccionModal(d)"
+                            title="Editar" data-toggle="modal">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-icon btn-lg" data-toggle="modal" ng-click="eliminarDireccionModal(d)" data-target="#modalElimDir"
+                            title="Eliminar">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

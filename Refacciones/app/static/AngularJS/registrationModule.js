@@ -27,11 +27,14 @@ var registrationModule = angular.module("registrationModule", ["ngRoute", "Local
             templateUrl: 'AngularJS/Templates/altaDirecciones.html'
             ,controller: 'altaDireccionesController'
         });
-        $routeProvider.when('/AdministracionPrecios', {
-            templateUrl: 'AngularJS/Templates/administracionPrecios.html'
-            ,controller: 'administracionPreciosController'
+        // $routeProvider.when('/AdministracionPrecios', {
+        //     templateUrl: 'AngularJS/Templates/administracionPrecios.html'
+        //     ,controller: 'administracionPreciosController'
+        // });
+        $routeProvider.when('/ConfiguracionPrecios', {
+            templateUrl: 'AngularJS/Templates/ConfiguracionPrecios.html'
+            ,controller: 'configuracionPreciosController'
         });
-        
         $routeProvider.when('/AdministracionClientes', {
             templateUrl: 'AngularJS/Templates/administracionClientes.html'
             ,controller: 'administracionClientesController'

@@ -1,7 +1,13 @@
 <h2 style="padding-left:15px">Usuarios</h2>
+<div style="padding-right:30px">
+    <br>
+    <button type="button" class="btn btn-primary btn-lg pull-right" data-toggle="modal" ng-click="clienteSel=undefined;tipoRolSel=undefined;"
+        data-target="#agregarModal">Agregar Usuario</button>
+    <br>
+</div>
 <div class="container table-responsive" style="padding-top:15px" ng-init="init()">
     <!--tabla-->
-    <table class="table table-bordered table-hover">
+    <table class="table  table-hover">
         <!--cabezeras de tabla-->
         <thead>
             <tr class="info">
@@ -41,7 +47,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <p>Rol del Usuario: {{tipoRolSel.Rol}}</p>
-                        
+
                                                 </div>
                                             </div>
                                             <br>
@@ -122,9 +128,6 @@
             </tr>
         </tbody>
     </table>
-    <br>
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" ng-click="clienteSel=undefined;tipoRolSel=undefined;"
-        data-target="#agregarModal">Agregar Usuario</button>
     <!--modal para agregar nuevo usuario-->
     <div id="agregarModal" class="modal fade" role="dialog">
         <div class="modal-dialog  modal-lg container">

@@ -45,7 +45,7 @@
                 <!--Brand logo & name-->
                 <!--================================-->
                 <div class="navbar-header">
-                    <a style="padding-left:10px" href="#" class="navbar-brand" ng-click="salir()">
+                    <a style="padding-left:10px;padding-top:10px" href="#" class="navbar-brand" ng-click="salir()">
                         CO
                     </a>
                 </div>
@@ -139,11 +139,19 @@
                                             </span>
                                         </a>
                                     </li>
-                                    <li ng-show="userData.idRol == 1 || userData.idRol == 8">
+                                    <!-- <li ng-show="userData.idRol == 1 || userData.idRol == 8">
                                         <a href="/AdministracionPrecios">
                                             <i class="ti-bar-chart-alt"></i>
                                             <span class="menu-title">
                                                 <strong>Administracion de Precios</strong>
+                                            </span>
+                                        </a>
+                                    </li> -->
+                                    <li ng-show="userData.idRol == 1 || userData.idRol == 8">
+                                        <a href="/ConfiguracionPrecios">
+                                            <i class="ti-money"></i>
+                                            <span class="menu-title">
+                                                <strong>Configuracion de Precios</strong>
                                             </span>
                                         </a>
                                     </li>
@@ -167,7 +175,7 @@
                                         <a href="/Altadirecciones">
                                             <i class="ti-home"></i>
                                             <span class="menu-title">
-                                                <strong>Altadirecciones</strong>
+                                                <strong>Alta Direcciones</strong>
                                             </span>
                                         </a>
                                     </li>
@@ -281,6 +289,8 @@
     <script src="AngularJS/cotizaciones/cotizacionesRepository.js"></script>
     <script src="AngularJS/administracionPrecios/administracionPreciosController.js"></script>
     <script src="AngularJS/administracionPrecios/administracionPreciosRepository.js"></script>
+    <script src="AngularJS/configuracionPrecios/configuracionPreciosController.js"></script>
+    <script src="AngularJS/configuracionPrecios/configuracionPreciosRepository.js"></script>
     <!--Controllers-->
     <script src="AngularJS/Main/mainController.js"></script>
     <script src="AngularJS/login/loginController.js"></script>
