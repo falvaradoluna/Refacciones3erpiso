@@ -67,5 +67,22 @@ administracionClientes.prototype.get_Clientes = function (req, res, next) {
             });
         });
     };
+    administracionClientes.prototype.post_DeleteCli = function (req, res, next) {
+        var self = this;
+        
+            var params = [{
+                name: 'razonSocial',
+                value: req.body.razonSocial,
+                type: self.model.types.STRING
+            }];
+
+        this.model.post('[Catalogo].[DEL_Cliente_SP]', params, function (error, result) {
+    
+            self.view.expositor(res, {
+                error: error,
+                result: result
+            });
+        });
+    };
     module.exports = administracionClientes;
 

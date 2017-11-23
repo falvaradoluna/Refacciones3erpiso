@@ -20,12 +20,12 @@
                 <td>{{c.rfc}}</td>
                 <td>
                         <div class="btn-group">
-                            <button type="button" class="btn btn-primary btn-icon btn-lg" data-target="#modalEditDir" ng-click="editarDireccionModal(d)"
-                                title="Editar" data-toggle="modal">
+                            <button type="button" class="btn btn-primary btn-icon btn-lg" data-toggle="modal" ng-click="modalUpdateCliente(u)" data-target="#actualizarModal"
+                                title="Editar">
                                 <i class="fa fa-pencil"></i>
                             </button>
-                            <div class="modal fade" id="modalEditDir" role="dialog">
-                                    <div class="modal-dialog modal-lg container">
+                            <div id="actualizarModal" class="modal fade" role="dialog">
+                                    <div class="modal-dialog  modal-lg container">
         
                                         <!-- Modal content-->
                                         <div class="modal-content">
@@ -40,19 +40,19 @@
                                                                         <form>
                                                                             <div class="form-group">
                                                                                 <label for="razonSocial">Razon Social</label>
-                                                                                <input ng-model="modalEditar.razonSocial" class="form-control" id="razonSocial">
+                                                                                <input class="form-control" id="razonSocial" ng-model="ModalClienteActualizar.razonSocial">
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="nombreComercial">Nombre Comercial</label>
-                                                                                <input ng-model="modalEditar.nombreComercial" class="form-control" id="nombreComercial">
+                                                                                <input class="form-control" id="nombreComercial" ng-model="ModalClienteActualizar.nombreComercial">
                                                                             </div>
                                                                             <div class="form-group">
-                                                                                    <label for="contacto">Contacto</label>
-                                                                                    <input ng-model="modalEditar.contacto" class="form-control" id="contacto">
+                                                                                <label for="contacto">Contacto</label>
+                                                                                <input class="form-control" id="contacto" ng-model="ModalClienteActualizar.contacto">
                                                                                 </div>
                                                                                 <div class="form-group">
-                                                                                    <label for="rfc">RFC</label>
-                                                                                    <input ng-model="modalEditar.rfc" class="form-control" id="rfc">
+                                                                                <label for="rfc">RFC</label>
+                                                                                <input class="form-control" id="rfc" ng-model="ModalClienteActualizar.rfc">
                                                                                 </div>
                                                                         </form>
                                                                 </div>
@@ -61,22 +61,44 @@
                                                 </div> 
                                             <br>
                                             <div class="modal-footer">
-                                                    <button type="button" class="btn btn-primary" ng-click="actualizaDireccion()">Aceptar</button>
+                                                    <button type="button" class="btn btn-primary" ng-click="UpdateCliente()">Aceptar</button>
                                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                                             </div>
                                          </div>
                                      </div>
                                 </div>
-                            <button type="button" class="btn btn-danger btn-icon btn-lg" title="Eliminar">
+                            <button type="button" class="btn btn-danger btn-icon btn-lg" data-toggle="modal" ng-click="modalEliminar(c)" data-target="#eliminarModal"
+                                title="Eliminar">
                                 <i class="fa fa-trash-o"></i>
                             </button>
+                            <!--modal para eliminar-->
+                        <div id="eliminarModal" class="modal fade" role="dialog">
+                                <div class="modal-dialog  modal-lg container">
+    
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" style="color:red">&times;</button>
+                                            <h4 class="modal-title" style="color:#38a0f4">Eliminar Cliente</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            {{ModalClienteEliminado.razonSocial}}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" ng-click="elimina()">Confirmar</button>
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                        </div>
+                                    </div>
+    
+                                </div>
+                            </div>
                         </div>
                     </td>
             </tr>
         </tbody>
     </table>
     <br>
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" ng-click="rfc=undefined;razonSocial=undefined;nombreComercial=undefined;contacto=undefined" data-target="#agregarModal">Agregar Cliente</button>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" ng-click="rfc=undefined;contacto=undefined;razonSocial=undefined;nombreComercial=undefined" data-target="#agregarModal">Agregar Cliente</button>
     <div id="agregarModal" class="modal fade" role="dialog">
          <div class="modal-dialog  modal-lg container">
             <div class="modal-content">
