@@ -160,6 +160,15 @@
                     </div>
                 </div>
                 <div class="row">
+                <div  class="col-md-6" style="height:30px">
+                    <p ng-hide="(marcaSeleccionada == null || marcaSeleccionada.idMarca < 1)">Modelo:{{modeloVin.modelo}}</p>
+                </div>
+                <div  class="col-sm-push-1 col-sm-5" style="height:30px">
+                        <p ng-hide="(marcaSeleccionada == null || marcaSeleccionada.idMarca < 1)">Año: {{modeloVin.modelyear}}</p>
+
+                </div>
+                </div>
+                <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="inputRefacciones">Introduce número de parte o descripción:</label>

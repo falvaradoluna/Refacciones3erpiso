@@ -6,6 +6,7 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
 
     $scope.cotizaciones = [];
     $scope.partesAgregadas = [];
+    $scope.modeloVin = {};
 
     // ----------------------------------------- INICIALIZACION DE CATALOGOS
 
@@ -95,6 +96,7 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
                 cotizacionesRepository.getMarcaVIN($scope.refaccionBusquedaPorVIN).then(function (result) {
                     console.log('RESPUESTA DEL VIN');
                     console.log(result.data);
+                    $scope.modeloVin=result.data[0];
                     if (result.data.length > 0) {
                         if (result.data[0].idmarca && result.data[0].idmarca > 0) {
 
