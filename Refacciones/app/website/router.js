@@ -5,5 +5,6 @@
      pedidos: require('./controllers/pedidos'),
      administracionPrecios:require('./controllers/administracionPrecios'),
      administracionClientes:require('./controllers/administracionClientes'),
-     administracionUsuarios:require('./controllers/administracionUsuarios')
+     administracionUsuarios:require('./controllers/administracionUsuarios'),
+     configuracionPrecios:require('./controllers/configuracionPrecios')
  }

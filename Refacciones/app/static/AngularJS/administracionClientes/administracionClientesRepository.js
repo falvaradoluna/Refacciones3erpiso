@@ -34,6 +34,16 @@ registrationModule.factory('administracionClientesRepository', function ($http) 
                     'Content-Type': 'application/json'
                 }
             });
+        },
+        DelCliente: function (params) {
+            return $http({
+                url: administracionClientesURL + 'DeleteCli/',
+                method: "POST",
+                data: params,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
         }
     };
 });

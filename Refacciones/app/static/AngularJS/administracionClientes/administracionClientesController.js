@@ -59,6 +59,34 @@ registrationModule.controller('administracionClientesController', function ($rou
             alertFactory.error('verifique los campos ');
         }
     };
-    
+    $scope.modalEliminar = function (c) {
+        $scope.ModalClienteEliminado = c;
+    };
+    $scope.elimina = function () {
+        console.log($scope.ModalClienteEliminado);
+        administracionClientesRepository.DelCliente($scope.ModalClienteEliminado).then(function (result) {
+            if (result.data.length > 0 && (result.data[0].control == 1)) {
+                alertFactory.success('El cliente se a eliminado Correctamente');
+                administracionClientesRepository.getClientes($scope.cli).then(function (result) {
+                    if (result.data.length > 0) {
+                        $scope.Clientes = result.data;
+                    } else {
+                        alertFactory.error('No hay clientes registrados');
+                    }
+                });
+            } else
+                alertFactory.error('ocurrio un error durante la eliminacion de los datos');
+        });
+        $('#eliminarModal').modal('hide');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+        administracionClientesRepository.getClientes().then(function (result) {
+            if (result.data.length > 0) {
+                $scope.usuarios = result.data;
+            } else {
+                alertFactory.error('No hay usuarios registrados');
+            }
+        });
+    };
     });
     
