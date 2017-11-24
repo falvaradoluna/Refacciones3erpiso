@@ -75,7 +75,7 @@ registrationModule.controller('administracionUsuariosController', function ($rou
     };
     $scope.elimina = function () {
         console.log($scope.ModalUsuarioEliminado);
-        administracionUsuariosRepository.DelUsuario($scope.ModalUsuarioEliminado).then(function (result) {
+        administracionUsuariosRepository.DelCliente($scope.ModalUsuarioEliminado).then(function (result) {
             if (result.data.length > 0 && (result.data[0].control == 1)) {
                 alertFactory.success('El usuario se a eliminado Correctamente');
             } else

@@ -6,5 +6,6 @@
      administracionPrecios:require('./controllers/administracionPrecios'),
      administracionClientes:require('./controllers/administracionClientes'),
      administracionUsuarios:require('./controllers/administracionUsuarios'),
-     configuracionPrecios:require('./controllers/configuracionPrecios')
+     configuracionPrecios:require('./controllers/configuracionPrecios'),
+     configuradorGrupos:require('./controllers/configuradorGrupos')
  }

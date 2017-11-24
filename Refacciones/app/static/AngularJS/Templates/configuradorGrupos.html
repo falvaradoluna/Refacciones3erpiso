@@ -1,0 +1,105 @@
+<h2 style="padding-left:15px">Grupos</h2>
+<!--Alta-->
+<div class="container table-responsive" style="padding-top:15px" ng-init="init()">
+        <table class="table table-bordered table-hover">
+                <thead>
+                    <tr class="info">
+        
+                        <th>Clave</th>
+                        <th>Descripción</th>
+                        <th>Cantidad</th>
+                        <th>Precio Reposicion</th>
+                        <th>Precio Lista</th>
+                        <th>Fecha de Creación</th>
+                        <th style="width:125px"></th>
+                    </tr>
+                </thead>
+                <tbody ng-repeat="g in Grupos">
+                        <tr>
+                            <td>{{g.grupoClave}}</td>
+                            <td>{{g.grupoDescripcion}}</td>
+                            <td>{{g.partesNumero}}</td>
+                            <td>{{g.costoReposicion}}</td>
+                            <td>{{g.precioLista}}</td>
+                            <td>{{g.creacionDate | date:'dd-MMMM-yyyy'}}</td>
+                            <td>
+                                    <div class="btn-group">
+                                            <button type="button" class="btn btn-primary btn-icon btn-lg" data-toggle="modal" ng-click="modalUpdateCliente(u)" data-target="#actualizarModal"
+                                                title="Editar">
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
+                                            <div id="actualizarModal" class="modal fade" role="dialog">
+                                                    <div class="modal-dialog  modal-lg container">
+                        
+                                                        <!-- Modal content-->
+                                                        <div class="modal-content">
+                                                            <div class="modal-header modal-header-primary">
+                                                                <button style="color:red" type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                <h4 style="color:#38a0f4" class="modal-title">Editar Cliente</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                    <div>
+                                                                        <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                        <form>
+                                                                                            <div class="form-group">
+                                                                                                <label for="razonSocial">Razon Social</label>
+                                                                                                <input class="form-control" id="razonSocial" ng-model="ModalClienteActualizar.razonSocial">
+                                                                                            </div>
+                                                                                            <div class="form-group">
+                                                                                                <label for="nombreComercial">Nombre Comercial</label>
+                                                                                                <input class="form-control" id="nombreComercial" ng-model="ModalClienteActualizar.nombreComercial">
+                                                                                            </div>
+                                                                                            <div class="form-group">
+                                                                                                <label for="contacto">Contacto</label>
+                                                                                                <input class="form-control" id="contacto" ng-model="ModalClienteActualizar.contacto">
+                                                                                                </div>
+                                                                                                <div class="form-group">
+                                                                                                <label for="rfc">RFC</label>
+                                                                                                <input class="form-control" id="rfc" ng-model="ModalClienteActualizar.rfc">
+                                                                                                </div>
+                                                                                        </form>
+                                                                                </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> 
+                                                            <br>
+                                                            <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-primary" ng-click="UpdateCliente()">Aceptar</button>
+                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                                            </div>
+                                                         </div>
+                                                     </div>
+                                                </div>
+                                            <button type="button" class="btn btn-danger btn-icon btn-lg" data-toggle="modal" ng-click="modalEliminar(c)" data-target="#eliminarModal"
+                                                title="Eliminar">
+                                                <i class="fa fa-trash-o"></i>
+                                            </button>
+                                            <!--modal para eliminar-->
+                                        <div id="eliminarModal" class="modal fade" role="dialog">
+                                                <div class="modal-dialog  modal-lg container">
+                    
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" style="color:red">&times;</button>
+                                                            <h4 class="modal-title" style="color:#38a0f4">Eliminar Cliente</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            {{ModalClienteEliminado.razonSocial}}
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-primary" ng-click="elimina()">Confirmar</button>
+                                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                                        </div>
+                                                    </div>
+                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                        </tr>
+                    </tbody>
+            </table>
+
+</div>

@@ -44,6 +44,10 @@ var registrationModule = angular.module("registrationModule", ["ngRoute", "Local
             templateUrl: 'AngularJS/Templates/administracionUsuarios.html'
             ,controller: 'administracionUsuariosController'
         });
+        $routeProvider.when('/ConfiguradorGrupos', {
+            templateUrl: 'AngularJS/Templates/configuradorGrupos.html'
+            ,controller: 'configuradorGruposController'
+        });
 
         //Route /default
         $routeProvider.otherwise({ redirectTo: '/' });
