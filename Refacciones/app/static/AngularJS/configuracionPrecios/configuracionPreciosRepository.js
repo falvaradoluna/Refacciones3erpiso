@@ -61,6 +61,42 @@ registrationModule.factory('configuracionPreciosRepository', function ($http) {
                 }
 
             });
+        },
+        getMarca: function () {
+            return $http({
+                url: configuracionPreciosURL + 'Marca/',
+                method: "GET",
+                params: {
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            });
+        },
+        getUsuariosAsignados: function (params) {
+            return $http({
+                url: configuracionPreciosURL + 'UsuariosAsignados/',
+                method: "GET",
+                params: params
+                ,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            });
+        },
+        getCliente: function () {
+            return $http({
+                url: configuracionPreciosURL + 'Cliente/',
+                method: "GET",
+                params: {}
+                ,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            });
         }
     };
 });
