@@ -99,7 +99,7 @@ configuracionPrecios.prototype.get_Marca = function (req, res, next) {
         });
     });
 };
-configuracionPrecios.prototype.get_UsuariosAsignados = function (req, res, next) {
+configuracionPrecios.prototype.get_ClientesAsignados = function (req, res, next) {
 
     var self = this;
 
@@ -117,16 +117,64 @@ configuracionPrecios.prototype.get_UsuariosAsignados = function (req, res, next)
     });
 };
 configuracionPrecios.prototype.get_Cliente = function (req, res, next) {
-    
-        var self = this;
-    
-        var params = [];
-    
-        self.model.query('[Catalogo].[SEL_Cliente_SP]', params, function (error, result) {
-            self.view.expositor(res, {
-                error: error,
-                result: result
-            });
+
+    var self = this;
+
+    var params = [];
+
+    self.model.query('[Catalogo].[SEL_Cliente_SP]', params, function (error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
         });
-    };
+    });
+};
+configuracionPrecios.prototype.post_ConfPrecios = function (req, res, next) {
+    var self = this;
+
+    var params = [{
+            name: 'idTipoConfiguracion',
+            value: req.body.idTipoConfiguracion,
+            type: self.model.types.INT
+        },
+        {
+            name: 'idGrupoPartes',
+            value: req.body.idGrupoPartes,
+            type: self.model.types.INT
+        },
+        {
+            name: 'idBase',
+            value: req.body.idBase,
+            type: self.model.types.INT
+        },
+        {
+            name: 'idOperacion',
+            value: req.body.idOperacion,
+            type: self.model.types.INT
+        },
+        {
+            name: 'porcentaje',
+            value: req.body.porcentaje,
+            type: self.model.types.INT
+        },
+        {
+            name: 'idMarca',
+            value: req.body.idMarca,
+            type: self.model.types.INT
+        },
+        {
+            name: 'configuracionNombre',
+            value: req.body.configuracionNombre,
+            type: self.model.types.STRING
+        }
+    ];
+
+    this.model.post('[Precio].[INS_Configuracion_SP]', params, function (error, result) {
+
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
 module.exports = configuracionPrecios;

@@ -1,7 +1,7 @@
 <h2 style="padding-left:15px">Configuracion de Precios</h2>
 <!--boton de agregar-->
 <div style="padding-right:30px">
-    <button type="button" class="btn btn-primary btn-lg pull-right" data-toggle="modal" ng-click="marcaSelec=undefined;tipoConfSelec=undefined;grupoSelec=undefined;baseSelec=undefined;operacionSelec=undefined"
+    <button type="button" class="btn btn-primary btn-lg pull-right" data-toggle="modal" ng-click="porcentaje=undefined;configuracionNombre=undefined;marcaSelec=undefined;tipoConfSelec=undefined;grupoSelec=undefined;baseSelec=undefined;operacionSelec=undefined"
         data-target="#modalFormulario">Agregar Configuracion</button>
     <br>
 </div>
@@ -14,6 +14,14 @@
                 <h4 class="modal-title" style="color:#38a0f4">Alta de Configuracion</h4>
             </div>
             <div class="modal-body">
+                    <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="configuracionNombre">**Nombre De Configuracion:</label>
+                                    <input class="form-control" id="configuracionNombre" ng-change="" ng-model="configuracionNombre">
+                                </div>
+                            </div>
+                        </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -71,7 +79,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="porcentaje">**Rango inferior:</label>
@@ -84,13 +92,13 @@
                             <input ng-disabled="tipoConfSelec.id!=3" class="form-control" id="porcentaje" maxlength="5" ng-change="" ng-model="rangoSup">
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <br>
 
             <p style="color:red; padding-left:10px">¡Los campos ** son obligatorios!</p>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" ng-click="insDireccion()">Confirmar</button>
+                <button type="button" class="btn btn-primary" ng-click="modalInsConfPrecio()">Confirmar</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
@@ -101,29 +109,31 @@
     <table class="table  table-hover">
         <thead>
             <tr class="info">
+                <th style="color:#38a0f4">Nombre De Configuracion</th>
                 <th style="color:#38a0f4">Marca</th>
                 <th style="color:#38a0f4">Configuracion</th>
                 <th style="color:#38a0f4">Grupo</th>
                 <th style="color:#38a0f4">Base</th>
                 <th style="color:#38a0f4">Operacion</th>
                 <th style="color:#38a0f4">Porcentaje</th>
-                <th style="color:#38a0f4">Rango</th>
+                <!-- <th style="color:#38a0f4">Rango</th> -->
                 <th style="color:#38a0f4">Cliente Asignados</th>
                 <th style="width:125px"></th>
             </tr>
         </thead>
         <tbody ng-repeat="c in confPrecios">
             <tr>
+                <td>{{c.configuracionNombre}}</td>
                 <td>{{c.marca}}</td>
                 <td>{{c.tipoConfiguracion}}</td>
                 <td>{{c.grupoDescripcion}}</td>
                 <td>{{c.base}}</td>
                 <td>{{c.operacion}}</td>
                 <td>{{c.porcentaje}} %</td>
-                <td>{{c.Rango}}</td>
+                <!-- <td>{{c.Rango}}</td> -->
                 <!--Modal de usuarios asignados-->
                 <td style="text-align: center;">
-                    <button type="button" class="btn btn-success btn-icon btn-lg" data-target="#modalUsers" ng-click="modalUsuario(c)" title="Clientes Asignados"
+                    <button type="button" class="btn btn-success btn-icon btn-lg" data-target="#modalUsers" ng-click="modalCliente(c)" title="Clientes Asignados"
                         data-toggle="modal">
                         <i class="fa fa-user"></i>
                     </button>

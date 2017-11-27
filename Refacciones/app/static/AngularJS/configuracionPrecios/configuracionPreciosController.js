@@ -1,80 +1,115 @@
 /*configuracionPreciosController */
 registrationModule.controller('configuracionPreciosController', function ($route, $scope, $rootScope, $location, configuracionPreciosRepository, userFactory, alertFactory) {
-    $scope.confPrecios={};
-    $scope.tiposConf={};
-    $scope.Base={};
-    $scope.Operacion={};
-    $scope.Grupo={};
-    $scope.Marca={};
-    $scope.ClienteAsignados={};
-    $scope.Cliente={};
-    $scope.init=function(){
+    $scope.confPrecios = {};
+    $scope.tiposConf = {};
+    $scope.Base = {};
+    $scope.Operacion = {};
+    $scope.Grupo = {};
+    $scope.Marca = {};
+    $scope.ClienteAsignados = {};
+    $scope.Cliente = {};
+    $scope.ConfPrecioAux = {};
+
+    $scope.init = function () {
         var userData = userFactory.getUserData();
-        if(userData==null||userData==undefined)
+        if (userData == null || userData == undefined)
             location.href = '/';
-            //obtengo los dats pa llenar el grid
-            configuracionPreciosRepository.getConfPrecios().then(function (result) {
-                if (result.data.length > 0) {
-                    $scope.confPrecios = result.data;
-                } else {
-                    alertFactory.error('No hay datos registrados en Configuracion Precios');
-                }
-            });
-            configuracionPreciosRepository.getTiposConf().then(function (result) {
-                if (result.data.length > 0) {
-                    $scope.tiposConf = result.data;
-                } else {
-                    alertFactory.error('No hay datos registrados en tipos de Configuracion');
-                }
-            });
-            configuracionPreciosRepository.getBase().then(function (result) {
-                if (result.data.length > 0) {
-                    $scope.Base = result.data;
-                } else {
-                    alertFactory.error('No hay Bases de configuracion registradas');
-                }
-            });
-            configuracionPreciosRepository.getOperacion().then(function (result) {
-                if (result.data.length > 0) {
-                    $scope.Operacion = result.data;
-                } else {
-                    alertFactory.error('No hay Bases de configuracion registradas');
-                }
-            });
-            configuracionPreciosRepository.getGrupo().then(function (result) {
-                if (result.data.length > 0) {
-                    $scope.Grupo = result.data;
-                } else {
-                    alertFactory.error('No hay Bases de configuracion registradas');
-                }
-            });
-            configuracionPreciosRepository.getMarca().then(function (result) {
-                if (result.data.length > 0) {
-                    $scope.Marca = result.data;
-                } else {
-                    alertFactory.error('No hay Bases de configuracion registradas');
-                }
-            });
+        //obtengo los dats pa llenar el grid
+        configuracionPreciosRepository.getConfPrecios().then(function (result) {
+            if (result.data.length > 0) {
+                $scope.confPrecios = result.data;
+            } else {
+                alertFactory.error('No hay datos registrados en Configuracion Precios');
+            }
+        });
+        configuracionPreciosRepository.getTiposConf().then(function (result) {
+            if (result.data.length > 0) {
+                $scope.tiposConf = result.data;
+            } else {
+                alertFactory.error('No hay datos registrados en tipos de Configuracion');
+            }
+        });
+        configuracionPreciosRepository.getBase().then(function (result) {
+            if (result.data.length > 0) {
+                $scope.Base = result.data;
+            } else {
+                alertFactory.error('No hay Bases de configuracion registradas');
+            }
+        });
+        configuracionPreciosRepository.getOperacion().then(function (result) {
+            if (result.data.length > 0) {
+                $scope.Operacion = result.data;
+            } else {
+                alertFactory.error('No hay Bases de configuracion registradas');
+            }
+        });
+        configuracionPreciosRepository.getGrupo().then(function (result) {
+            if (result.data.length > 0) {
+                $scope.Grupo = result.data;
+            } else {
+                alertFactory.error('No hay Bases de configuracion registradas');
+            }
+        });
+        configuracionPreciosRepository.getMarca().then(function (result) {
+            if (result.data.length > 0) {
+                $scope.Marca = result.data;
+            } else {
+                alertFactory.error('No hay Bases de configuracion registradas');
+            }
+        });
     };
-    $scope.modalInsConfPrecio=function(){
+    $scope.modalInsConfPrecio = function () {
         /*	 
-     @idTipoConfiguracion int
+	 @idTipoConfiguracion int
 	,@idGrupoPartes int = 0
     ,@idBase int
     ,@idOperacion int
     ,@porcentaje numeric(18,2)
-	,@limiteInferior numeric(18,2)
-    ,@limiteSuperior numeric(18,2)
-    ,@idMarca int 
-        */
-    
-    
+    ,@idMarca int
+	,@configuracionNombre nvarchar(50)
+    */
+        var inserta = true;
+        inserta = $scope.configuracionNombre == null || $scope.configuracionNombre == undefined ? false : inserta;
+        inserta = $scope.marcaSelec == null || $scope.marcaSelec == undefined ? false : inserta;
+        inserta = $scope.tipoConfSelec == null || $scope.tipoConfSelec == undefined ? false : inserta;
+        //inserta=$scope.grupoSelec==null||$scope.grupoSelec==undefined?false:inserta;
+        inserta = $scope.baseSelec == null || $scope.baseSelec == undefined ? false : inserta;
+        inserta = $scope.operacionSelec == null || $scope.operacionSelec == undefined ? false : inserta;
+        inserta = $scope.porcentaje == null || $scope.porcentaje == undefined ? false : inserta;
+        if (inserta) {
+            $scope.ConfPrecioAux.idTipoConfiguracion = $scope.tipoConfSelec.id;
+            $scope.ConfPrecioAux.idGrupoPartes = $scope.grupoSelec == undefined || $scope.grupoSelec == null ? 0 : $scope.grupoSelec.id;
+            $scope.ConfPrecioAux.idBase = $scope.baseSelec.id;
+            $scope.ConfPrecioAux.idOperacion = $scope.operacionSelec.id;
+            $scope.ConfPrecioAux.porcentaje = $scope.porcentaje;
+            $scope.ConfPrecioAux.idMarca = $scope.marcaSelec.idMarca;
+            $scope.ConfPrecioAux.configuracionNombre = $scope.configuracionNombre;
+
+            configuracionPreciosRepository.insConfPrecios($scope.ConfPrecioAux).then(function (result) {
+                if (result.data.length > 0 && (result.data[0].control == 1)) {
+                    alertFactory.success('Se agrego correctamente la nueva configuracion de precios');
+                    configuracionPreciosRepository.getConfPrecios().then(function (result) {
+                        if (result.data.length > 0) {
+                            $scope.confPrecios = result.data;
+                        } else {
+                            alertFactory.info('No hay datos registrados en Configuracion Precios');
+                        }
+                    });
+                } else
+                    alertFactory.error('ocurrio un error durante la insercion de los datos');
+            });
+            $('#modalFormulario').modal('hide');
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+        } else {
+            alertFactory.error('verifique los campos obligatorios (**) porfavor');
+        }
     };
 
-    $scope.modalUsuario=function(c){
-        $scope.ClienteAsignados=undefined;
-        $scope.clienteSelec=undefined;
-        configuracionPreciosRepository.getUsuariosAsignados(c).then(function (result) {
+    $scope.modalCliente = function (c) {
+        $scope.ClienteAsignados = undefined;
+        $scope.clienteSelec = undefined;
+        configuracionPreciosRepository.getClientesAsignados(c).then(function (result) {
             if (result.data.length > 0) {
                 $scope.ClienteAsignados = result.data;
             } else {

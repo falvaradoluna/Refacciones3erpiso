@@ -74,9 +74,9 @@ registrationModule.factory('configuracionPreciosRepository', function ($http) {
 
             });
         },
-        getUsuariosAsignados: function (params) {
+        getClientesAsignados: function (params) {
             return $http({
-                url: configuracionPreciosURL + 'UsuariosAsignados/',
+                url: configuracionPreciosURL + 'ClientesAsignados/',
                 method: "GET",
                 params: params
                 ,
@@ -96,6 +96,16 @@ registrationModule.factory('configuracionPreciosRepository', function ($http) {
                     'Content-Type': 'application/json'
                 }
 
+            });
+        },
+        insConfPrecios: function (params) {
+            return $http({
+                url: configuracionPreciosURL + 'ConfPrecios/',
+                method: "POST",
+                data: params,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
         }
     };
