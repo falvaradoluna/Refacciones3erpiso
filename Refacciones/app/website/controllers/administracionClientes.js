@@ -71,12 +71,51 @@ administracionClientes.prototype.get_Clientes = function (req, res, next) {
         var self = this;
         
             var params = [{
-                name: 'razonSocial',
-                value: req.body.razonSocial,
-                type: self.model.types.STRING
+                name: 'id',
+                value: req.body.id,
+                type: self.model.types.INT
             }];
 
         this.model.post('[Catalogo].[DEL_Cliente_SP]', params, function (error, result) {
+    
+            self.view.expositor(res, {
+                error: error,
+                result: result
+            });
+        });
+    };
+
+    administracionClientes.prototype.post_updCli = function (req, res, next) {
+        var self = this;
+        
+            var params = [
+                {
+                    name: 'id',
+                    value: req.body.id,
+                    type: self.model.types.INT
+                },
+                {
+                    name: 'razonSocial',
+                    value: req.body.razonSocial,
+                    type: self.model.types.STRING
+                },
+                {
+                    name: 'nombreComercial',
+                    value: req.body.nombreComercial,
+                    type: self.model.types.STRING
+                },
+                {
+                    name: 'contacto',
+                    value: req.body.contacto,
+                    type: self.model.types.STRING
+                },
+                {
+                    name: 'rfc',
+                    value: req.body.rfc,
+                    type: self.model.types.STRING
+                }
+            ];
+        this.model.post('[Catalogo].[UPD_Cliente_SP]', params, function (error, result) {
     
             self.view.expositor(res, {
                 error: error,

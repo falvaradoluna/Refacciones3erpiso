@@ -44,6 +44,7 @@ registrationModule.factory('administracionClientesRepository', function ($http) 
                     'Content-Type': 'application/json'
                 }
             });
-        }
+        },
+        
     };
 });
