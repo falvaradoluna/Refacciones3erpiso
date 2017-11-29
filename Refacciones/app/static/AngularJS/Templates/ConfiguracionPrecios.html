@@ -22,7 +22,7 @@
                                 </div>
                             </div>
                         </div>
-                <div class="row">
+              <!--  <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="sel1">**Marca:</label>
@@ -33,7 +33,7 @@
                     </div>
                     <div class="col-md-6">
                     </div>
-                </div>
+                </div>-->
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -110,21 +110,21 @@
         <thead>
             <tr class="info">
                 <th style="color:#38a0f4">Nombre De Configuracion</th>
-                <th style="color:#38a0f4">Marca</th>
+                <!--<th style="color:#38a0f4">Marca</th>-->
                 <th style="color:#38a0f4">Configuracion</th>
                 <th style="color:#38a0f4">Grupo</th>
                 <th style="color:#38a0f4">Base</th>
                 <th style="color:#38a0f4">Operacion</th>
                 <th style="color:#38a0f4">Porcentaje</th>
                 <!-- <th style="color:#38a0f4">Rango</th> -->
-                <th style="color:#38a0f4">Cliente Asignados</th>
+                <th style="color:#38a0f4">Asignar Cliente</th>
                 <th style="width:125px"></th>
             </tr>
         </thead>
         <tbody ng-repeat="c in confPrecios">
             <tr>
                 <td>{{c.configuracionNombre}}</td>
-                <td>{{c.marca}}</td>
+                <!--<td>{{c.marca}}</td>-->
                 <td>{{c.tipoConfiguracion}}</td>
                 <td>{{c.grupoDescripcion}}</td>
                 <td>{{c.base}}</td>
@@ -150,16 +150,20 @@
                                         <div class="col-md-8">
                                             <form class="form-inline">
                                                 <div class="form-group">
-                                                    <label for="sel4">Cliente:</label>
-                                                    <select class="form-control" ng-model="clienteSelec" ng-options="c.razonSocial for c in Cliente" id="sel4">
+                                                    <label for="sel6">Cliente:</label>
+                                                    <select class="form-control" ng-model="clienteSelec" ng-options="c.razonSocial for c in Cliente" id="sel6">
                                                         <option value="" disabled selected>Seleccione el cliente</option>
+                                                    </select>
+                                                    <label for="sel6">Marca: {{marcaSelec.marca}}</label>
+                                                    <select class="form-control" ng-model="marcaSelec" ng-options="m.marca for m in Marca" id="sel6">
+                                                        <option value="" disabled selected>Seleccione la Marca </option>
                                                     </select>
                                                 </div>
                                             </form>
                                         </div>
                                         <div class="col-md-4">
-                                            <button type="button" class="btn btn-primary pull-right" ng-click="">
-                                                Agregar cliente
+                                            <button type="button" class="btn btn-primary pull-right" ng-click="modalInsAsignar()">
+                                                Asignar Cliente
                                             </button>
                                         </div>
                                     </div>

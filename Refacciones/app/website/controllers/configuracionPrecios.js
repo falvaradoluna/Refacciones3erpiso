@@ -109,7 +109,7 @@ configuracionPrecios.prototype.get_ClientesAsignados = function (req, res, next)
         type: self.model.types.INT
     }];
 
-    self.model.query('[Precio].[SEL_ConfiguracionClientes_SP]', params, function (error, result) {
+    self.model.query('[Precio].[SEL_ConfiguracionClientesMarca_SP]', params, function (error, result) {
         self.view.expositor(res, {
             error: error,
             result: result
@@ -158,11 +158,6 @@ configuracionPrecios.prototype.post_ConfPrecios = function (req, res, next) {
             type: self.model.types.INT
         },
         {
-            name: 'idMarca',
-            value: req.body.idMarca,
-            type: self.model.types.INT
-        },
-        {
             name: 'configuracionNombre',
             value: req.body.configuracionNombre,
             type: self.model.types.STRING
@@ -170,6 +165,35 @@ configuracionPrecios.prototype.post_ConfPrecios = function (req, res, next) {
     ];
 
     this.model.post('[Precio].[INS_Configuracion_SP]', params, function (error, result) {
+
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
+configuracionPrecios.prototype.post_ConfClientes = function (req, res, next) {
+    var self = this;
+
+    var params = [{
+            name: 'idCliente',
+            value: req.body.idCliente,
+            type: self.model.types.INT
+        },
+        {
+            name: 'idConfiguracion',
+            value: req.body.idTipoConfiguracion,
+            type: self.model.types.INT
+        },
+        {
+            name: 'idMarca',
+            value: req.body.idMarca,
+            type: self.model.types.INT
+        }
+       
+    ];
+
+    this.model.post('[Precio].[INS_ClienteConfiguracionMarca_SP]', params, function (error, result) {
 
         self.view.expositor(res, {
             error: error,

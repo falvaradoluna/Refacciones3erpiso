@@ -107,6 +107,16 @@ registrationModule.factory('configuracionPreciosRepository', function ($http) {
                     'Content-Type': 'application/json'
                 }
             });
+        },
+        insConfClientes: function (params) {
+            return $http({
+                url: configuracionPreciosURL + 'ConfClientes/',
+                method: "POST",
+                data: params,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
         }
     };
 });

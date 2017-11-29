@@ -1,6 +1,7 @@
 /*configuracionPreciosController */
 registrationModule.controller('configuracionPreciosController', function ($route, $scope, $rootScope, $location, configuracionPreciosRepository, userFactory, alertFactory) {
     $scope.confPrecios = {};
+    $scope.confClientes = {};
     $scope.tiposConf = {};
     $scope.Base = {};
     $scope.Operacion = {};
@@ -9,7 +10,7 @@ registrationModule.controller('configuracionPreciosController', function ($route
     $scope.ClienteAsignados = {};
     $scope.Cliente = {};
     $scope.ConfPrecioAux = {};
-
+ 
     $scope.init = function () {
         var userData = userFactory.getUserData();
         if (userData == null || userData == undefined)
@@ -70,7 +71,7 @@ registrationModule.controller('configuracionPreciosController', function ($route
     */
         var inserta = true;
         inserta = $scope.configuracionNombre == null || $scope.configuracionNombre == undefined ? false : inserta;
-        inserta = $scope.marcaSelec == null || $scope.marcaSelec == undefined ? false : inserta;
+        //inserta = $scope.marcaSelec == null || $scope.marcaSelec == undefined ? false : inserta;
         inserta = $scope.tipoConfSelec == null || $scope.tipoConfSelec == undefined ? false : inserta;
         //inserta=$scope.grupoSelec==null||$scope.grupoSelec==undefined?false:inserta;
         inserta = $scope.baseSelec == null || $scope.baseSelec == undefined ? false : inserta;
@@ -82,7 +83,7 @@ registrationModule.controller('configuracionPreciosController', function ($route
             $scope.ConfPrecioAux.idBase = $scope.baseSelec.id;
             $scope.ConfPrecioAux.idOperacion = $scope.operacionSelec.id;
             $scope.ConfPrecioAux.porcentaje = $scope.porcentaje;
-            $scope.ConfPrecioAux.idMarca = $scope.marcaSelec.idMarca;
+           // $scope.ConfPrecioAux.idMarca = $scope.marcaSelec.idMarca;
             $scope.ConfPrecioAux.configuracionNombre = $scope.configuracionNombre;
 
             configuracionPreciosRepository.insConfPrecios($scope.ConfPrecioAux).then(function (result) {
