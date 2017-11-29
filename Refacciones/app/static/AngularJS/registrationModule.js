@@ -49,6 +49,12 @@ var registrationModule = angular.module("registrationModule", ["ngRoute", "Local
             ,controller: 'configuradorGruposController'
         });
 
+        //Route /Carga Archivos
+        $routeProvider.when('/CargaArchivos', {
+            templateUrl: 'AngularJS/Templates/cargaArchivos.html'
+            ,controller: 'cargaArchivosController'
+        });
+
         //Route /default
         $routeProvider.otherwise({ redirectTo: '/' });
 
