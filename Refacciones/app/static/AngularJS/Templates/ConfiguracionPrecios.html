@@ -1,4 +1,4 @@
-<h2 style="padding-left:15px">Configuracion de Precios</h2>
+<h2 style="padding-left:15px">Catálogos Listas de Precios</h2>
 <!--boton de agregar-->
 <div style="padding-right:30px">
     <button type="button" class="btn btn-primary btn-lg pull-right" data-toggle="modal" ng-click="porcentaje=undefined;configuracionNombre=undefined;marcaSelec=undefined;tipoConfSelec=undefined;grupoSelec=undefined;baseSelec=undefined;operacionSelec=undefined"
@@ -6,6 +6,7 @@
     <br>
 </div>
 <!--modal de agregar-->
+<div class="container table-responsive" style="padding-top:15px">
 <div class="modal fade" id="modalFormulario" role="dialog">
     <div class="modal-dialog modal-lg container">
         <div class="modal-content">
@@ -142,8 +143,8 @@
                         <div class="modal-dialog modal-lg container">
                             <div class="modal-content">
                                 <div class="modal-header modal-header-primary">
-                                    <button type="button" class="close" data-dismiss="modal" style="color:red">&times;</button>
-                                    <h4 class="modal-title" style="color:#38a0f4">Cliente Asignados</h4>
+                                   
+                                    <h4 class="modal-title" style="color:#38a0f4">Cliente Asignados: </h4>
                                 </div>
                                 <div class="modal-body">
                                     <div class="row">
@@ -151,11 +152,11 @@
                                             <form class="form-inline">
                                                 <div class="form-group">
                                                     <label for="sel6">Cliente:</label>
-                                                    <select class="form-control" ng-model="clienteSelec" ng-options="c.razonSocial for c in Cliente" id="sel6">
+                                                    <select class="form-control" ng-model="$parent.clienteSelec" ng-options="c.razonSocial for c in Cliente" id="sel6">
                                                         <option value="" disabled selected>Seleccione el cliente</option>
                                                     </select>
-                                                    <label for="sel6">Marca: {{marcaSelec.marca}}</label>
-                                                    <select class="form-control" ng-model="marcaSelec" ng-options="m.marca for m in Marca" id="sel6">
+                                                    <label for="sel6">Marca:</label>
+                                                    <select class="form-control" ng-model="$parent.marcaSelec" ng-options="m.marca for m in Marca" id="sel6">
                                                         <option value="" disabled selected>Seleccione la Marca </option>
                                                     </select>
                                                 </div>
@@ -183,12 +184,12 @@
                                                     <td>{{c.razonSocial}}</td>
                                                     <td>{{c.contacto}}</td>
                                                     <td>{{c.rfc}}</td>
-                                                    <td>
+                                                   <!-- <td>
                                                         <button type="button" class="btn btn-danger btn-icon" data-toggle="modal" ng-click="eliminarConfModal(d)" data-target="#modalElimConf"
                                                             title="Eliminar">
                                                             <i class="fa fa-trash-o"></i>
                                                         </button>
-                                                    </td>
+                                                    </td>-->
                                                 </tbody>
                                             </table>
                                         </div>
@@ -219,4 +220,5 @@
             </tr>
         </tbody>
     </table>
+</div>
 </div>

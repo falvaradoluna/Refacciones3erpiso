@@ -59,6 +59,8 @@ registrationModule.controller('configuracionPreciosController', function ($route
             }
         });
     };
+
+
     $scope.modalInsConfPrecio = function () {
         /*	 
 	 @idTipoConfiguracion int
@@ -70,6 +72,7 @@ registrationModule.controller('configuracionPreciosController', function ($route
 	,@configuracionNombre nvarchar(50)
     */
         var inserta = true;
+        //console.log($scope.marcaSelec);
         inserta = $scope.configuracionNombre == null || $scope.configuracionNombre == undefined ? false : inserta;
         //inserta = $scope.marcaSelec == null || $scope.marcaSelec == undefined ? false : inserta;
         inserta = $scope.tipoConfSelec == null || $scope.tipoConfSelec == undefined ? false : inserta;
@@ -124,5 +127,39 @@ registrationModule.controller('configuracionPreciosController', function ($route
                 alertFactory.error('NO se pudieron obtener los Clientes');
             }
         });
+    };
+    $scope.modalInsAsignar = function () {
+        var insert = true;
+        console.log($scope.marcaSelec);
+        console.log($scope.clienteSelec);
+        console.log($scope.tiposConf);
+
+        insert = $scope.marcaSelec == null || $scope.marcaSelec == undefined ? false : insert;
+        insert = $scope.clienteSelec == null || $scope.clienteSelec == undefined ? false : insert;
+        
+       // insert = $scope.tipoConfiguracion == null || $scope.tipoConfiguracion == undefined ? false : insert;
+        if (insert) {
+            //$scope.confClientes.idConfiguracion = $scope.idConfiguracion.id;
+            $scope.confClientes.idCliente = $scope.clienteSelec.id;
+            $scope.confClientes.idMarca = $scope.marcaSelec.idMarca;
+            configuracionPreciosRepository.insConfClientes($scope.confClientes).then(function (result) {
+                if (result.data.length > 0 && (result.data[0].control == 1)) {
+                    alertFactory.success('Se agrego correctamente la nueva configuracion de cliente');
+                    configuracionPreciosRepository.getClientesAsignados().then(function (result) {
+                        if (result.data.length > 0) {
+                            $scope.confClientes = result.data;
+                        } else {
+                            alertFactory.info('No hay datos registrados en Configuracion cliente');
+                        }
+                    });
+                } else
+                    alertFactory.error('ocurrio un error durante la insercion de los datos');
+            });
+            $('#modalUsers').modal('hide');
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+        } else {
+            alertFactory.error('verifique los campos obligatorios (**) porfavor');
+        }
     };
 });

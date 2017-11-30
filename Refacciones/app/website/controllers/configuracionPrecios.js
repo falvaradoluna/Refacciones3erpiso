@@ -182,7 +182,7 @@ configuracionPrecios.prototype.post_ConfClientes = function (req, res, next) {
         },
         {
             name: 'idConfiguracion',
-            value: req.body.idTipoConfiguracion,
+            value: req.body.idConfiguracion,
             type: self.model.types.INT
         },
         {
