@@ -7,17 +7,17 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="eliminaCampoModalLabel">Cancela campo</h4>
+                    <h4 class="modal-title" id="eliminaCampoModalLabel">Cancela campo posicon</h4>
                 </div>
                 <div class="modal-body">
                     <div class="alert alert-danger" role="alert">
-                        <label class="text-">¿Esta seguro de cancelar el campo?</label>
-                        
+                        <label class="text-">¿Esta seguro de cancelar el campo posicion?</label>                        
+                        <strong>{{nombreCampoCancela}} en la posicion {{posicionCampoCancela}}</strong>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="cancelaCampo()">Cancelar campo</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="cancelaPosicion()">Cancelar campo</button>
                 </div>
             </div>
         </div>
@@ -103,14 +103,14 @@
                             {{definicion.posicion}}
                     </td>       
                     <td>
-                            <div class="btn-group">                             
-                                <button type="button" class="btn btn-danger btn-icon btn-lg" data-toggle="modal" 
-                                        ng-click="eliminarCampo($index)" data-target="#modalElimCam"
-                                    title="Eliminar">
-                                    <i class="fa fa-trash-o"></i>
-                                </button>
-                            </div>
-                        </td>             
+                        <button type="button" 
+                                data-toggle="tooltip" 
+                                title="Cancelar la posicion del campo" 
+                                ng-click="showCancelaPosicion(definicion,$index)" 
+                                class="btn btn-danger btn-icon">
+                                <i class="fa fa-ban"></i>
+                        </button>
+                    </td>        
             </tr>
 
     </table>

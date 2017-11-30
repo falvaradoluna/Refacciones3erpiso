@@ -5,7 +5,7 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
 
     $scope.init = function () {
         
-    //redirecciona al login si no hay un usuario logeado
+        //redirecciona al login si no hay un usuario logeado
         var userData = userFactory.getUserData();
         if (userData == null || userData == undefined)
             location.href = '/';
@@ -30,7 +30,7 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
                 alertFactory.info('No se pudieron cargar las marcas');
         });
 
-        // 2 los campós 
+        // 2 obtener los campós del archivo a procesar
         cargaArchivosRepository.getCampos().then(function (result) {
             
                         if (result.data.length > 0) {
@@ -73,9 +73,38 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
     }
 
 
-    // ------------------------------------------ Eliminar CAMPO Definition
-    $scope.eliminarPosicion = function (idx) {
-        $scope.definiciones.splice(idx, 1);
-    };
+    // ------------------------------------------ ELIMINA COTIZACIONES
+
+    $scope.showCancelaPosicion = function (definicion,idx) {
+              
+                console.log('Se llama a showCancelaPosicion');
+                console.log(definicion);
+                console.log('Valor de Index??')
+                console.log(idx);
+        
+                $scope.idCampo = definicion.idCampo;
+                $scope.nombreCampoCancela = definicion.campo
+                $scope.posicionCampoCancela = definicion.posicion
+                $scope.idxCancela = idx;
+                $('#modalElimina').modal('show')
+            };
+        
+    $scope.cancelaPosicion = function () {
+                console.log('llegue a cancelaPosicion');
+                console.log('Valor de Index??');
+                //console.log(idx);
+                console.log($scope.idxCancela);
+
+                $scope.definiciones.splice($scope.idxCancela, 1);
+
+            };
+
+
+    $scope.subir = function() {
+            console.log('LLegue a Subir Archivo');
+            console.log('Nombre del Archivo');
+            console.log($scope.archivo.file);
+
+    }   ;         
 
 });
