@@ -10,6 +10,7 @@ registrationModule.controller('configuracionPreciosController', function ($route
     $scope.ClienteAsignados = {};
     $scope.Cliente = {};
     $scope.ConfPrecioAux = {};
+    $scope.ConfiguracionSeleccionada;
  
     $scope.init = function () {
         var userData = userFactory.getUserData();
@@ -111,8 +112,15 @@ registrationModule.controller('configuracionPreciosController', function ($route
     };
 
     $scope.modalCliente = function (c) {
+        console.log('LLamo a modalCliente');
+        console.log('el idConfiguracion es');
+        console.log(c);
         $scope.ClienteAsignados = undefined;
         $scope.clienteSelec = undefined;
+        $scope.ConfiguracionSeleccionada = c.id;
+        console.log('Id Configuracion que es del modal')
+        console.log('$scope.ConfiguracionSeleccionada');
+        console.log($scope.ConfiguracionSeleccionada);
         configuracionPreciosRepository.getClientesAsignados(c).then(function (result) {
             if (result.data.length > 0) {
                 $scope.ClienteAsignados = result.data;
@@ -133,6 +141,10 @@ registrationModule.controller('configuracionPreciosController', function ($route
         console.log($scope.marcaSelec);
         console.log($scope.clienteSelec);
         console.log($scope.tiposConf);
+        console.log('Voy a Insertar Configuracion');
+        console.log('Valor de ConfiguracionSeleccionada');
+        console.log($scope.ConfiguracionSeleccionada);
+
 
         insert = $scope.marcaSelec == null || $scope.marcaSelec == undefined ? false : insert;
         insert = $scope.clienteSelec == null || $scope.clienteSelec == undefined ? false : insert;
@@ -142,6 +154,7 @@ registrationModule.controller('configuracionPreciosController', function ($route
             //$scope.confClientes.idConfiguracion = $scope.idConfiguracion.id;
             $scope.confClientes.idCliente = $scope.clienteSelec.id;
             $scope.confClientes.idMarca = $scope.marcaSelec.idMarca;
+            $scope.confClientes.idConfiguracion = $scope.ConfiguracionSeleccionada;
             configuracionPreciosRepository.insConfClientes($scope.confClientes).then(function (result) {
                 if (result.data.length > 0 && (result.data[0].control == 1)) {
                     alertFactory.success('Se agrego correctamente la nueva configuracion de cliente');

@@ -75,6 +75,11 @@ registrationModule.factory('configuracionPreciosRepository', function ($http) {
             });
         },
         getClientesAsignados: function (params) {
+            console.log('En Repository ')
+            console.log('Cliente');
+
+            console.log('Marca');
+            console.log(params);
             return $http({
                 url: configuracionPreciosURL + 'ClientesAsignados/',
                 method: "GET",
@@ -109,6 +114,11 @@ registrationModule.factory('configuracionPreciosRepository', function ($http) {
             });
         },
         insConfClientes: function (params) {
+            console.log('En Repository ')
+            console.log('Cliente');
+
+            console.log('Marca');
+            console.log(params)
             return $http({
                 url: configuracionPreciosURL + 'ConfClientes/',
                 method: "POST",
