@@ -2,11 +2,11 @@
 <!--boton de agregar-->
 <div style="padding-right:30px">
     <button type="button" class="btn btn-primary btn-lg pull-right" data-toggle="modal" ng-click="porcentaje=undefined;configuracionNombre=undefined;marcaSelec=undefined;tipoConfSelec=undefined;grupoSelec=undefined;baseSelec=undefined;operacionSelec=undefined"
-        data-target="#modalFormulario">Agregar Configuracion</button>
+        data-target="#modalFormulario">Agregar Listado</button>
     <br>
 </div>
 <!--modal de agregar-->
-<div class="container table-responsive" style="padding-top:15px">
+
 <div class="modal fade" id="modalFormulario" role="dialog">
     <div class="modal-dialog modal-lg container">
         <div class="modal-content">
@@ -112,7 +112,7 @@
             <tr class="info">
                 <th style="color:#38a0f4">Nombre De Configuracion</th>
                 <!--<th style="color:#38a0f4">Marca</th>-->
-                <th style="color:#38a0f4">Configuracion</th>
+                <th style="color:#38a0f4">Tipo de Configuracion</th>
                 <th style="color:#38a0f4">Grupo</th>
                 <th style="color:#38a0f4">Base</th>
                 <th style="color:#38a0f4">Operacion</th>
@@ -177,13 +177,14 @@
                                                         <th style="color:#38a0f4">Cliente</th>
                                                         <th style="color:#38a0f4">Conctacto</th>
                                                         <th style="color:#38a0f4">RFC</th>
-                                                        <th></th>
+                                                        <th style="color:#38a0f4">Marca</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody ng-repeat="c in ClienteAsignados">
                                                     <td>{{c.razonSocial}}</td>
                                                     <td>{{c.contacto}}</td>
                                                     <td>{{c.rfc}}</td>
+                                                    <td>{{c.marca}}</td>
                                                    <!-- <td>
                                                         <button type="button" class="btn btn-danger btn-icon" data-toggle="modal" ng-click="eliminarConfModal(d)" data-target="#modalElimConf"
                                                             title="Eliminar">
