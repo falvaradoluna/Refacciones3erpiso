@@ -159,11 +159,7 @@ registrationModule.controller('configuracionPreciosController', function ($route
                 if (result.data.length > 0 && (result.data[0].control == 1)) {
                     alertFactory.success('Se agrego correctamente la nueva configuracion de cliente');
                     configuracionPreciosRepository.getClientesAsignados().then(function (result) {
-                        if (result.data.length > 0) {
-                            $scope.confClientes = result.data;
-                        } else {
-                            alertFactory.info('No hay datos registrados en Configuracion cliente');
-                        }
+                     
                     });
                 } else
                     alertFactory.error('ocurrio un error durante la insercion de los datos');
