@@ -1,3 +1,5 @@
+
+            <h2 style="padding-left:15px">Carga Archivo de Precios</h2>
 <div class="container table-responsive" style="padding-top:15px">
    <div style="padding-right:20px">
         <button class="btn btn-primary" type="button" class="btn btn-success pull-right" ng-click="modalEnviar()">
@@ -38,7 +40,6 @@
             <!-- INICIO PRINCIPAL-->
             
         
-            <h2 style="padding-left:15px">Carga Archivo de Precios</h2>
         <div style="padding-right:30px">             
         <table class="table table-hover">
         <div class="col-md-8">
@@ -58,10 +59,10 @@
                                     ng-options="campo as campo.campo for campo in campos track by campo.idCampo"
                                     ng-model="campoSeleccionado"></select>
                     </div>
-                    <label for="sel3">Posicion: </label>
+                    <label for="sel3">Campo del Archivo: </label>
                     <input class="form-control" id="posicion" placeholder="Posicion" ng-change="" ng-model="posicion">
                     <button class="btn btn-primary" type="button" class="btn btn-success pull-right" id="btnEnviar" data-toggle="tooltip" tooltip="Adicionar Campo Posicion" ng-click="agregarDeficionCampo()">
-                            <span class="fa fa-file-text-o" aria-hidden="true" data-toggle="modal">&nbsp;Agregar Campo Posicion</span>
+                            <span class="fa fa-file-text-o" aria-hidden="true" data-toggle="modal">&nbsp;Agregar Campo</span>
                     </button>
                 </form>
            </div>  

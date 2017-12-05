@@ -218,7 +218,7 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
         var inserta = {
             idUsuario: $scope.userData.idUsuario,
             idMarca: $scope.marcaSeleccionada.idMarca,
-            listas: precios
+            precios: precios
         };
 
         console.log($scope.marcaSeleccionada);

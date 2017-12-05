@@ -69,12 +69,13 @@
                     type: self.model.types.INT
                 },
                 {
-                    name: 'listas',
-                    value: jsonxml({listas : req.body.listas}),
+                    name: 'partes',
+                    value: jsonxml({precios : req.body.precios}),
                     type: self.model.types.STRING
                 }
             ];
-
+            console.log(params);
+                   
                 self.model.query('[Precio].[INS_ArchivoPrecios_SP]', params, function (error, result){
                     sel.view.expositor(res,{
                         error: error,
