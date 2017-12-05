@@ -1,7 +1,14 @@
 registrationModule.controller('cargaArchivosController', function ($route, $scope, $rootScope, $location, cargaArchivosRepository, userFactory, alertFactory) {
 
-    $scope.definiciones = [];    
+    $scope.definiciones = [];
+    $scope.preciosAgregados = [];    
     $scope.configuracionNombre;
+    
+    
+   
+
+   
+    
 
     $scope.init = function () {
         
@@ -115,7 +122,7 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
             var xlsxflag = false; /*Flag for checking whether excel is .xls format or .xlsx format*/  
             if ($("#excelfile").val().toLowerCase().indexOf(".xlsx") > 0) {  
                 xlsxflag = true;  
-                console.log($scope.excelfile);
+               
             }  
             /*Checks whether the browser supports HTML5*/  
             if (typeof (FileReader) != "undefined") {  
@@ -136,7 +143,8 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
                     sheet_name_list.forEach(function (y) { /*Iterate through all sheets*/  
                         /*Convert the cell value to Json*/  
                         if (xlsxflag) {  
-                            var exceljson = XLSX.utils.sheet_to_json(workbook.Sheets[y]);  
+                            var exceljson = XLSX.utils.sheet_to_json(workbook.Sheets[y]); 
+                           console.log(exceljson); 
                         }  
                         else {  
                             var exceljson = XLS.utils.sheet_to_row_object_array(workbook.Sheets[y]);  
@@ -160,14 +168,14 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
             }  
         }  
         else {  
-            alert("Please upload a valid Excel file!");  
+            alert("Favor cargar un carchivo valido");  
         }  
     };
     
     
     function BindTable(jsondata, tableid) {/*Function used to convert the JSON array to Html Table*/  
         var columns = BindTableHeader(jsondata, tableid); /*Gets all the column headings of Excel*/  
-        for (var i = 0; i < jsondata.length; i++) {  
+        for (var i = 0; i < 10; i++) {  
             var row$ = $('<tr/>');  
             for (var colIndex = 0; colIndex < columns.length; colIndex++) {  
                 var cellValue = jsondata[i][columns[colIndex]];  
@@ -177,9 +185,9 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
             }  
             $(tableid).append(row$);  
         }  
-    }  
+    };  
     function BindTableHeader(jsondata, tableid) {/*Function used to get all column names from JSON and bind the html table header*/  
-        var columnSet = [];  
+        var columnSet = [10];  
         var headerTr$ = $('<tr/>');  
         for (var i = 0; i < jsondata.length; i++) {  
             var rowHash = jsondata[i];  
@@ -194,6 +202,10 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
         }  
         $(tableid).append(headerTr$);  
         return columnSet;  
-    } 
+    };
+    
+    $scope.modalEnviar = function () {
+        
+   };
 
 });
