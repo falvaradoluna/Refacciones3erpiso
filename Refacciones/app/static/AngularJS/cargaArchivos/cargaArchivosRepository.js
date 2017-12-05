@@ -28,6 +28,17 @@ registrationModule.factory('cargaArchivosRepository', function ($http) {
 
             });
         },
+        //3.- carga de archivos 
+        insPrecios: function (params) {
+            return $http({
+                url: cargaArchivosURL + 'cargaPrecios/',
+                method: "POST",
+                data: params,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        }
 
 
     };

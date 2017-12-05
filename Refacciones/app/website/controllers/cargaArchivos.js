@@ -49,6 +49,39 @@
                     });
                 });
             };
+
+            cargaArchivos.prototype.post_cargaPrecios =function (req,res,next){
+                var self = this;
+
+                var params = [{
+                    name:'archivoNombre',
+                    value: req.body.archivoNombre,
+                    type: self.model.types.STRING
+                },
+                {
+                    name: 'idUsuario',
+                    value: req.body.idUsuario,
+                    type: self.model.types.INT
+                },
+                {
+                    name: 'idMarca',
+                    value: req.body.idMarca,
+                    type: self.model.types.INT
+                },
+                {
+                    name: 'listas',
+                    value: jsonxml({listas : req.body.listas}),
+                    type: self.model.types.STRING
+                }
+            ];
+
+                self.model.query('[Precio].[INS_ArchivoPrecios_SP]', params, function (error, result){
+                    sel.view.expositor(res,{
+                        error: error,
+                        result: result
+                    });
+                });
+            };
     
     module.exports = cargaArchivos;
     

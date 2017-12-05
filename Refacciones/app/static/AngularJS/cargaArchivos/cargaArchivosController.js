@@ -3,6 +3,8 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
     $scope.definiciones = [];
     $scope.preciosAgregados = [];    
     $scope.configuracionNombre;
+    $scope.listaPrecio = [];
+    $scope.cargaPrecios = {};
     
     
    
@@ -143,14 +145,15 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
                     sheet_name_list.forEach(function (y) { /*Iterate through all sheets*/  
                         /*Convert the cell value to Json*/  
                         if (xlsxflag) {  
-                            var exceljson = XLSX.utils.sheet_to_json(workbook.Sheets[y]); 
-                           console.log(exceljson); 
+                              $scope.listaPrecio = XLSX.utils.sheet_to_json(workbook.Sheets[y]);
+                             
+                           //console.log(exceljson); 
                         }  
                         else {  
-                            var exceljson = XLS.utils.sheet_to_row_object_array(workbook.Sheets[y]);  
+                            $scope.listaPrecio = XLS.utils.sheet_to_row_object_array(workbook.Sheets[y]);  
                         }  
-                        if (exceljson.length > 0 && cnt == 0) {  
-                            BindTable(exceljson, '#exceltable');  
+                        if ($scope.listaPrecio.length > 0 && cnt == 0) {  
+                            BindTable($scope.listaPrecio, '#exceltable');  
                             cnt++;  
                         }  
                     });  
@@ -205,7 +208,37 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
     };
     
     $scope.modalEnviar = function () {
+        var precios = [];
+        angular.forEach($scope.listaPrecio, function (value, key) {
+            precios.push({
+                precio: value
+            });
+        });
+
+        var inserta = {
+            idUsuario: $scope.userData.idUsuario,
+            idMarca: $scope.marcaSeleccionada.idMarca,
+            listas: precios
+        };
+
+        console.log($scope.marcaSeleccionada);
+        console.log($scope.userData);
         
+        
+       // inserta = $scope.marcaSeleccionada == null || $scope.marcaSeleccionada == undefined ? false : inserta;
+       // inserta = $scope.userData == null || $scope.userData == undefined ? false : inserta;
+      
+       cargaArchivosRepository.insPrecios(inserta).then(function (result) {
+
+        if (result.data.length > 0 && result.data[0].control > 0) {
+            
+            alertFactory.info('Correcto. Agregó una nueva lista.');
+
+        } else {
+            alertFactory.info('Ocurrio un error al agregar la lista.');
+        }
+    });
+
    };
 
 });
