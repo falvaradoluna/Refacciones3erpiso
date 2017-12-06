@@ -36,7 +36,7 @@ registrationModule.controller('cotizacionGraficaController', function ($scope, $
         
         $scope.cotizacionesEstatus.push(cotizacionEstatus);
         //valuesDonut.push( { label: cotizacionEstatus.estatus + "\n$" + v, value: cotizacionEstatus.cantidad } );
-        valuesDonut.push( { label: cotizacionEstatus.estatus + "\n$", value: cotizacionEstatus.cantidad } );
+        valuesDonut.push( { label: cotizacionEstatus.estatus + "\n$", value: cotizacionEstatus.monto } );
         colores.push('#00BFFF');
 
         var cotizacionEstatus2 = {
@@ -49,7 +49,7 @@ registrationModule.controller('cotizacionGraficaController', function ($scope, $
 
         $scope.cotizacionesEstatus.push(cotizacionEstatus2);
         //valuesDonut.push( { label: cotizacionEstatus2.estatus + "\n$" + v, value: cotizacionEstatus2.cantidad } );
-        valuesDonut.push( { label: cotizacionEstatus2.estatus + "\n$", value: cotizacionEstatus2.cantidad } );
+        valuesDonut.push( { label: cotizacionEstatus2.estatus + "\n$", value: cotizacionEstatus2.monto } );
         colores.push('#074F7D');
 
         var cotizacionEstatus3 = {
@@ -62,7 +62,7 @@ registrationModule.controller('cotizacionGraficaController', function ($scope, $
 
         $scope.cotizacionesEstatus.push(cotizacionEstatus3);
         //valuesDonut.push( { label: cotizacionEstatus3.estatus + "\n$" + v, value: cotizacionEstatus3.cantidad } );
-        valuesDonut.push( { label: cotizacionEstatus3.estatus + "\n$", value: cotizacionEstatus3.cantidad } );
+        valuesDonut.push( { label: cotizacionEstatus3.estatus + "\n$", value: cotizacionEstatus3.monto } );
         colores.push('#5B86A6');
 
         var cotizacionEstatus4 = {
@@ -75,7 +75,7 @@ registrationModule.controller('cotizacionGraficaController', function ($scope, $
 
         $scope.cotizacionesEstatus.push(cotizacionEstatus4);
         //valuesDonut.push( { label: cotizacionEstatus4.estatus + "\n$" + v, value: cotizacionEstatus4.cantidad } );
-        valuesDonut.push( { label: cotizacionEstatus4.estatus + "\n$", value: cotizacionEstatus4.cantidad } );
+        valuesDonut.push( { label: cotizacionEstatus4.estatus + "\n$", value: cotizacionEstatus4.monto } );
         colores.push('#5B86AA');
 
         console.log('a Graficar');
@@ -110,24 +110,24 @@ registrationModule.controller('cotizacionGraficaController', function ($scope, $
         $scope.cotizacionesMarca.push(cotizacionMarca);
         $scope.cotizacionesMarca.push(cotizacionMarca1);
 
-        //valuesDonutM.push( { label: cotizacionesMarca.marca + "\n$", value: cotizacionesMarca.monto } );
-        //valuesDonutM.push( { label: cotizacionesMarca1.marca + "\n$", value: cotizacionesMarca1.monto } );
+        valuesDonutM.push( { label: cotizacionMarca.marca + "\n$", value: cotizacionMarca.monto } );
+        valuesDonutM.push( { label: cotizacionMarca1.marca + "\n$", value: cotizacionMarca1.monto } );
 
 
         // Grafica Marcas
-//        $('#morris-donut-marcas').empty();
-//        Morris.Donut({
-//            element: 'morris-donut-marcas',
-//            data: valuesDonutM,
-//            resize: true,
-//            colors: colores,
-//        })
+        $('#morris-donut-marcas').empty();
+        Morris.Donut({
+            element: 'morris-donut-marcas',
+            data: valuesDonutM,
+            resize: true,
+            colors: colores,
+        })
 
        console.log($scope.cotizacionesEstatus);
 
     };
 
-    $scope.init();
+    //$scope.init();
 
 
 

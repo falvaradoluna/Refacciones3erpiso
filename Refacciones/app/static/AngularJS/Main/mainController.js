@@ -21,7 +21,7 @@ registrationModule.controller('mainController', function ($scope, $rootScope, $l
                 case 4:
                 case 5:
                 case 6:
-                    paginaInicio = '/Cotizaciones';
+                    paginaInicio = '/CotizacionGrafica';
                     break;
 
                 case 9:
