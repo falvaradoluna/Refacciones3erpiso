@@ -95,7 +95,7 @@ registrationModule.controller('cotizacionGraficaController', function ($scope, $
             marca : "Nissan",
             cantidad : 16,
             total :20,
-            monto :65000,
+            monto :145000,
             montocosto : 3500
         };
 
@@ -103,7 +103,7 @@ registrationModule.controller('cotizacionGraficaController', function ($scope, $
             marca : "GM",
             cantidad : 4,
             total :20,
-            monto :75000,
+            monto :58500,
             montocosto : 9500
         };
 
