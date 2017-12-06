@@ -139,6 +139,14 @@
                                             </span>
                                         </a>
                                     </li>
+                                    <li ng-show="userData.idRol == 1 || userData.idRol == 2 || userData.idRol == 3 || userData.idRol == 4 || userData.idRol == 5 || userData.idRol == 6 || userData.idRol == 8">
+                                        <a href="/CotizacionGrafica">
+                                            <i class="ti-wallet"></i>
+                                            <span class="menu-title">
+                                                <strong>CotizacionGrafica</strong>
+                                            </span>
+                                        </a>
+                                    </li>
                                     <!-- <li ng-show="userData.idRol == 1 || userData.idRol == 8">
                                         <a href="/AdministracionPrecios">
                                             <i class="ti-bar-chart-alt"></i>
@@ -319,6 +327,8 @@
     <script src="AngularJS/configuradorGrupos/configuradorGruposRepository.js"></script>
     <script src="AngularJS/cargaArchivos/cargaArchivosController.js"></script>
     <script src="AngularJS/cargaArchivos/cargaArchivosRepository.js"></script>
+    <script src="AngularJS/cotizacionGrafica/cotizacionGraficaController.js"></script>
+    <script src="AngularJS/cotizacionGrafica/cotizacionGraficaRepository.js"></script>
     <!--Controllers-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.7.7/xlsx.core.min.js"></script>  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xls/0.7.4-a/xls.core.min.js"></script> 

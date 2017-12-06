@@ -1,0 +1,98 @@
+<h2 style="padding-left:15px">Informacion de cotizaciones</h2>
+<button class="btn btn-primary" 
+        type="button" 
+        class="btn btn-success pull-right" 
+        id="btnListado" 
+        data-toggle="tooltip" 
+        tooltip="Mostrar las cotizaciones" 
+        ng-click="listadoGraficas()">
+    <span class="fa fa-file-text-o" 
+          aria-hidden="true" 
+          data-toggle="modal">&nbsp;Listar Cotizaciones</span>
+</button>
+
+<div ng-init="init()">
+<div class="hr-line-dashed"></div>
+<div class="row">
+    <div class="col-lg-6 contenedor">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Estatus</h5>
+                <div class="ibox-tools">
+                    <span class="label label-success pull-right">Total: {{totalCotizaciones |  number}}</span>
+                </div>
+            </div>
+            <div class="ibox-content ">
+                <div class="row contenedor">
+                    <div class="col-sm-6 divTabla">
+                        <div class="row rowHead">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-4">Estatus</div>
+                            <div class="col-sm-2">Cantidad</div>                            
+                            <div class="col-sm-2">Monto</div>
+                        </div>
+                        <div class="row rowBody" ng-repeat="x in cotizacionesEstatus" style="border-bottom: solid 1px #f4f4f4;">
+                            <div class="col-sm-1" style="background-color:{{x.color}}; height: 30px;">&nbsp;</div>
+                            <div class="col-sm-4">{{x.estatus}}</div>
+                            <div class="col-sm-2">{{x.cantidad}}</div>                            
+                            <div class="col-sm-2">{{x.monto | currency : "$"}}</div>
+                            <div class="col-sm-2">{{x.montCosto | currency : "$"}}</div>
+                        </div>
+                        <div class="row rowHead">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-4">Total</div>
+                            <div class="col-sm-2">{{totalCotizaciones | number}}</div>
+                            <div class="col-sm-2">{{totalCotizacionesMonto | number}}</div>
+                            <div class="col-sm-2" ng-show="idRol != 4">{{totalMontoCitas | currency : "$"}}</div>
+                            <div class="col-sm-2" ng-show="idRol == 4">{{totalCostoCitas | currency : "$"}}</div>
+                        </div>
+                    </div>
+                    <div class="donutContainer">
+                        <div id="morris-donut-citas" class="donut"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 contenedor">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Marcas</h5>
+                <div class="ibox-tools">
+                    <span class="label label-success pull-right">Total: {{totalCotizaciones | number}}</span>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="row contenedor">
+                    <div class="col-sm-6 divTabla">
+                        <div class="row rowHead">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-4">Marca</div>
+                            <div class="col-sm-2">Cantidad</div>                            
+                            <div class="col-sm-2">Monto</div>
+                        </div>
+                        <div class="row rowBody" ng-repeat="x in cotizacionesMarca" style="border-bottom: solid 1px #f4f4f4;">
+                            <div class="col-sm-1" style="background-color:{{x.color}}; height: 30px;">&nbsp;</div>
+                            <div class="col-sm-4">{{x.marca}}</div>
+                            <div class="col-sm-2">{{x.cantidad}}</div>                            
+                            <div class="col-sm-2">{{x.Monto | currency : "$"}}</div>
+                            <div class="col-sm-2">{{x.MontoCosto | currency : "$"}}</div>
+                        </div>
+                        <div class="row rowHead">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-4">Total</div>
+                            <div class="col-sm-2">{{totalCotizaciones | number}}</div>
+                            <div class="col-sm-2">{{totalCotizacionesMonto | number}}</div>                            
+                        </div>
+                    </div>
+                    <div class="donutContainer">
+                        <div id="morris-donut-marcas" class="donut"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    </div>
+</div>
+</div>

@@ -55,6 +55,12 @@ var registrationModule = angular.module("registrationModule", ["ngRoute", "Local
             ,controller: 'cargaArchivosController'
         });
 
+        //Route /Cotizacion Grafica
+        $routeProvider.when('/CotizacionGrafica', {
+            templateUrl: 'AngularJS/Templates/cotizacionGrafica.html'
+            ,controller: 'cotizacionGraficaController'
+        });
+
         //Route /default
         $routeProvider.otherwise({ redirectTo: '/' });
 

@@ -8,5 +8,6 @@
      administracionUsuarios:require('./controllers/administracionUsuarios'),
      configuracionPrecios:require('./controllers/configuracionPrecios'),
      configuradorGrupos:require('./controllers/configuradorGrupos'),
-     cargaArchivos:require('./controllers/cargaArchivos')
+     cargaArchivos:require('./controllers/cargaArchivos'),
+     cotizacionGrafica:require('./controllers/cotizacionGrafica') 
  }
