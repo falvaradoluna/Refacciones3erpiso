@@ -3,7 +3,7 @@ registrationModule.controller('cotizacionGraficaController', function ($scope, $
     $scope.cotizacionesEstatus = [];
     $scope.cotizacionesMarca = [];
     $scope.totalCotizaciones = 20;
-    $scope.totalCotizacionesMonto = 85000;
+    $scope.totalCotizacionesMonto = 203500;
     
     
 
@@ -56,7 +56,7 @@ registrationModule.controller('cotizacionGraficaController', function ($scope, $
             estatus : "Embarcadas",
             cantidad : 4,
             total :20,
-            monto :52000,
+            monto :27500,
             montocosto : 35000
         };
 
@@ -69,14 +69,14 @@ registrationModule.controller('cotizacionGraficaController', function ($scope, $
             estatus : "Entregadas",
             cantidad : 2,
             total :20,
-            monto :2000,
+            monto :32000,
             montocosto : 1500
         };
 
         $scope.cotizacionesEstatus.push(cotizacionEstatus4);
         //valuesDonut.push( { label: cotizacionEstatus4.estatus + "\n$" + v, value: cotizacionEstatus4.cantidad } );
         valuesDonut.push( { label: cotizacionEstatus4.estatus + "\n$", value: cotizacionEstatus4.monto } );
-        colores.push('#5B86AA');
+        colores.push('#2E2EFE');
 
         console.log('a Graficar');
         console.log(valuesDonut);
@@ -127,7 +127,7 @@ registrationModule.controller('cotizacionGraficaController', function ($scope, $
 
     };
 
-    //$scope.init();
+    //$scope.init();  //carga de nuevo todo
 
 
 
