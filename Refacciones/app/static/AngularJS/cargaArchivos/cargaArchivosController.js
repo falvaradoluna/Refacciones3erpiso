@@ -5,6 +5,7 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
     $scope.configuracionNombre;
     $scope.listaPrecio = [];
     $scope.cargaPrecios = {};
+    $scope.listaCampos = [];
     
     
    
@@ -190,7 +191,7 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
         }  
     };  
     function BindTableHeader(jsondata, tableid) {/*Function used to get all column names from JSON and bind the html table header*/  
-        var columnSet = [10];  
+        var columnSet = [];  
         var headerTr$ = $('<tr/>');  
         for (var i = 0; i < jsondata.length; i++) {  
             var rowHash = jsondata[i];  
@@ -215,14 +216,23 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
             });
         });
 
+        var campos = [];
+        angular.forEach($scope.definiciones, function (value, key) {
+            campos.push({
+                definicion: value
+            });
+        })
+
         var inserta = {
             idUsuario: $scope.userData.idUsuario,
             idMarca: $scope.marcaSeleccionada.idMarca,
-            precios: precios
+            precios: precios,
+            campos:campos
         };
 
         console.log($scope.marcaSeleccionada);
         console.log($scope.userData);
+        console.log(listaPrecio);
         
         
        // inserta = $scope.marcaSeleccionada == null || $scope.marcaSeleccionada == undefined ? false : inserta;
