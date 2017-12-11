@@ -54,8 +54,9 @@
                 var self = this;
 
                 var params = [{
+                    
                     name:'archivoNombre',
-                    value: req.body.archivoNombre,
+                    value: req.body.archivo,
                     type: self.model.types.STRING
                 },
                 {
@@ -71,6 +72,11 @@
                 {
                     name: 'partes',
                     value: jsonxml({precios : req.body.precios}),
+                    type: self.model.types.STRING
+                },
+                {
+                    name: 'campos',
+                    value: jsonxml({campos : req.body.campos}),
                     type: self.model.types.STRING
                 }
             ];

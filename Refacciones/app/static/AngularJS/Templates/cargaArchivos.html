@@ -1,6 +1,19 @@
 <body ng-controller="cargaArchivosController">
 <h2 style="padding-left:15px">Carga Archivo de Precios</h2>
 <div class="container table-responsive" style="padding-top:15px">
+<div style="padding-right:20px" align="right">
+        <button class="btn btn-primary" type="button" class="btn btn-success pull-right" ng-click="modalEnviar()">
+                <span class="fa fa-paper-plane" aria-hidden="true" data-toggle="modal">&nbsp;Agregar Listado</span>
+        </button>
+        <br>
+    </div>
+</div>
+    <br>
+    <br>
+    <br>
+
+
+<div class="container table-responsive" style="padding-top:15px">
         <div style="padding-right:20px">
           <div class="col-md-8">
         <input type="file" id="excelfile" />  
@@ -16,12 +29,7 @@
         </div>
     </div>
 <div class="container table-responsive" style="padding-top:15px">
-   <div style="padding-right:20px">
-        <button class="btn btn-primary" type="button" class="btn btn-success pull-right" ng-click="modalEnviar()">
-                <span class="fa fa-paper-plane" aria-hidden="true" data-toggle="modal">&nbsp;Agregar Listado</span>
-        </button>
-        <br>
-    </div>
+  
 <div id="modalElimina" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="eliminaCampoModalLabel">
         
          
@@ -75,7 +83,7 @@
                     </div>
                     <label for="sel3">Campo del Archivo:</label>
                    <!-- <select class="form-control" ></select>-->
-                    <input class="form-control" id="posicion" placeholder="Posicion" ng-change="" ng-model="posicion">
+                    <input class="form-control" id="posicion" placeholder="Campo" ng-change="" ng-model="posicion">
                     <button class="btn btn-primary" type="button" class="btn btn-success pull-right" id="btnEnviar" data-toggle="tooltip" tooltip="Adicionar Campo Posicion" ng-click="agregarDeficionCampo()">
                             <span class="fa fa-file-text-o" aria-hidden="true" data-toggle="modal">&nbsp;Agregar Campo</span>
                     </button>

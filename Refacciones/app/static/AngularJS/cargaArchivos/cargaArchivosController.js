@@ -207,6 +207,8 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
         $(tableid).append(headerTr$);  
         return columnSet;  
     };
+
+  
     
     $scope.modalEnviar = function () {
         var precios = [];
@@ -221,18 +223,27 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
             campos.push({
                 definicion: value
             });
-        })
+        });
+
+        var file = $('#excelfile')[0].files[0]
+        if (file){
+            var archivo = file.name;
+         // console.log(file.name);
+        };
 
         var inserta = {
             idUsuario: $scope.userData.idUsuario,
             idMarca: $scope.marcaSeleccionada.idMarca,
             precios: precios,
-            campos:campos
+            campos:campos,
+            archivo
         };
 
         console.log($scope.marcaSeleccionada);
         console.log($scope.userData);
-        console.log(listaPrecio);
+        console.log(archivo);
+        
+        
         
         
        // inserta = $scope.marcaSeleccionada == null || $scope.marcaSeleccionada == undefined ? false : inserta;
