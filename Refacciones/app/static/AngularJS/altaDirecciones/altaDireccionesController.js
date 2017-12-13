@@ -11,17 +11,28 @@ registrationModule.controller('altaDireccionesController', function ($route, $sc
     $scope.init = function () {
         
     //redirecciona al login si no hay un usuario logeado
+        console.log('Entranto a altaDirecciones');
         var userData = userFactory.getUserData();
         if(userData==null||userData==undefined)
             location.href = '/';
         $scope.userData = userFactory.getUserData();
         console.log($scope.userData.idUsuario);
-        altaDireccionesRepository.getDirecciones($scope.userData.idUsuario, null).then(function (result) {
+        console.log('voy a LLamar al Repository GetDirecciones');
+        console.log($scope.userData.idCliente);
+        console.log('$scope.userData.idCliente');
+        altaDireccionesRepository.getDirecciones($scope.userData.idCliente, null).then(function (result) {
             if (result.data.length > 0)
+                {
+                console.log('Regrese con datos');
+                console.log(result.data);
                 $scope.direcciones = result.data;
+                }
             else
-                alertFactory.error('El usuario no contiene Direcciones registradas');
+                alertFactory.error('El cliente no contiene Direcciones registradas');
         });
+        
+        
+        
         altaDireccionesRepository.getTipoDirecciones().then(function (result) {
             if (result.data.length > 0)
                 $scope.tipoDirecciones = result.data;
@@ -45,14 +56,16 @@ registrationModule.controller('altaDireccionesController', function ($route, $sc
         //checa los campos obligatorios
         var insertar = true;
         insertar = $scope.userData.idUsuario == null || $scope.userData.idUsuario == undefined ? false : insertar;
-        insertar = $scope.tipoDirSelec == null || $scope.tipoDirSelec == undefined ? false : insertar;
+        //insertar = $scope.tipoDirSelec == null || $scope.tipoDirSelec == undefined ? false : insertar;
         insertar = $scope.coloniaSel == null || $scope.coloniaSel == undefined ? false : insertar;
         insertar = $scope.Calle == null || $scope.Calle == undefined ? false : insertar;
         insertar = $scope.NumeroExterior == null || $scope.NumeroExterior == undefined ? false : insertar;
 
         if (insertar == true) {
-            $scope.nuevaDireccion.idUsuario = $scope.userData.idUsuario; //obligatorio
-            $scope.nuevaDireccion.idTipoDireccion = $scope.tipoDirSelec.idTipoDireccion; //obligatorio
+            console.log('insDireccion');
+            console.log('Voy a Agregar Direccion');
+            $scope.nuevaDireccion.idCliente = $scope.userData.idCliente; //obligatorio
+            $scope.nuevaDireccion.idTipoDireccion = 2;  //$scope.tipoDirSelec.idTipoDireccion; //obligatorio
             $scope.nuevaDireccion.idColonia = $scope.coloniaSel.idColonia; //obligatorio
             $scope.nuevaDireccion.Calle = $scope.Calle; //obligatorio
             $scope.nuevaDireccion.NumeroExterior = $scope.NumeroExterior; //obligatorio
@@ -61,10 +74,12 @@ registrationModule.controller('altaDireccionesController', function ($route, $sc
             $scope.nuevaDireccion.Y = $scope.yCalle == null || $scope.yCalle == undefined ? ' ' : $scope.yCalle; //ob
             $scope.nuevaDireccion.Nota = $scope.Nota == null || $scope.Nota == undefined ? 'Sin observaciones' : $scope.Nota; //
             //inserta la nueva direccion
+            console.log('voy a llamar a Repositori');
             altaDireccionesRepository.insDireccion(
                     $scope.nuevaDireccion)
                 .then(function (result) {
                     if (result.data.length > 0 && (result.data[0].control == 1)) {
+
                         alertFactory.success('Se agrego correctamente la nueva direccion');
                         altaDireccionesRepository.getDirecciones($scope.userData.idUsuario, null).then(function (result) {
                             if (result.data.length > 0)
@@ -73,7 +88,10 @@ registrationModule.controller('altaDireccionesController', function ($route, $sc
                                 alertFactory.error('El usuario no contiene Direcciones registradas');
                         });
                     } else
+                        {
+                            console.log('Error');
                         alertFactory.error('ocurrio un error durante la insercion de los datos');
+                        }
                 });
             //se cierra la modal
             $('#modalFormulario').modal('hide');

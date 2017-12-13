@@ -9,7 +9,7 @@
         <thead>
             <tr class="info">
 
-                <th style="color:#38a0f4">Tipo dirección</th>
+                <!-- <th style="color:#38a0f4">Tipo direccion</th> -->
                 <th style="color:#38a0f4">Código Postal</th>
                 <!-- <th>calle</th>
                 <th>Num ext</th>
@@ -23,7 +23,7 @@
         </thead>
         <tbody ng-repeat="d in direcciones|orderBy:codigoPostal track by d.idDireccion">
             <tr>
-                <td>{{d.tipoDireccion}}</td>
+                <!-- <td>{{d.tipoDireccion}}</td> -->
                 <td>{{d.codigoPostal}}</td>
                 <!-- <td>{{d.Calle}}</td>
                 <td>{{d.NumeroExterior}}</td>
@@ -35,7 +35,7 @@
                 <td>{{d.Nota}}</td>
                 <td>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary btn-icon btn-lg" data-target="#modalEditDir" ng-click="editarDireccionModal(d)"
+                        <buttnpm starton type="button" class="btn btn-primary btn-icon btn-lg" data-target="#modalEditDir" ng-click="editarDireccionModal(d)"
                             title="Editar" data-toggle="modal">
                             <i class="fa fa-pencil"></i>
                         </button>
@@ -50,11 +50,11 @@
                                     </div>
                                     <div class="modal-body">
                                         <div>
-                                            <div class="row">
+                                            <!-- <div class="row">
                                                 <div class="col-md-12">
                                                     <p>Tipo Dirección: {{modalEditar.tipoDireccion}}</p>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -188,7 +188,7 @@
                 </div>
                 <div class="modal-body">
                     <div>
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="sel1">**Tipo Direccion:</label>
@@ -197,7 +197,7 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="row">
                             <form class="form-inline">
                                 <div class="col-md-6">

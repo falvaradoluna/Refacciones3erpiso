@@ -25,8 +25,8 @@ altaDirecciones.prototype.get_Direcciones = function (req, res, next) {
     var self = this;
 
     var params = [{
-        name: 'idUsuario',
-        value: req.query.idUsuario,
+        name: 'idCliente',
+        value: req.query.idCliente,
         type: self.model.types.INT
     }, {
         name: 'idTipoDireccion',
@@ -77,8 +77,8 @@ altaDirecciones.prototype.post_insertDir = function (req, res, next) {
     var self = this;
 
     var params = [{
-            name: 'idUsuario',
-            value: req.body.idUsuario,
+            name: 'idCliente',
+            value: req.body.idCliente,
             type: self.model.types.INT
         },
         {

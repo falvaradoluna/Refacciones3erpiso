@@ -3,12 +3,14 @@ var altaDireccionesURL = global_settings.urlCORS + 'api/altaDirecciones/';
 registrationModule.factory('altaDireccionesRepository', function ($http) {
     return {
         //obtiene las direcciones registradas a un usuario
-        getDirecciones: function (idUsuario, idTipoDireccion) {
+        getDirecciones: function (idCliente, idTipoDireccion) {
+            console.log('En Repository');
+            console.log(idCliente);
             return $http({
                 url: altaDireccionesURL + 'Direcciones/',
                 method: "GET",
                 params: {
-                    idUsuario: idUsuario,
+                    idCliente: idCliente,
                     idTipoDireccion: idTipoDireccion
                 },
                 headers: {
