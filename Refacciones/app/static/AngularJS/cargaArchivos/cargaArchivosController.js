@@ -6,6 +6,7 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
     $scope.listaPrecio = [];
     $scope.cargaPrecios = {};
     $scope.listaCampos = [];
+    $scope.fieldsFile = [];
     
     
    
@@ -71,12 +72,15 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
 
     // ------------------------------------------ AGREGA CAMPO Definition
     $scope.agregarDeficionCampo = function () {
-        console.log('Posicion');
-        console.log($scope.posicion);
+        console.log('Posicion Seleccionada');
+        console.log($scope.campoSeleccionado);
+        console.log($scope.fieldSeleccionado);
+        console.log($scope.fieldSeleccionado.field);
         var definicion = {
-            idCampo: 1,
+            idCampo: $scope.definiciones.length - 1,
             campo: $scope.campoSeleccionado.campo,
-            posicion: $scope.posicion
+            posicion: $scope.fieldSeleccionado.field
+            //posicion: $scope.posicion
         }
         $scope.definiciones.unshift(definicion);
 
@@ -179,6 +183,7 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
     
     function BindTable(jsondata, tableid) {/*Function used to convert the JSON array to Html Table*/  
         var columns = BindTableHeader(jsondata, tableid); /*Gets all the column headings of Excel*/  
+        PoblarFieldsFile(jsondata);
         for (var i = 0; i < 10; i++) {  
             var row$ = $('<tr/>');  
             for (var colIndex = 0; colIndex < columns.length; colIndex++) {  
@@ -192,10 +197,11 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
     };  
     function BindTableHeader(jsondata, tableid) {/*Function used to get all column names from JSON and bind the html table header*/  
         var columnSet = [];  
-        var headerTr$ = $('<tr/>');  
+        var headerTr$ = $('<tr/>');          
         for (var i = 0; i < jsondata.length; i++) {  
             var rowHash = jsondata[i];  
             for (var key in rowHash) {  
+                
                 if (rowHash.hasOwnProperty(key)) {  
                     if ($.inArray(key, columnSet) == -1) {/*Adding each unique column names to a variable array*/  
                         columnSet.push(key);  
@@ -205,9 +211,54 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
             }  
         }  
         $(tableid).append(headerTr$);  
+       
         return columnSet;  
     };
+    function PoblarFieldsFile(jsondata) {/*Function used to get all column names from JSON and bind the html table header*/  
+        var columnSet = [];  
+        var headerTr$ = $('<tr/>');  
+        var numCampo = 1;
+        for (var i = 0; i < 1; i++) {  
+            var rowHash = jsondata[i];  
+            for (var key in rowHash) {  
+                //console.log('Valor de key');
+                //console.log(key);
 
+                if(key != '__rowNum__')
+                {
+
+                    var fieldFile = {
+                        idField: numCampo,
+                        field: key                    
+                    }
+                    numCampo = numCampo + 1;
+                    //console.log(fieldFile);
+
+                    $scope.fieldsFile.push(fieldFile);
+
+                }
+
+                console.log('Array Fileds');
+                console.log($scope.fieldsFile);
+               
+            }  
+        }  
+
+        console.log($scope.fieldsFile)
+        $scope.fields = $scope.fieldsFile;
+
+        var fieldFile = {
+            idField: 0,
+            field: 'Seleccione un campo del Archivo.'
+        }
+
+        $scope.fields.unshift(fieldFile);
+        $scope.fieldSeleccionado = $scope.fields[0];
+
+        console.log('Combo');
+        console.log($scope.fields);
+
+    };
   
     
     $scope.modalEnviar = function () {
