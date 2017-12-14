@@ -120,9 +120,19 @@ altaDirecciones.prototype.post_insertDir = function (req, res, next) {
             name: 'Nota',
             value: req.body.Nota,
             type: self.model.types.STRING
+        },
+        {
+            name: 'latitud',
+            value: req.body.latitud,
+            type: self.model.types.STRING
+        },
+        {
+            name: 'longitud',
+            value: req.body.longitud,
+            type: self.model.types.STRING
         }
     ];
-
+    console.log(params);
     this.model.post('[Catalogo].[INS_Direccion_SP]', params, function (error, result) {
 
         self.view.expositor(res, {

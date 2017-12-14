@@ -51,6 +51,47 @@ registrationModule.controller('altaDireccionesController', function ($route, $sc
                     alertFactory.error('No existe el codigo postal');
             });
     };
+    
+
+        // función que se ejecuta al pulsar el botón buscar dirección
+$scope.getCoords = function(){
+    // Creamos el objeto geodecoder
+   var geocoder = new google.maps.Geocoder();
+  
+   var str = 'calle ' + $scope.Calle + 
+   ', municipio ' + $scope.coloniaSel.ciudad +
+   ', colonia ' + $scope.coloniaSel.colonia +
+   ', numero ' + $scope.NumeroExterior
+  
+   
+  
+   //address = document.getElementById('str').value;
+   var address = str 
+   
+   if(address!='')
+   {
+    // Llamamos a la función geodecode pasandole la dirección que hemos introducido en la caja de texto.
+   geocoder.geocode({ 'address': str}, function(results, status)  
+  
+   {
+     if (status == 'OK')
+     {
+  // Mostramos las coordenadas obtenidas en el p con id coordenadas
+     document.getElementById("coordenadas").innerHTML='Coordenadas:   '+results[0].geometry.location.lat()+', '+results[0].geometry.location.lng();
+     //document.getElementById("coordenadas").innerHTML='Coordenadas:   '+str ;
+  
+     $scope.latitud = results[0].geometry.location.lat()
+     $scope.longitud = results[0].geometry.location.lng()
+     console.log('longitud');
+     console.log($scope.longitud);
+     console.log('latitud');
+     console.log($scope.latitud);
+     console.log.apply(str);
+  }
+    });
+   }
+   }
+   
     //iserta la nueva direccion
     $scope.insDireccion = function () {
         //checa los campos obligatorios
@@ -73,6 +114,8 @@ registrationModule.controller('altaDireccionesController', function ($route, $sc
             $scope.nuevaDireccion.Entre = $scope.Entre == null || $scope.Entre == undefined ? ' ' : $scope.Entre; //ob
             $scope.nuevaDireccion.Y = $scope.yCalle == null || $scope.yCalle == undefined ? ' ' : $scope.yCalle; //ob
             $scope.nuevaDireccion.Nota = $scope.Nota == null || $scope.Nota == undefined ? 'Sin observaciones' : $scope.Nota; //
+            $scope.nuevaDireccion.latitud = $scope.latitud;
+            $scope.nuevaDireccion.longitud = $scope.longitud;
             //inserta la nueva direccion
             console.log('voy a llamar a Repositori');
             altaDireccionesRepository.insDireccion(
@@ -180,6 +223,8 @@ registrationModule.controller('altaDireccionesController', function ($route, $sc
             alertFactory.error('verifique los campos obligatorios (**) porfavor');
 
         }
-
     };
+
+
+
 });
