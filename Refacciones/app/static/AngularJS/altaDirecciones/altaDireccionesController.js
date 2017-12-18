@@ -55,8 +55,10 @@ registrationModule.controller('altaDireccionesController', function ($route, $sc
 
         // función que se ejecuta al pulsar el botón buscar dirección
 $scope.getCoords = function(){
+    
+    if ($scope.NumeroExterior.length != ''){
     // Creamos el objeto geodecoder
-   var geocoder = new google.maps.Geocoder();
+ $scope.geocoder = new google.maps.Geocoder();
   
    var str = 'calle ' + $scope.Calle + 
    ', municipio ' + $scope.coloniaSel.ciudad +
@@ -68,10 +70,9 @@ $scope.getCoords = function(){
    //address = document.getElementById('str').value;
    var address = str 
    
-   if(address!='')
-   {
+   if(address!='') {
     // Llamamos a la función geodecode pasandole la dirección que hemos introducido en la caja de texto.
-   geocoder.geocode({ 'address': str}, function(results, status)  
+   $scope.geocoder.geocode({ 'address': str}, function(results, status)  
   
    {
      if (status == 'OK')
@@ -90,10 +91,12 @@ $scope.getCoords = function(){
   }
     });
    }
-   }
+}
+  
+   };
    
     //iserta la nueva direccion
-    $scope.insDireccion = function () {
+    $scope.insDireccion =  function () {
         //checa los campos obligatorios
         var insertar = true;
         insertar = $scope.userData.idUsuario == null || $scope.userData.idUsuario == undefined ? false : insertar;
@@ -101,7 +104,6 @@ $scope.getCoords = function(){
         insertar = $scope.coloniaSel == null || $scope.coloniaSel == undefined ? false : insertar;
         insertar = $scope.Calle == null || $scope.Calle == undefined ? false : insertar;
         insertar = $scope.NumeroExterior == null || $scope.NumeroExterior == undefined ? false : insertar;
-
         if (insertar == true) {
             console.log('insDireccion');
             console.log('Voy a Agregar Direccion');

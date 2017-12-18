@@ -35,7 +35,7 @@
                 <td>{{d.Nota}}</td>
                 <td>
                     <div class="btn-group">
-                        <buttnpm starton type="button" class="btn btn-primary btn-icon btn-lg" data-target="#modalEditDir" ng-click="editarDireccionModal(d)"
+                        <button starton type="button" class="btn btn-primary btn-icon btn-lg" data-target="#modalEditDir" ng-click="editarDireccionModal(d)"
                             title="Editar" data-toggle="modal">
                             <i class="fa fa-pencil"></i>
                         </button>
@@ -239,7 +239,7 @@
                                 <form class="form">
                                     <div class="form-group">
                                         <label for="numExt">**Número Ext.:</label>
-                                        <input ng-model="NumeroExterior" class="form-control" id="numExt">
+                                        <input ng-model="NumeroExterior" autocomplete="off" ng-change="getCoords()" class="form-control" id="numExt">
                                     </div>
                                     <div class="form-group">
                                         <label for="entreCalle">Entre</label>
@@ -265,10 +265,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="comment">Mapa: {{str}} </label>
-                                                    <div><p id="coordenadas"></p></div>
-                                                   <input type="button" value="Buscar Dirección" ng-click="getCoords()">
-                                            
+                                            <div><p id="coordenadas"></p></div>
                                         </div>
                                     </div>
                                 </div>

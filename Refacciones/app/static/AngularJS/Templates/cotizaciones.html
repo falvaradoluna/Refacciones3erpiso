@@ -322,18 +322,33 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" id="modificaCotizacionDireccionModalLabel">Seleccionar una dirección</h4>
-            </div>
+            </div>  
+            
             <div class="modal-body">
-                <div ng-show="direcciones && direcciones.length > 0">
-                    <div ng-repeat="direccion in direcciones" class="radio">
-                        <input id="{{'direccionRadio' + direccion.idDireccion}}" type="radio" class="magic-radio" name="direccion" ng-model="direccionSeleccionada"
-                            ng-click="elegirDireccion(direccion)" ng-value="direccion">
-                        <label for="{{'direccionRadio' + direccion.idDireccion}}">{{direccion.DireccionD}}</label>
+                <div class="row">
+                   <div class="col-sm-6">
+                       <div class="form-group">
+                        <div ng-show="direcciones && direcciones.length > 0">
+                            <div ng-repeat="direccion in direcciones" class="radio">
+                                <input id="{{'direccionRadio' + direccion.idDireccion}}" type="radio" class="magic-radio" name="direccion" ng-model="direccionSeleccionada"
+                                    ng-click="elegirDireccion(direccion)" ng-value="direccion">
+                                <label for="{{'direccionRadio' + direccion.idDireccion}}">{{direccion.DireccionD}}</label>
+                            </div>
+                         </div>
+                        <div ng-show="direcciones == null || direcciones.length < 1" class="alert alert-danger" role="alert">
+                            <strong>No tiene registrado direcciones, es necesario dar de alta alguna.</strong>
+                        </div>
+                      </div>
+                  </div>
+                
+                <div class="col-sm-push-1 col-sm-5">
+                    <div class="form-group">
+                        <label>Mapa:</label>
+                        <div id="map_canvas" style="width: 300px; height: 400px;"></div>
+                       
                     </div>
                 </div>
-                <div ng-show="direcciones == null || direcciones.length < 1" class="alert alert-danger" role="alert">
-                    <strong>No tiene registrado direcciones, es necesario dar de alta alguna.</strong>
-                </div>
+            </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>

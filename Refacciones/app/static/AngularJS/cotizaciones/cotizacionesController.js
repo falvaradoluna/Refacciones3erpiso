@@ -47,7 +47,7 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
         });
 
         // 2 es para las direcciones de entrega
-        altaDireccionesRepository.getDirecciones($scope.userData.idUsuario, 2).then(function (result) {
+        altaDireccionesRepository.getDirecciones($scope.userData.idCliente, null).then(function (result) {
 
             if (result.data.length > 0) {
                 $scope.direcciones = result.data;
@@ -202,6 +202,7 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
     // no pitufa el modelo del radio
     $scope.elegirDireccion = function (direccion) {
         $scope.direccionSeleccionada = direccion;
+         $scope.initialize();
     }
 
     $scope.agregarCotizacionConfirma = function () {
@@ -312,4 +313,34 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
         //$scope.cotizaciones.splice($scope.idxCotizacion, 1);
         //TODO: Falta implementar la eliminacion
     };
+
+   $scope.initialize = function () {
+
+    altaDireccionesRepository.getDirecciones($scope.userData.idCliente, null).then(function (result) {
+        
+                    if (result.data.length > 0) {
+                        $scope.direcciones = result.data;
+        
+                        // inicializacion
+                         //$scope.direccionSeleccionada.latitud;
+                        // $scope.direccionSeleccionada.longitud;
+
+                        $scope.direccionSeleccionada.latitud;
+                        $scope.direccionSeleccionada.longitud;
+                    } else
+                        alertFactory.info('El usuario no cuenta con direcciones de embarque registradas');
+                })
+
+        var myLatlng = new google.maps.LatLng($scope.direccionSeleccionada.latitud, $scope.direccionSeleccionada.longitud);
+        var myOptions = {
+          zoom: 8,
+          center: myLatlng,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map($("#map_canvas").get(0), myOptions);
+        var marker = new google.maps.Marker({
+          position: myLatlng,
+          map: map
+      });
+      };
 });
