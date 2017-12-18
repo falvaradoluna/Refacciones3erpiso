@@ -30,7 +30,7 @@
             self.model.query('[Catalogo].[SEL_Marcas_SP]', params, function (error, result) {
                 self.view.expositor(res, {
                     error: error,
-                    result: result
+                    result: result                    
                 });
             });
         };
@@ -80,14 +80,18 @@
                     type: self.model.types.STRING
                 }
             ];
+            console.log('Parametros')
             console.log(params);
                    
                 self.model.query('[Precio].[INS_ArchivoPrecios_SP]', params, function (error, result){
-                    sel.view.expositor(res,{
+                    self.view.expositor(res,{
                         error: error,
                         result: result
                     });
+                console.log('Regrese de [Precio].[INS_ArchivoPrecios_SP]')    ;
                 });
+                console.log('Regrese de [Precio].[INS_ArchivoPrecios_SP] Afura' )    ;
+               
             };
     
     module.exports = cargaArchivos;

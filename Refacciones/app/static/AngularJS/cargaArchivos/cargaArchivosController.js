@@ -26,8 +26,10 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
        
         cargaArchivosRepository.getMarcas().then(function (result) {
 
+            console.log('getMarcas del Repository');
             if (result.data.length > 0) {
 
+                console.log('data length mayor a zero');
                 $scope.marcas = result.data;
 
                 // inicializacion
@@ -74,10 +76,14 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
     $scope.agregarDeficionCampo = function () {
         console.log('Posicion Seleccionada');
         console.log($scope.campoSeleccionado);
+        console.log($scope.campoSeleccionado.idCampo);
+        console.log($scope.campoSeleccionado.campo);
         console.log($scope.fieldSeleccionado);
         console.log($scope.fieldSeleccionado.field);
+
         var definicion = {
-            idCampo: $scope.definiciones.length - 1,
+            idCampo: $scope.definiciones.length,
+            idCampoCatalogo : $scope.campoSeleccionado.idCampo,
             campo: $scope.campoSeleccionado.campo,
             posicion: $scope.fieldSeleccionado.field
             //posicion: $scope.posicion
@@ -123,13 +129,13 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
     
     
     $scope.exportar =function () {  
+        console.log('Entre a Exportar');
         var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.xlsx|.xls)$/;  
         /*Checks whether the file is a valid excel file*/  
         if (regex.test($("#excelfile").val().toLowerCase())) {  
             var xlsxflag = false; /*Flag for checking whether excel is .xls format or .xlsx format*/  
             if ($("#excelfile").val().toLowerCase().indexOf(".xlsx") > 0) {  
-                xlsxflag = true;  
-               
+                xlsxflag = true;                 
             }  
             /*Checks whether the browser supports HTML5*/  
             if (typeof (FileReader) != "undefined") {  
@@ -144,18 +150,35 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
                         var workbook = XLS.read(data, { type: 'binary' });  
                     }  
                     /*Gets all the sheetnames of excel in to a variable*/  
+
                     var sheet_name_list = workbook.SheetNames;  
-     
+                    
+                    console.log('Sheer Name');
+                    console.log(sheet_name_list);
+
+
+
                     var cnt = 0; /*This is used for restricting the script to consider only first sheet of excel*/  
                     sheet_name_list.forEach(function (y) { /*Iterate through all sheets*/  
-                        /*Convert the cell value to Json*/  
+                        /*Convert the cell value to Json*/                          
                         if (xlsxflag) {  
-                              $scope.listaPrecio = XLSX.utils.sheet_to_json(workbook.Sheets[y]);
-                             
-                           //console.log(exceljson); 
+                              $scope.listaPrecio = XLSX.utils.sheet_to_json(workbook.Sheets[y],{
+                                range:0,
+                                header: function(column_name, column_number, column_letter) { console.log('Change Name ??');
+                                                                                              console.log(column_name.replace(/ /g,"_"));
+                                                                                              return column_name.split(' ').join('_'); 
+                                                                                            }
+                                //header: function(column_name, column_number, column_letter) { return column_name.replace(/\s(.)/g, function($$,$1) { return $1.toUpperCase()}); }
+                                //header: function(column_name, column_number, column_letter) { return column_name.replace(/ /g,"_"); }
+
+
+                              });
+                              console.log('entre en xlsxflag')
+                              console.log($scope.listaPrecio); 
                         }  
                         else {  
-                            $scope.listaPrecio = XLS.utils.sheet_to_row_object_array(workbook.Sheets[y]);  
+                            $scope.listaPrecio = XLS.utils.sheet_to_row_object_array(workbook.Sheets[y])
+                            ;  
                         }  
                         if ($scope.listaPrecio.length > 0 && cnt == 0) {  
                             BindTable($scope.listaPrecio, '#exceltable');  
@@ -195,6 +218,7 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
             $(tableid).append(row$);  
         }  
     };  
+
     function BindTableHeader(jsondata, tableid) {/*Function used to get all column names from JSON and bind the html table header*/  
         var columnSet = [];  
         var headerTr$ = $('<tr/>');          
@@ -238,13 +262,13 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
 
                 }
 
-                console.log('Array Fileds');
-                console.log($scope.fieldsFile);
+               // console.log('Array Fileds');
+              //  console.log($scope.fieldsFile);
                
             }  
         }  
 
-        console.log($scope.fieldsFile)
+        //console.log($scope.fieldsFile)
         $scope.fields = $scope.fieldsFile;
 
         var fieldFile = {
@@ -286,13 +310,18 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
             idUsuario: $scope.userData.idUsuario,
             idMarca: $scope.marcaSeleccionada.idMarca,
             precios: precios,
-            campos:campos,
+            campos: campos,
             archivo
         };
 
         console.log($scope.marcaSeleccionada);
         console.log($scope.userData);
         console.log(archivo);
+        console.log('XML Precios');
+        console.log(precios);
+        console.log('XML Campos');
+        console.log(campos);
+
         
         
         
