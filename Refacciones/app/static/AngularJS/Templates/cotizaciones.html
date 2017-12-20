@@ -251,7 +251,10 @@
                                             Descripción
                                         </th>
                                         <th class="text-right">
-                                            Precio
+                                            Precio Lista
+                                        </th>
+                                        <th class="text-right">
+                                            Precio Cliente
                                         </th>
                                         <th class="text-right">
                                             Cantidad
@@ -278,11 +281,14 @@
                                             {{refaccion.PTS_PCOLISTA | currency}}
                                         </td>
                                         <td class="text-right">
+                                            {{refaccion.precioCliente | currency}}
+                                            </td>
+                                        <td class="text-right">
                                             <input ng-value="1" ng-model="refaccion.cantidad" autocomplete="off" size="5" class="show-hover text-center form-control"
                                                 type="number" value="1" name="cantidad" min="1" max="9999">
                                         </td>
                                         <td class="text-right">
-                                            {{refaccion.PTS_PCOLISTA * refaccion.cantidad | currency}}
+                                            {{refaccion.precioCliente * refaccion.cantidad | currency}}
                                         </td>
                                         <td>
                                             <button ng-click="eliminarParte($index)" class="btn btn-danger show-hover" type="button" name="button">
@@ -331,7 +337,7 @@
                         <div ng-show="direcciones && direcciones.length > 0">
                             <div ng-repeat="direccion in direcciones" class="radio">
                                 <input id="{{'direccionRadio' + direccion.idDireccion}}" type="radio" class="magic-radio" name="direccion" ng-model="direccionSeleccionada"
-                                    ng-click="elegirDireccion(direccion)" ng-value="direccion">
+                                    ng-click="elegirDireccion(direccion);initialize(direccion)" ng-value="direccion">
                                 <label for="{{'direccionRadio' + direccion.idDireccion}}">{{direccion.DireccionD}}</label>
                             </div>
                          </div>
@@ -340,13 +346,14 @@
                         </div>
                       </div>
                   </div>
-                
+                  <div class="row">
                 <div class="col-sm-push-1 col-sm-5">
                     <div class="form-group">
                         <label>Mapa:</label>
-                        <div id="map_canvas" style="width: 300px; height: 400px;"></div>
+                        <div id="map_canvas"></div>
                        
                     </div>
+                </div>
                 </div>
             </div>
             </div>
@@ -392,7 +399,10 @@
                                         Descripción
                                     </th>
                                     <th class="text-right">
-                                        Precio
+                                        Precio Lista
+                                    </th>
+                                    <th class="text-right">
+                                        Precio Cliente
                                     </th>
                                     <th class="text-right">
                                         Cantidad
@@ -413,11 +423,15 @@
                                         {{refaccion.PTS_PCOLISTA | currency}}
                                     </td>
                                     <td class="text-right">
+                                         {{refaccion.precioCliente | currency}}
+                                    </td>
+                                    <td class="text-right">
                                         {{refaccion.cantidad}}
                                     </td>
                                     <td class="text-right">
-                                        {{refaccion.PTS_PCOLISTA * refaccion.cantidad | currency}}
+                                        {{refaccion.precioCliente * refaccion.cantidad | currency}}
                                     </td>
+                                    
                                 </tr>
                                 <tr>
                                     <td class="text-right" colspan="4">

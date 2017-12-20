@@ -33,13 +33,14 @@ registrationModule.factory('cotizacionesRepository', function ($http) {
         },
 
         // Obtener las refacciones por descripcion
-        getRefacciones: function (idMarca, descripcion) {
+        getRefacciones: function (idMarca, descripcion,idCliente) {
             return $http({
                 url: cotizacionesURL + 'Refacciones/',
                 method: "GET",
                 params: {
                     idMarca: idMarca,
-                    descripcion: descripcion
+                    descripcion: descripcion,
+                    idCliente : idCliente
                 },
                 headers: {
                     'Content-Type': 'application/json'
