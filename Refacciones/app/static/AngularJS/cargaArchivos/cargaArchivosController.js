@@ -80,7 +80,7 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
         console.log($scope.campoSeleccionado.campo);
         console.log($scope.fieldSeleccionado);
         console.log($scope.fieldSeleccionado.field);
-
+      
         var definicion = {
             idCampo: $scope.definiciones.length,
             idCampoCatalogo : $scope.campoSeleccionado.idCampo,
@@ -332,10 +332,12 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
        cargaArchivosRepository.insPrecios(inserta).then(function (result) {
 
         if (result.data.length > 0 && result.data[0].control > 0) {
-            
+            alertFactory.info('Ocurrio un error al agregar la lista.');
             alertFactory.info('Correcto. Agregó una nueva lista.');
-
+        
         } else {
+            alertFactory.info('Ocurrio un error al agregar la lista.');
+        }
             alertFactory.info('Ocurrio un error al agregar la lista.');
         }
     });

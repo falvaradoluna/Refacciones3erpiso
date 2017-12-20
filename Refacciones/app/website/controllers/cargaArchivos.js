@@ -84,7 +84,7 @@
             console.log(params);
                    
                 self.model.query('[Precio].[INS_ArchivoPrecios_SP]', params, function (error, result){
-                    self.view.expositor(res,{
+                    sel.view.expositor(res,{
                         error: error,
                         result: result
                     });
