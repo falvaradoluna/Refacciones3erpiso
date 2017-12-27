@@ -310,7 +310,7 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
                 var archivo = file.name;
              // console.log(file.name);
             };
-    
+            $scope.nombreArchivo = file.name;
             var inserta = {
                 idUsuario: $scope.userData.idUsuario,
                 idMarca: $scope.marcaSeleccionada.idMarca,
@@ -326,6 +326,7 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
             console.log(precios);
             console.log('XML Campos');
             console.log(campos);
+            console.log($scope.nombreArchivo);
     
             
             

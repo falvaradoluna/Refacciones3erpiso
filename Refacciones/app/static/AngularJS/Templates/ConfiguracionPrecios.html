@@ -1,7 +1,7 @@
 <h2 style="padding-left:15px">Catálogos Listas de Precios</h2>
 <!--boton de agregar-->
 <div style="padding-right:30px">
-    <button type="button" class="btn btn-primary btn-lg pull-right" data-toggle="modal" ng-click="porcentaje=undefined;configuracionNombre=undefined;marcaSelec=undefined;tipoConfSelec=undefined;grupoSelec=undefined;baseSelec=undefined;operacionSelec=undefined"
+    <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" ng-click="porcentaje=undefined;configuracionNombre=undefined;marcaSelec=undefined;tipoConfSelec=undefined;grupoSelec=undefined;baseSelec=undefined;operacionSelec=undefined"
         data-target="#modalFormulario">Agregar Listado</button>
     <br>
 </div>
@@ -99,8 +99,8 @@
 
             <p style="color:red; padding-left:10px">¡Los campos ** son obligatorios!</p>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" ng-click="modalInsConfPrecio()">Confirmar</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary btn-sm " ng-click="modalInsConfPrecio()">Confirmar</button>
+                <button type="button" class="btn btn-danger btn-sm " data-dismiss="modal">Cancelar</button>
             </div>
         </div>
     </div>
@@ -110,15 +110,15 @@
     <table class="table  table-hover">
         <thead>
             <tr class="info">
-                <th style="color:#38a0f4">Nombre De Configuración</th>
+                <th style="color:#000000">Nombre De Configuración</th>
                 <!--<th style="color:#38a0f4">Marca</th>-->
-                <th style="color:#38a0f4">Tipo de Configuración</th>
-                <th style="color:#38a0f4">Grupo</th>
-                <th style="color:#38a0f4">Base</th>
-                <th style="color:#38a0f4">Operación</th>
-                <th style="color:#38a0f4">Porcentaje</th>
+                <th style="color:#000000">Tipo de Configuración</th>
+                <th style="color:#000000">Grupo</th>
+                <th style="color:#000000">Base</th>
+                <th style="color:#000000">Operación</th>
+                <th style="color:#000000">Porcentaje</th>
                 <!-- <th style="color:#38a0f4">Rango</th> -->
-                <th style="color:#38a0f4">Asignar Cliente</th>
+                <th style="color:#000000">Asignar Cliente</th>
                 <th style="width:125px"></th>
             </tr>
         </thead>
@@ -134,7 +134,7 @@
                 <!-- <td>{{c.Rango}}</td> -->
                 <!--Modal de usuarios asignados-->
                 <td style="text-align: center;">
-                    <button type="button" class="btn btn-success btn-icon btn-lg" data-target="#modalUsers" ng-click="modalCliente(c)" title="Clientes Asignados"
+                    <button type="button" class="btn btn-success btn-icon btn-sm " data-target="#modalUsers" ng-click="modalCliente(c)" title="Clientes Asignados"
                         data-toggle="modal">
                         <i class="fa fa-user"></i>
                     </button>
@@ -163,7 +163,7 @@
                                             </form>
                                         </div>
                                         <div class="col-md-4">
-                                            <button type="button" class="btn btn-primary pull-right" ng-click="modalInsAsignar()">
+                                            <button type="button" class="btn btn-primary pull-right btn-sm " ng-click="modalInsAsignar()">
                                                 Asignar Cliente
                                             </button>
                                         </div>
@@ -174,10 +174,10 @@
                                             <table class="table  table-hover">
                                                 <thead>
                                                     <tr class="info">
-                                                        <th style="color:#38a0f4">Cliente</th>
-                                                        <th style="color:#38a0f4">Conctacto</th>
-                                                        <th style="color:#38a0f4">RFC</th>
-                                                        <th style="color:#38a0f4">Marca</th>
+                                                        <th style="color:#000000">Cliente</th>
+                                                        <th style="color:#000000">Conctacto</th>
+                                                        <th style="color:#000000">RFC</th>
+                                                        <th style="color:#000000">Marca</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody ng-repeat="c in ClienteAsignados">
@@ -200,7 +200,7 @@
                                 </div>
                                 <br>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-danger btn-sm " data-dismiss="modal">Cerrar</button>
                                 </div>
                             </div>
                         </div>
@@ -208,11 +208,11 @@
                 </td>
                 <td>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary btn-icon btn-lg" data-target="#modalEditConf" ng-click="editarConfModal(d)"
+                        <button type="button" class="btn btn-primary btn-icon btn-sm " data-target="#modalEditConf" ng-click="editarConfModal(d)"
                             title="Editar" data-toggle="modal">
                             <i class="fa fa-pencil"></i>
                         </button>
-                        <button type="button" class="btn btn-danger btn-icon btn-lg" data-toggle="modal" ng-click="eliminarConfModal(d)" data-target="#modalElimConf"
+                        <button type="button" class="btn btn-danger btn-icon btn-sm " data-toggle="modal" ng-click="eliminarConfModal(d)" data-target="#modalElimConf"
                             title="Eliminar">
                             <i class="fa fa-trash-o"></i>
                         </button>

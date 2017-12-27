@@ -1,21 +1,21 @@
 <h2 style="padding-left:15px">Usuarios</h2>
-<div style="padding-right:30px">
+<div style="padding-right:30px" class="table-responsive">
     <br>
-    <button type="button" class="btn btn-primary btn-lg pull-right" data-toggle="modal" ng-click="clienteSel=undefined;tipoRolSel=undefined;"
+    <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" ng-click="clienteSel=undefined;tipoRolSel=undefined;"
         data-target="#agregarModal">Agregar Usuario</button>
     <br>
 </div>
 <div class="container table-responsive" style="padding-top:15px" ng-init="init()">
     <!--tabla-->
-    <table class="table  table-hover">
+    <table class="table  table-hover" class="table-responsive">
         <!--cabezeras de tabla-->
-        <thead>
+        <thead >
             <tr class="info">
-                <th style="color:#38a0f4">Usuario</th>
-                <th style="color:#38a0f4">Rol</th>
-                <th style="color:#38a0f4">Nombre Completo</th>
-                <th style="color:#38a0f4">Nombre Comercial</th>
-                <th style="color:#38a0f4">Correo Electronico</th>
+                <th style="color:#000000">Usuario</th>
+                <th style="color:#000000">Rol</th>
+                <th style="color:#000000">Nombre Completo</th>
+                <th style="color:#000000">Nombre Comercial</th>
+                <th style="color:#000000">Correo Electronico</th>
                 <th style="width:125px"></th>
             </tr>
         </thead>
@@ -28,7 +28,7 @@
                 <td>{{u.correoElectronico}}</td>
                 <td>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary btn-icon btn-lg" data-toggle="modal" ng-click="modalUpdateUsuario(u)" data-target="#actualizarModal"
+                        <button type="button" class="btn btn-primary btn-icon btn-sm" data-toggle="modal" ng-click="modalUpdateUsuario(u)" data-target="#actualizarModal"
                             title="Editar">
                             <i class="fa fa-pencil"></i>
                         </button>
@@ -98,7 +98,7 @@
 
                             </div>
                         </div>
-                        <button type="button" class="btn btn-danger btn-icon btn-lg" data-toggle="modal" ng-click="modalEliminar(u)" data-target="#eliminarModal"
+                        <button type="button" class="btn btn-danger btn-icon btn-sm" data-toggle="modal" ng-click="modalEliminar(u)" data-target="#eliminarModal"
                             title="Eliminar">
                             <i class="fa fa-trash-o"></i>
                         </button>

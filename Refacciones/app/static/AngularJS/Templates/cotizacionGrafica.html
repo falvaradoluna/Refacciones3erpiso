@@ -1,10 +1,18 @@
-<h2 style="padding-left:15px">Información de cotizaciones</h2>
+<link rel="stylesheet" href="AngularJS/css/cotizacionGraficas.css">
+
+<div align="left" class="sombra">Informacion de Cotizaciones</div>
+
+<br>
+<br>
 <a class="btn btn-primary" href="/Cotizaciones">
     <i class="ti-wallet"></i>
     <span class="menu-title">
         <strong>Listar Cotizaciones</strong>
     </span>
 </a>
+<br>
+<br>
+<br>
 <!-- <button class="btn btn-primary" 
         type="button" 
         class="btn btn-success pull-right" 
@@ -16,122 +24,116 @@
           aria-hidden="true" 
           data-toggle="modal">&nbsp;Listar Cotizaciones</span>
 </button> -->
-
-<div ng-init="init()">
-<div class="hr-line-dashed"></div>
-<div class="row">
-<strong>ESTATUS COTIZACION</strong>
-<div class="col-xs-6">
-    <table class="table  table-hover table-striped">
-        <thead>
-            <tr>
-                <th>
-                    Estatus
-                </th>
-                <th>
-                    Cantidad
-                </th>
-                <th>
-                    Monto
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="x in cotizacionesEstatus">
-                <td>
-                        {{x.estatus}}
-                </td>
-                <td>
-                        {{x.cantidad}}
-                </td>
-                <td>
-                        {{x.monto | currency : "$"}}
-                </td>
-
-
-            </tr>
-            <tr>
-                    <td>
-                            Total
-                    </td>
-                    <td>
-                            {{totalCotizaciones}}
-                    </td>
-                    <td>
-                            {{totalCotizacionesMonto | currency : "$"}}
-                    </td>
-            </tr>
-        </tbody>
-    </table>
-        
-</div>
-<div class="col-xs-6">
-        <div class="donutContainer">
-                <div id="morris-donut-citas" class="donut"></div>
-        </div>
-</div>
-
-<div class="row">
-    <strong>MARCAS</strong>
-    <div class="col-xs-6">
-            <table class="table  table-hover table-striped">
-                <thead>
-                    <tr>
-                        <th>
-                            Marca
-                        </th>
-                        <th>
-                            Cantidad
-                        </th>
-                        <th>
-                            Monto
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="x in cotizacionesMarca">
-                        <td>
-                                {{x.marca}}
-                        </td>
-                        <td>
+<div class="container">
+    <div ng-init="init()">
+        <div class="hr-line-dashed"></div>
+        <div class="row">
+            <strong>ESTATUS COTIZACION</strong>
+            <div class="col-xs-6">
+                <table class="table  table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                Estatus
+                            </th>
+                            <th>
+                                Cantidad
+                            </th>
+                            <th>
+                                Monto
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in cotizacionesEstatus">
+                            <td>
+                                {{x.estatus}}
+                            </td>
+                            <td>
                                 {{x.cantidad}}
-                        </td>
-                        <td>
+                            </td>
+                            <td>
                                 {{x.monto | currency : "$"}}
-                        </td>        
-        
-                    </tr>
+                            </td>
 
-                    <tr>
-                            <td>
-                                    Total
-                            </td>
-                            <td>
-                                    {{totalCotizaciones}}
-                            </td>
-                            <td>
-                                    {{totalCotizacionesMonto | currency : "$"}}
-                            </td>
-                    </tr>
-                </tbody>
-            </table>
-                
-    </div>
 
-    <div class="col-xs-6 contenedor">
-            <div class="donutContainer">
-                    <div id="morris-donut-marcas" class="donut"></div>
+                        </tr>
+                        <tr>
+                            <td>
+                                Total
+                            </td>
+                            <td>
+                                {{totalCotizaciones}}
+                            </td>
+                            <td>
+                                {{totalCotizacionesMonto | currency : "$"}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="col-xs-6">
+                <div class="donutContainer">
+                    <div id="morris-donut-citas" class="donut"></div>
                 </div>
+            </div>
+
+            <div class="row">
+                <strong>MARCAS</strong>
+                <div class="col-xs-6">
+                    <table class="table  table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Marca
+                                </th>
+                                <th>
+                                    Cantidad
+                                </th>
+                                <th>
+                                    Monto
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="x in cotizacionesMarca">
+                                <td>
+                                    {{x.marca}}
+                                </td>
+                                <td>
+                                    {{x.cantidad}}
+                                </td>
+                                <td>
+                                    {{x.monto | currency : "$"}}
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Total
+                                </td>
+                                <td>
+                                    {{totalCotizaciones}}
+                                </td>
+                                <td>
+                                    {{totalCotizacionesMonto | currency : "$"}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="col-xs-6 contenedor">
+                    <div class="donutContainer">
+                        <div id="morris-donut-marcas" class="donut"></div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
     </div>
-
-</div>
-
-
-
-
-
-
-</div>
-</div>
-</div>
 </div>

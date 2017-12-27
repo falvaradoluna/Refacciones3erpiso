@@ -1,5 +1,6 @@
-<<body ng-controller="cargaArchivosController">
-    <h2 style="padding-left:15px">Carga Archivo de Precios</h2>
+<link rel="stylesheet" href="AngularJS/css/cargaArchivos.css">
+<body ng-controller="cargaArchivosController">
+    <h2 style="padding-left:15px">Carga Archivo de Precios </h2>
         <div class="container table-responsive" style="padding-top:15px">
             
 <br>
@@ -19,8 +20,14 @@
 <div class="container table-responsive" style="padding-top:15px">
         <div style="padding-right:20px">
           <div class="col-md-8">
-        <input type="file" id="excelfile" />  
-        <input type="button" id="viewfile" value="Vista Previa" ng-click="exportar()" /> 
+              
+        <input type="file" id="excelfile" class="file-input"/>  
+        <br>
+        <p>Nombre del Archivo</p>
+          {{nombreArchivo}}
+        <br>
+        <br>
+        <input type="button" id="viewfile" class="btn btn-success" value="Vista Previa" ng-click="exportar()" /> 
             <br />  
             <br />  
             <br />  

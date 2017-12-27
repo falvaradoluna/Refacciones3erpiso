@@ -39,6 +39,7 @@ registrationModule.controller('altaDireccionesController', function ($route, $sc
             else
                 alertFactory.error('No se pudo cargar el tipo de Direcciones');
         });
+        
     };
     //obtiene las colonias asociadas al codigo postal
     $scope.obtenerColonia = function (cp) {

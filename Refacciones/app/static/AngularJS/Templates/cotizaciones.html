@@ -68,7 +68,7 @@
                                             <tbody>
                                                 <tr class="list-group-item-custom" ng-repeat="refaccion in partesCotizacion">
                                                     <td>
-                                                            {{refaccion.marca}}
+                                                        {{refaccion.marca}}
                                                     </td>
                                                     <td>
                                                         {{refaccion.PTS_IDPARTE}}
@@ -332,7 +332,7 @@
             
             <div class="modal-body">
                 <div class="row">
-                   <div class="col-sm-6">
+                   <div class="col-xs-6 col-md-5">
                        <div class="form-group">
                         <div ng-show="direcciones && direcciones.length > 0">
                             <div ng-repeat="direccion in direcciones" class="radio">
@@ -350,7 +350,10 @@
                 <div class="col-sm-push-1 col-sm-5">
                     <div class="form-group">
                         <label>Mapa:</label>
-                        <div id="map_canvas"></div>
+                        <div id="map_canvas">
+                            
+                            
+                        </div>
                        
                     </div>
                 </div>
@@ -497,7 +500,7 @@
             </div>
         </div>
         <div class="col-xs-6 text-right">
-            <button type="button" ng-click="showAgregarCotizacion()" class="btn btn-success" data-toggle="tooltip" title="Agregar una nueva cotización">
+            <button type="button" ng-click="showAgregarCotizacion()" class="btn btn-primary " data-toggle="tooltip" title="Agregar una nueva cotización">
                     Nueva cotización
                 <i class="fa fa-plus"></i>
             </button>
