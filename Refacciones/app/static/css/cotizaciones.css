@@ -19,6 +19,15 @@
 #map_canvas {
    margin: 0;
    padding: 0; 
-   width:100%; 
+   width:500px; 
    height: 350px;
   }
+  .imgNOGPS{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 320px;
+    margin-left: 30%;
+    margin-top: 25%;
+    opacity: 0.40;
+}

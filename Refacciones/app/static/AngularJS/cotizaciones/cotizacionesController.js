@@ -7,10 +7,13 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
         $scope.cotizaciones = [];
         $scope.partesAgregadas = [];
         $scope.modeloVin = {};
+
+        $scope.hasGPS = true;
     
         // ----------------------------------------- INICIALIZACION DE CATALOGOS
     
         $scope.init = function () {
+            
             
         //redirecciona al login si no hay un usuario logeado
             var userData = userFactory.getUserData();
@@ -318,17 +321,49 @@ registrationModule.controller('cotizacionesController', function ($scope, $rootS
        $scope.initialize = function (direccion) {
         $scope.direccionSeleccionada = direccion;
        
-    
+           var myLatlng2 = new google.maps.LatLng(19.4270245,-99.16766469999999);
             var myLatlng = new google.maps.LatLng($scope.direccionSeleccionada.latitud, $scope.direccionSeleccionada.longitud);
+            if ($scope.direccionSeleccionada.latitud != null) {
             var myOptions = {
-              zoom: 8,
-              center: myLatlng,
-              mapTypeId: google.maps.MapTypeId.ROADMAP
+                center: myLatlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+            zoom: 12,
+            panControl: true,
+            zoomControl: true,
+            mapTypeControl: true,
+            scaleControl: true,
+            streetViewControl: true,
+            overviewMapControl: true,
+            rotateControl: true
+             // zoom: 8,
+              //center: myLatlng,
+             // mapTypeId: google.maps.MapTypeId.ROADMAP
             };
             var map = new google.maps.Map($("#map_canvas").get(0), myOptions);
             var marker = new google.maps.Marker({
               position: myLatlng,
               map: map
           });
-          };
+          $scope.hasGPS = true
+        } else {
+          $scope.hasGPS = false
+          var myOptions = {
+            center: myLatlng2,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+        zoom: 12,
+        panControl: true,
+        zoomControl: true,
+        mapTypeControl: true,
+        scaleControl: true,
+        streetViewControl: true,
+        overviewMapControl: true,
+        rotateControl: true
+         // zoom: 8,
+          //center: myLatlng,
+         // mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+          var map = new google.maps.Map($("#map_canvas").get(0), myOptions);
+          
+          }
+        };
     });

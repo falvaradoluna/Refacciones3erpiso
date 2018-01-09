@@ -62,7 +62,7 @@ $scope.getCoords = function(){
  $scope.geocoder = new google.maps.Geocoder();
   
    var str = 'calle ' + $scope.Calle + 
-   ', municipio ' + $scope.coloniaSel.ciudad +
+   ', municipio ' + $scope.coloniaSel.municipio +
    ', colonia ' + $scope.coloniaSel.colonia +
    ', numero ' + $scope.NumeroExterior
   
@@ -127,7 +127,7 @@ $scope.getCoords = function(){
                     if (result.data.length > 0 && (result.data[0].control == 1)) {
 
                         alertFactory.success('Se agrego correctamente la nueva direccion');
-                        altaDireccionesRepository.getDirecciones($scope.userData.idUsuario, null).then(function (result) {
+                        altaDireccionesRepository.getDirecciones($scope.userData.idCliente, null).then(function (result) {
                             if (result.data.length > 0)
                                 $scope.direcciones = result.data;
                             else

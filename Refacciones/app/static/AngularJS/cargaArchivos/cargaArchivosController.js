@@ -341,8 +341,9 @@ registrationModule.controller('cargaArchivosController', function ($route, $scop
             if (result.data.length > 0 && (result.data[0].control == 1)) {
                 alertFactory.success('Se cargo correctamente la lista de precios');
 
-            } else
+            } else{
                 alertFactory.info('Ocurrio un error al agregar la lista.');
+            }
 
         });
     };

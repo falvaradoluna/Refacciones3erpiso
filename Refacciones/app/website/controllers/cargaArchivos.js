@@ -72,12 +72,12 @@
                 {
                     name: 'partes',
                     value: jsonxml({precios : req.body.precios}),
-                    type: self.model.types.STRING
+                    type: self.model.types.XML
                 },
                 {
                     name: 'campos',
                     value: jsonxml({campos : req.body.campos}),
-                    type: self.model.types.STRING
+                    type: self.model.types.XML
                 }
             ];
             console.log('Parametros')
